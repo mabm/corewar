@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Wed Mar 26 11:21:09 2014 Joris Bertomeu
+** Last update Wed Mar 26 13:12:06 2014 Joris Bertomeu
 */
 
 #include <stdio.h>
@@ -21,6 +21,8 @@ struct s_system
   char	***cmd_asm;
   char	*name;
   char	*comment;
+  int	nb_comment;
+  int	nb_name;
 };
 
 void	parse_name(char *buff, int k, t_system *system)
@@ -29,8 +31,9 @@ void	parse_name(char *buff, int k, t_system *system)
   int	j;
 
   j = 0;
-  i = 2 + k + strlen(".name");
   system->name = malloc(strlen(buff) * sizeof(*system->name));
+  memset(system->name, 0, strlen(buff));
+  i = 2 + k + strlen(".name");
   while (buff[i] != '\"' && buff[i])
     system->name[j++] = buff[i++];
 }
@@ -41,8 +44,9 @@ void	parse_comment(char *buff, int k, t_system *system)
   int	j;
 
   j = 0;
-  i = 2 + k + strlen(".comment");
   system->comment = malloc(strlen(buff) * sizeof(*system->comment));
+  memset(system->comment, 0, strlen(buff));
+  i = 2 + k + strlen(".comment");
   while (buff[i] != '\"' && buff[i])
     system->comment[j++] = buff[i++];
 }
@@ -141,6 +145,26 @@ void	init_cmd_asm(t_system *system)
   parse_list_asm(system);
 }
 
+void	aff_error(char *msg)
+{
+  printf(msg);
+  exit (0);
+}
+
+void	check_ext(int ac, char **argv)
+{
+  int	i;
+  int	j;
+
+  i = 1;
+  while (i < ac)
+    {
+      if (strncmp(&argv[i][strlen(argv[i]) - 2], ".s", 2) != 0)
+	aff_error("*.s Only !\n");
+      i++;
+    }
+}
+
 void		init(int ac, char **argv)
 {
   int		i;
@@ -148,10 +172,12 @@ void		init(int ac, char **argv)
 
   i = 1;
   system = malloc(sizeof(*system));
+  check_ext(ac, argv);
   init_cmd_asm(system);
   while (i < ac)
     {
       system->comment = 0;
+      system->name = 0;
       tread_file(argv[i], system);
       aff_info(system, argv[i++]);
     }
@@ -161,7 +187,7 @@ int	main(int ac, char *argv[])
 {
   if (ac < 2)
     {
-      printf("Usage : %s <INPUT_FILE>\n", argv[0]);
+      printf("Usage : %s <INPUT_FILE.s>\n", argv[0]);
       return (-1);
     }
   else
