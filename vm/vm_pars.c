@@ -5,10 +5,10 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Wed Mar 26 11:40:53 2014 Nicolas Ades
-** Last update Wed Mar 26 11:47:53 2014 Nicolas Ades
+** Last update Wed Mar 26 11:55:49 2014 Nicolas Ades
 */
 
-#include ""
+#include "vm_parser.h"
 
 struct s_flag	g_flags[] =
   {"-a", &do_a},
