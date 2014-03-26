@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Wed Mar 26 11:52:23 2014 Joris Bertomeu
+** Last update Wed Mar 26 13:12:06 2014 Joris Bertomeu
 */
 
 #include <stdio.h>
@@ -145,6 +145,26 @@ void	init_cmd_asm(t_system *system)
   parse_list_asm(system);
 }
 
+void	aff_error(char *msg)
+{
+  printf(msg);
+  exit (0);
+}
+
+void	check_ext(int ac, char **argv)
+{
+  int	i;
+  int	j;
+
+  i = 1;
+  while (i < ac)
+    {
+      if (strncmp(&argv[i][strlen(argv[i]) - 2], ".s", 2) != 0)
+	aff_error("*.s Only !\n");
+      i++;
+    }
+}
+
 void		init(int ac, char **argv)
 {
   int		i;
@@ -152,6 +172,7 @@ void		init(int ac, char **argv)
 
   i = 1;
   system = malloc(sizeof(*system));
+  check_ext(ac, argv);
   init_cmd_asm(system);
   while (i < ac)
     {
@@ -166,7 +187,7 @@ int	main(int ac, char *argv[])
 {
   if (ac < 2)
     {
-      printf("Usage : %s <INPUT_FILE>\n", argv[0]);
+      printf("Usage : %s <INPUT_FILE.s>\n", argv[0]);
       return (-1);
     }
   else
