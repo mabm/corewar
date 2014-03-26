@@ -5,17 +5,17 @@
 ## Login   <merran_g@epitech.net>
 ## 
 ## Started on  Mon Oct 21 13:28:05 2013 Geoffrey Merran
-## Last update Tue Mar 25 16:39:22 2014 Geoffrey Merran
+## Last update Tue Mar 25 17:26:04 2014 Geoffrey Merran
 ##
 
 RM	= rm -f
 
 CC	= cc
 
-CFLAGS	+= -Werror -Wall -W -pedantic -ansi -I$(I_PATH)
+CFLAGS	+= -Wextra -Wall -W -pedantic -ansi -I$(I_PATH)
 I_PATH	= ../includes/
 
-NAME	= exo
+NAME	= corewar
 
 OBJ	= $(SRC:.c=.o)
 
