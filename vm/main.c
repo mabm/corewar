@@ -5,15 +5,10 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Mar 25 16:39:29 2014 Geoffrey Merran
-** Last update Tue Mar 25 17:25:01 2014 Geoffrey Merran
+** Last update Wed Mar 26 11:40:43 2014 Nicolas Ades
 */
 
 #include "main_vm.h"
-
-void	vm_parse(char **tab)
-{
-  
-}
 
 int	main(int ac, char **av)
 {
