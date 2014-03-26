@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Wed Mar 26 11:48:47 2014 Joris Bertomeu
+** Last update Wed Mar 26 11:52:23 2014 Joris Bertomeu
 */
 
 #include <stdio.h>
@@ -21,6 +21,8 @@ struct s_system
   char	***cmd_asm;
   char	*name;
   char	*comment;
+  int	nb_comment;
+  int	nb_name;
 };
 
 void	parse_name(char *buff, int k, t_system *system)
@@ -154,6 +156,7 @@ void		init(int ac, char **argv)
   while (i < ac)
     {
       system->comment = 0;
+      system->name = 0;
       tread_file(argv[i], system);
       aff_info(system, argv[i++]);
     }
