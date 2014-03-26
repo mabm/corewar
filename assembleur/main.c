@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Wed Mar 26 11:21:09 2014 Joris Bertomeu
+** Last update Wed Mar 26 11:48:47 2014 Joris Bertomeu
 */
 
 #include <stdio.h>
@@ -29,8 +29,9 @@ void	parse_name(char *buff, int k, t_system *system)
   int	j;
 
   j = 0;
-  i = 2 + k + strlen(".name");
   system->name = malloc(strlen(buff) * sizeof(*system->name));
+  memset(system->name, 0, strlen(buff));
+  i = 2 + k + strlen(".name");
   while (buff[i] != '\"' && buff[i])
     system->name[j++] = buff[i++];
 }
@@ -41,8 +42,9 @@ void	parse_comment(char *buff, int k, t_system *system)
   int	j;
 
   j = 0;
-  i = 2 + k + strlen(".comment");
   system->comment = malloc(strlen(buff) * sizeof(*system->comment));
+  memset(system->comment, 0, strlen(buff));
+  i = 2 + k + strlen(".comment");
   while (buff[i] != '\"' && buff[i])
     system->comment[j++] = buff[i++];
 }
