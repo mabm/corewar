@@ -5,21 +5,22 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Wed Mar 26 11:13:28 2014 Joris Bertomeu
+** Last update Wed Mar 26 11:21:09 2014 Joris Bertomeu
 */
 
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include <string.h>
 #include "gnl.h"
 
 typedef struct s_system t_system;
 struct s_system
 {
-  int	comment;
   char	***cmd_asm;
   char	*name;
+  char	*comment;
 };
 
 void	parse_name(char *buff, int k, t_system *system)
@@ -28,10 +29,22 @@ void	parse_name(char *buff, int k, t_system *system)
   int	j;
 
   j = 0;
-  i = 2 + k + strlen(".comment");
+  i = 2 + k + strlen(".name");
   system->name = malloc(strlen(buff) * sizeof(*system->name));
   while (buff[i] != '\"' && buff[i])
     system->name[j++] = buff[i++];
+}
+
+void	parse_comment(char *buff, int k, t_system *system)
+{
+  int	i;
+  int	j;
+
+  j = 0;
+  i = 2 + k + strlen(".comment");
+  system->comment = malloc(strlen(buff) * sizeof(*system->comment));
+  while (buff[i] != '\"' && buff[i])
+    system->comment[j++] = buff[i++];
 }
 
 void	parse_line_comment(char *buff, t_system *system)
@@ -42,9 +55,9 @@ void	parse_line_comment(char *buff, t_system *system)
   while (buff[i])
     {
       if (strncmp(&buff[i], ".comment", strlen(".comment")) == 0)
-	parse_name(buff, i, system);
+	parse_comment(buff, i, system);
       if (strncmp(&buff[i], ".name", strlen(".name")) == 0)
-	printf("Nom : %s\n", &buff[1 + i + strlen(".name")]);
+	parse_name(buff, i, system);
       i++;
     }
 }
@@ -73,6 +86,7 @@ void	aff_info(t_system *system, char *name)
 {
   printf("--------------\n\nNom du fichier : %s\n", name);
   printf("Nom du Chamion : %s\n", system->name);
+  printf("Commentaire du Champion : %s\n", system->comment);
   printf("\n--------------\n");
 }
 
