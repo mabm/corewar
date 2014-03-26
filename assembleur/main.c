@@ -1,11 +1,11 @@
 /*
 ** main.c for Assembleur in /home/jobertomeu/Work/corewar/assembleur
-** 
+**
 ** Made by Joris Bertomeu
 ** Login   <jobertomeu@epitech.net>
-** 
+**
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Tue Mar 25 14:31:22 2014 Joris Bertomeu
+** Last update Wed Mar 26 11:13:28 2014 Joris Bertomeu
 */
 
 #include <stdio.h>
@@ -19,7 +19,20 @@ struct s_system
 {
   int	comment;
   char	***cmd_asm;
+  char	*name;
 };
+
+void	parse_name(char *buff, int k, t_system *system)
+{
+  int	i;
+  int	j;
+
+  j = 0;
+  i = 2 + k + strlen(".comment");
+  system->name = malloc(strlen(buff) * sizeof(*system->name));
+  while (buff[i] != '\"' && buff[i])
+    system->name[j++] = buff[i++];
+}
 
 void	parse_line_comment(char *buff, t_system *system)
 {
@@ -28,8 +41,10 @@ void	parse_line_comment(char *buff, t_system *system)
   i = 0;
   while (buff[i])
     {
-      if (buff[i] == ':')
-	system->comment += 1;
+      if (strncmp(&buff[i], ".comment", strlen(".comment")) == 0)
+	parse_name(buff, i, system);
+      if (strncmp(&buff[i], ".name", strlen(".name")) == 0)
+	printf("Nom : %s\n", &buff[1 + i + strlen(".name")]);
       i++;
     }
 }
@@ -57,7 +72,7 @@ void	tread_file(char *path, t_system *system)
 void	aff_info(t_system *system, char *name)
 {
   printf("--------------\n\nNom du fichier : %s\n", name);
-  printf("Nombre de commentaires : %d\n", system->comment);
+  printf("Nom du Chamion : %s\n", system->name);
   printf("\n--------------\n");
 }
 
