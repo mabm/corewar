@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Wed Mar 26 11:40:53 2014 Nicolas Ades
-** Last update Wed Mar 26 12:20:31 2014 Nicolas Ades
+** Last update Wed Mar 26 13:20:49 2014 Nicolas Ades
 */
 
 #include "vm_parser.h"
@@ -33,7 +33,13 @@ void	do_n(char *opt)
 
 void	check_cor(char *file)
 {
+  int	i;
 
+  i = 0;
+  while (file[i] != '\n')
+    {
+      i++;
+    }
 }
 
 void	vm_pars(char **tab)
