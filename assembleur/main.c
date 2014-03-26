@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Wed Mar 26 13:12:06 2014 Joris Bertomeu
+** Last update Wed Mar 26 13:19:35 2014 Joris Bertomeu
 */
 
 #include <stdio.h>
@@ -24,6 +24,12 @@ struct s_system
   int	nb_comment;
   int	nb_name;
 };
+
+void	aff_error(char *msg)
+{
+  printf(msg);
+  exit (0);
+}
 
 void	parse_name(char *buff, int k, t_system *system)
 {
@@ -88,6 +94,8 @@ void	tread_file(char *path, t_system *system)
 
 void	aff_info(t_system *system, char *name)
 {
+  if (system->name == 0 || system->comment == 0)
+    aff_error("One file is corrupt !\n");
   printf("--------------\n\nNom du fichier : %s\n", name);
   printf("Nom du Chamion : %s\n", system->name);
   printf("Commentaire du Champion : %s\n", system->comment);
@@ -143,12 +151,6 @@ void	init_cmd_asm(t_system *system)
       i++;
     }
   parse_list_asm(system);
-}
-
-void	aff_error(char *msg)
-{
-  printf(msg);
-  exit (0);
 }
 
 void	check_ext(int ac, char **argv)
