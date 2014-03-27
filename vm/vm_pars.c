@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Wed Mar 26 11:40:53 2014 Nicolas Ades
-** Last update Thu Mar 27 14:09:11 2014 Nicolas Ades
+** Last update Thu Mar 27 14:12:20 2014 Nicolas Ades
 */
 
 #include "vm_parser.h"
@@ -65,7 +65,10 @@ int	n_opt(int i, int ac, char **av)
 	  /* a finir */
 	}
       else
-	my_putstr("You must give a value with the option\n");
+	{
+	  prog_nb = 1;
+	  my_putstr("Default value set as 1\n");
+	}
     }
   return (i + 1);
 } 
