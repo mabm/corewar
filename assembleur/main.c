@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Wed Mar 26 13:19:35 2014 Joris Bertomeu
+** Last update Wed Mar 26 23:24:46 2014 Joris Bertomeu
 */
 
 #include <stdio.h>
@@ -24,6 +24,22 @@ struct s_system
   int	nb_comment;
   int	nb_name;
 };
+
+void affbin(unsigned n)
+{
+  unsigned bit = 0 ;
+  unsigned mask = 1 ;
+  int	i = 0;
+
+  while (i < 32)
+    {
+      bit = (n & mask) >> i ;
+      printf("%d", bit) ;
+      mask <<= 1 ;
+      i++;
+    }
+  printf("\n");
+}
 
 void	aff_error(char *msg)
 {
@@ -57,37 +73,190 @@ void	parse_comment(char *buff, int k, t_system *system)
     system->comment[j++] = buff[i++];
 }
 
-void	parse_line_comment(char *buff, t_system *system)
+int	parse_line_cn(char *buff, t_system *system)
 {
   int	i;
+  int	ret;
 
+  ret = 0;
   i = 0;
   while (buff[i])
     {
       if (strncmp(&buff[i], ".comment", strlen(".comment")) == 0)
-	parse_comment(buff, i, system);
+	{
+	  parse_comment(buff, i, system);
+	  ret = 1;
+	}
       if (strncmp(&buff[i], ".name", strlen(".name")) == 0)
-	parse_name(buff, i, system);
+	{
+	  parse_name(buff, i, system);
+	  ret = 1;
+	}
+	i++;
+    }
+  return (ret);
+}
+
+void	write_data(int ibase, char *str, int fd)
+{
+  int	i;
+  char	c2;
+
+  c2 = 0;
+  i = ibase;
+  while (str[i])
+    {
+      if (str[i] == 'r' && '0' <= str[i + 1] &&
+	  str[i + 1] <= '9') /* REGISTRE ! */
+	{
+	  c2 = str[i + 1] - 48;
+	  write(fd, &c2, 1);
+	  i += 1;
+	}
+      if (str[i] == '\\' && str[i + 1] == '%') /* DIRECT */
+	{
+	  c2 = 0x00;
+	  write(fd, &c2, 1);
+	  c2 = 0x00;
+	  write(fd, &c2, 1);
+	  c2 = 0x00;
+	  write(fd, &c2, 1);
+	  c2 = str[i + 2] - 48;
+	  write(fd, &c2, 1);
+	  while (str[i + 1] != ',' && str[i + 1] != '\0')
+	    i++;
+	}
+      if ('0' <= str[i] && str[i] <= '9' && str[i - 1] == ',') /* INDIRECT */
+	{
+	  c2 = 0;
+	  write(fd, &c2, 1);
+	  c2 = 0;
+	  write(fd, &c2, 1);
+	  c2 = 0;
+	  write(fd, &c2, 1);
+	  c2 = str[i] - 48;
+	  write(fd, &c2, 1);
+	}
       i++;
     }
 }
 
-void	tread_line(char *buff, t_system *system)
+int	write_to_file(char *str, int fd)
 {
-  parse_line_comment(buff, system);
+  char	c = 0;
+  int	i = 0;
+  int	cmptr_param = 0;
+  int	ibase;
+
+  while (str[i])
+    {
+      if (strncmp(&str[i], "sti", 3) == 0)
+	{
+	  c = 0x0b;
+	  write(fd, &c, 1);
+	  c = 0;
+	  i += 3;
+	  ibase = i;
+	}
+      if (strncmp(&str[i], "and", 3) == 0)
+	{
+	  c = 0x06;
+	  write(fd, &c, 1);
+	  c = 0;
+	  i += 3;
+	  ibase = i;
+	}
+      if (strncmp(&str[i], "ld", 2) == 0)
+	{
+	  c = 0x02;
+	  write(fd, &c, 1);
+	  c = 0;
+	  i += 2;
+	}
+      if (strncmp(&str[i], "live", 4) == 0)
+	{
+	  c = 0x01;
+	  write(fd, &c, 1);
+	  c = 0;
+	  i += 4;
+	  ibase = i;
+	}
+      if (str[i] == ',')
+	cmptr_param++;
+      if (str[i] == 'r' && '0' <= str[i + 1] &&
+	  str[i + 1] <= '9') /* REGISTRE ! */
+	{
+	  if (cmptr_param == 0)
+	    c += 0b01000000;
+	  else if (cmptr_param == 1)
+	    c += 0b00010000;
+	  else if (cmptr_param == 2)
+	    c += 0b00000100;
+	  else if (cmptr_param == 3)
+	    c += 0b00000001;
+	  i += 1;
+	}
+      if (str[i] == '\\' && str[i + 1] == '%') /* DIRECT */
+	{
+	  if (cmptr_param == 0)
+	    c += 0b10000000;
+	  else if (cmptr_param == 1)
+	    c += 0b00100000;
+	  else if (cmptr_param == 2)
+	    c += 0b00001000;
+	  else if (cmptr_param == 3)
+	    c += 0b00000010;
+	  while (str[i + 1] != ',' && str[i + 1] != '\0')
+	    i++;
+	}
+      if ('0' <= str[i] && str[i] <= '9' && str[i - 1] == ',') /* INDIRECT */
+	{
+	  if (cmptr_param == 0)
+	    c += 0b11000000;
+	  else if (cmptr_param == 1)
+	    c += 0b00110000;
+	  else if (cmptr_param == 2)
+	    c += 0b00001100;
+	  else if (cmptr_param == 3)
+	    c += 0b00000011;
+	}
+      i++;
+    }
+  write(fd, &c, 1);
+  write_data(ibase, str, fd);
 }
 
-void	tread_file(char *path, t_system *system)
+int	tread_line(char *buff, t_system *system, int fd)
+{
+  int	ret;
+
+  ret = parse_line_cn(buff, system);
+  if (ret == 0)
+    {
+      write_to_file(buff, fd);
+      return (1);
+    }
+  return (0);
+}
+
+void	tread_file(char *path, t_system *sys)
 {
   int	fd;
   char	*buff;
+  int	fd2;
+  int	flag;
+  int	i;
 
+  i = 0;
   buff = malloc(4096 * sizeof(*buff));
+  memset(buff, 0, 4096);
   fd = open(path, O_RDONLY);
-  if (fd != -1)
+  fd2 = open("baba.core",
+	    O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU | S_IRWXG | S_IRWXO);
+  if (fd != -1 && fd2 != -1)
     {
       while ((buff = get_next_line(fd)) != NULL)
-	tread_line(buff, system);
+	flag = tread_line(buff, sys, fd2);
     }
   free(buff);
 }
@@ -132,6 +301,7 @@ void	parse_list_asm(t_system *system)
       while ((buff = get_next_line(fd)) != NULL)
 	tread_line_cnf_asm(system, buff, line++);
     }
+  close(fd);
   free(buff);
 }
 
