@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Thu Mar 27 17:14:17 2014 Jeremy Mediavilla
+** Last update Thu Mar 27 17:38:07 2014 Jeremy Mediavilla
 */
 
 #include <stdio.h>
@@ -166,9 +166,97 @@ void		write_data(int ibase, char *str, int fd)
 	  write(fd, &conv->octets[1], 1);
 	  write(fd, &conv->octets[0], 1);
 	}
-      i++;
+      if (str[i] != '\0')
+	i++;
     }
   printf("\n\nFin d'écriture des Args\n\n");
+}
+
+void		sti_instruction (int fd, char *c, int *i, int *ibase, char *str)
+{
+  *c = 0x0b;
+  write(fd, c, 1);
+  *c = 0;
+  *i += 3;
+  *ibase = *i;
+  /* if (str[*i] == ':') */
+  /*   { */
+  /*     printf(">> Label : %s\n", &str[(*i) - 4]); */
+  /*     while (str[*i]) */
+  /* 	(*i)++; */
+  /*   } */
+}
+
+void		and_instruction(int fd, char *c, int *i, int *ibase, char *str)
+{
+  *c = 0x06;
+  write(fd, c, 1);
+  *c = 0;
+  *i += 3;
+  *ibase = *i;
+  /* if (str[*i] == ':') */
+  /*   { */
+  /*     printf(">> Label : %s\n", &str[(*i) - 4]); */
+  /*     while (str[*i]) */
+  /* 	(*i)++; */
+  /*   } */
+}
+
+void		ld_instruction(int fd, char *c, int *i, int *ibase, char *str)
+{
+  *c = 0x02;
+  write(fd, c, 1);
+  *c = 0;
+  *i += 2;
+  *ibase = *i;
+  /* if (str[*i] == ':') */
+  /*   { */
+  /*     printf(">> Label : %s\n", &str[(*i) - 4]); */
+  /*     while (str[*i]) */
+  /* 	(*i)++; */
+  /*   } */
+}
+
+void		live_instruction(int fd, char *c, int *i, int *ibase, char *str)
+{
+  *c = 0x01;
+  write(fd, c, 1);
+  *c = 0;
+  *i += 4;
+  *ibase = *i;
+  /* if (str[*i] == ':') */
+  /*   { */
+  /*     printf(">> Label : %s\n", &str[(*i) - 4]); */
+  /*     while (str[*i]) */
+  /* 	(*i)++; */
+  /*   } */
+}
+
+int		check_instruction(char *str, char *c, int *i, int *ibase, int fd)
+{
+  char		*tab[4];
+  void		(*which_instruction[4])(int fd, char *c, int *i, int *ibase, char *str);
+  int		j;
+
+  tab[0] = "sti";
+  tab[1] = "and";
+  tab[2] = "ld";
+  tab[3] = "live";
+  which_instruction[0] = &sti_instruction;
+  which_instruction[1] = &and_instruction;
+  which_instruction[2] = &ld_instruction;
+  which_instruction[3] = &live_instruction;
+  j = 0;
+  while (j < 4)
+    {
+      if (strncmp(&str[*i], tab[j], strlen(tab[j])) == 0)
+	{
+	  (*which_instruction[j])(fd, c, i, ibase, str);
+	  j = 5;
+	}
+      j++;
+    }
+  return (0);
 }
 
 void	write_to_file(char *str, int fd)
@@ -178,60 +266,62 @@ void	write_to_file(char *str, int fd)
   int	cmptr_param = 0;
   int	ibase;
 
+  ibase = 0;
   while (str[i])
     {
+      /* check_instruction(str, &c, &i, &ibase, fd); */
       if (strncmp(&str[i], "sti", 3) == 0)
-	{
-	  c = 0x0b;
-	  write(fd, &c, 1);
-	  c = 0;
-	  i += 3;
-	  ibase = i;
-	  if (str[i] == ':')
-	    {
-	      while (str[i])
-		i++;
-	    }
-	}
+      	{
+      	  c = 0x0b;
+      	  write(fd, &c, 1);
+      	  c = 0;
+      	  i += 3;
+      	  ibase = i;
+      	  if (str[i] == ':')
+      	    {
+      	      while (str[i])
+      		i++;
+      	    }
+      	}
       if (strncmp(&str[i], "and", 3) == 0)
-	{
-	  c = 0x06;
-	  write(fd, &c, 1);
-	  c = 0;
-	  i += 3;
-	  ibase = i;
-	  if (str[i] == ':')
-	    {
-	      while (str[i])
-		i++;
-	    }
-	}
+      	{
+      	  c = 0x06;
+      	  write(fd, &c, 1);
+      	  c = 0;
+      	  i += 3;
+      	  ibase = i;
+      	  if (str[i] == ':')
+      	    {
+      	      while (str[i])
+      		i++;
+      	    }
+      	}
       if (strncmp(&str[i], "ld", 2) == 0)
-	{
-	  c = 0x02;
-	  write(fd, &c, 1);
-	  c = 0;
-	  i += 2;
-	  ibase = i;
-	  if (str[i] == ':')
-	    {
-	      while (str[i])
-		i++;
-	    }
-	}
+      	{
+      	  c = 0x02;
+      	  write(fd, &c, 1);
+      	  c = 0;
+      	  i += 2;
+      	  ibase = i;
+      	  if (str[i] == ':')
+      	    {
+      	      while (str[i])
+      		i++;
+      	    }
+      	}
       if (strncmp(&str[i], "live", 4) == 0)
-	{
-	  c = 0x01;
-	  write(fd, &c, 1);
-	  c = 0;
-	  i += 4;
-	  ibase = i;
-	  if (str[i] == ':')
-	    {
-	      while (str[i])
-		i++;
-	    }
-	}
+      	{
+      	  c = 0x01;
+      	  write(fd, &c, 1);
+      	  c = 0;
+      	  i += 4;
+      	  ibase = i;
+      	  if (str[i] == ':')
+      	    {
+      	      while (str[i])
+      		i++;
+      	    }
+      	}
       if (str[i] == ',')
 	cmptr_param++;
       if (str[i] == 'r' && '0' <= str[i + 1] &&
@@ -274,6 +364,7 @@ void	write_to_file(char *str, int fd)
       i++;
     }
   write(fd, &c, 1);
+  printf("[ibase : %i]\n", ibase);
   write_data(ibase, str, fd);
 }
 
