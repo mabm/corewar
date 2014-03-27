@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Thu Mar 27 11:18:36 2014 Joris Bertomeu
+** Last update Thu Mar 27 14:13:35 2014 Joris Bertomeu
 */
 
 #include <stdio.h>
@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <string.h>
+#include <byteswap.h>
 #include "gnl.h"
 
 typedef struct s_system t_system;
@@ -111,12 +112,11 @@ void		write_data(int ibase, char *str, int fd)
   int		j;
   char		tmp[64];
   int		k;
-  u_conv	conv;
+  t_conv	*conv;
 
+  conv = malloc(sizeof(*conv));
   c2 = 0;
   i = ibase;
-  conv->value = 42;
-  printf("Resultat : %x\n", conv.octet[3]);
   printf("Ecriture des args\n\n");
   while (str[i])
     {
@@ -128,9 +128,9 @@ void		write_data(int ibase, char *str, int fd)
 	  memset(tmp, 0, 64);
 	  while (str[j] != ',' && str[j])
 	    tmp[k++] = str[j++];
-	  printf(">> Registre : %s\n", tmp);
-	  c2 = str[i + 1] - 48;
-	  write(fd, &c2, 1);
+	  conv->value = atoi(&tmp[1]);
+	  printf(">> Registre : %s -> %x (%d)\n", tmp, conv->octets[0], conv->value);
+	  write(fd, &conv->octets[0], 1);
 	  i += 1;
 	}
       if (str[i] == '%') /* DIRECT */
@@ -140,15 +140,15 @@ void		write_data(int ibase, char *str, int fd)
 	  memset(tmp, 0, 64);
 	  while (str[j] != ',' && str[j])
 	    tmp[k++] = str[j++];
-	  printf(">> Direct : %s\n", tmp);
-	  c2 = 0x00;
-	  write(fd, &c2, 1);
-	  c2 = 0x00;
-	  write(fd, &c2, 1);
-	  c2 = 0x00;
-	  write(fd, &c2, 1);
-	  c2 = str[i + 2] - 48;
-	  write(fd, &c2, 1);
+	  conv->value = atoi(&tmp[1]);
+	  printf(">> Direct : %s -> %x\n", tmp, conv->octets[0]);
+	  if (str[i + 1] != ':')
+	    {
+	      write(fd, &conv->octets[3], 1);
+	      write(fd, &conv->octets[2], 1);
+	      write(fd, &conv->octets[1], 1);
+	      write(fd, &conv->octets[0], 1);
+	    }
 	  while (str[i + 1] != ',' && str[i + 1] != '\0')
 	    i++;
 	}
@@ -157,17 +157,14 @@ void		write_data(int ibase, char *str, int fd)
 	  j = i;
 	  k = 0;
 	  memset(tmp, 0, 64);
-	  while (str[j] != ',' && str[j])
+	  while (str[j] != ',' && str[j] && '0' <= str[j] && str[j] <= '9')
 	    tmp[k++] = str[j++];
-	  printf(">> Indirect : %s\n", tmp);
-	  c2 = 0;
-	  write(fd, &c2, 1);
-	  c2 = 0;
-	  write(fd, &c2, 1);
-	  c2 = 0;
-	  write(fd, &c2, 1);
-	  c2 = str[i] - 48;
-	  write(fd, &c2, 1);
+	  conv->value = atoi(&tmp[1]);
+	  printf(">> Indirect : %s -> %x (%d)\n", tmp, conv->octets[0], conv->value);
+	  write(fd, &conv->octets[3], 1);
+	  write(fd, &conv->octets[2], 1);
+	  write(fd, &conv->octets[1], 1);
+	  write(fd, &conv->octets[0], 1);
 	}
       i++;
     }
@@ -190,6 +187,12 @@ int	write_to_file(char *str, int fd)
 	  c = 0;
 	  i += 3;
 	  ibase = i;
+	  if (str[i] == ':')
+	    {
+	      printf(">> Label : %s\n", &str[i - 4]);
+	      while (str[i])
+		i++;
+	    }
 	}
       if (strncmp(&str[i], "and", 3) == 0)
 	{
@@ -198,6 +201,12 @@ int	write_to_file(char *str, int fd)
 	  c = 0;
 	  i += 3;
 	  ibase = i;
+	  if (str[i] == ':')
+	    {
+	      printf(">> Label : %s\n", &str[i - 4]);
+	      while (str[i])
+		i++;
+	    }
 	}
       if (strncmp(&str[i], "ld", 2) == 0)
 	{
@@ -205,6 +214,13 @@ int	write_to_file(char *str, int fd)
 	  write(fd, &c, 1);
 	  c = 0;
 	  i += 2;
+	  ibase = i;
+	  if (str[i] == ':')
+	    {
+	      printf(">> Label : %s\n", &str[i - 4]);
+	      while (str[i])
+		i++;
+	    }
 	}
       if (strncmp(&str[i], "live", 4) == 0)
 	{
@@ -213,6 +229,12 @@ int	write_to_file(char *str, int fd)
 	  c = 0;
 	  i += 4;
 	  ibase = i;
+	  if (str[i] == ':')
+	    {
+	      printf(">> Label : %s\n", &str[i - 4]);
+	      while (str[i])
+		i++;
+	    }
 	}
       if (str[i] == ',')
 	cmptr_param++;
