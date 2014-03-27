@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Thu Mar 27 14:13:35 2014 Joris Bertomeu
+** Last update Thu Mar 27 14:46:42 2014 Joris Bertomeu
 */
 
 #include <stdio.h>
@@ -306,7 +306,7 @@ void	tread_file(char *path, t_system *sys)
   buff = malloc(4096 * sizeof(*buff));
   memset(buff, 0, 4096);
   fd = open(path, O_RDONLY);
-  fd2 = open("baba.core",
+  fd2 = open("champ_test.core",
 	    O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU | S_IRWXG | S_IRWXO);
   if (fd != -1 && fd2 != -1)
     {
