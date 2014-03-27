@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Wed Mar 26 11:51:33 2014 Nicolas Ades
-** Last update Wed Mar 26 12:06:04 2014 Nicolas Ades
+** Last update Thu Mar 27 14:09:08 2014 Nicolas Ades
 */
 
 #ifndef VM_PARSER_H_
@@ -20,10 +20,13 @@
 # include <string.h>
 # include "vm_corewar.h"
 
-struct	s_flags
+typedef struct	s_info
 {
-  char *flag;
-  void	(*fct)(char *);
-};
+  int		champ_cpt;
+  int		ld_add;
+  int		prog_nb;
+  int		nbr_cycle;
+}		t_info;
+
 
 #endif /* VM_PARSER_H_ */
