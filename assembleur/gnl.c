@@ -50,6 +50,7 @@ char		*get_next_line(const int fd)
 
   var.i = 0;
   var.buffer = xmalloc(BUF_READ + 1);
+  memset(var.buffer, '\0', (BUF_READ + 1));
   while (var.i < BUF_READ)
     {
       if (save == 0)
