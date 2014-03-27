@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Wed Mar 26 23:24:46 2014 Joris Bertomeu
+** Last update Thu Mar 27 11:18:36 2014 Joris Bertomeu
 */
 
 #include <stdio.h>
@@ -23,6 +23,13 @@ struct s_system
   char	*comment;
   int	nb_comment;
   int	nb_name;
+};
+
+typedef union u_conv t_conv;
+union u_conv
+{
+  char	octets[4];
+  int	value;
 };
 
 void affbin(unsigned n)
@@ -97,24 +104,43 @@ int	parse_line_cn(char *buff, t_system *system)
   return (ret);
 }
 
-void	write_data(int ibase, char *str, int fd)
+void		write_data(int ibase, char *str, int fd)
 {
-  int	i;
-  char	c2;
+  int		i;
+  char		c2;
+  int		j;
+  char		tmp[64];
+  int		k;
+  u_conv	conv;
 
   c2 = 0;
   i = ibase;
+  conv->value = 42;
+  printf("Resultat : %x\n", conv.octet[3]);
+  printf("Ecriture des args\n\n");
   while (str[i])
     {
       if (str[i] == 'r' && '0' <= str[i + 1] &&
 	  str[i + 1] <= '9') /* REGISTRE ! */
 	{
+	  j = i;
+	  k = 0;
+	  memset(tmp, 0, 64);
+	  while (str[j] != ',' && str[j])
+	    tmp[k++] = str[j++];
+	  printf(">> Registre : %s\n", tmp);
 	  c2 = str[i + 1] - 48;
 	  write(fd, &c2, 1);
 	  i += 1;
 	}
-      if (str[i] == '\\' && str[i + 1] == '%') /* DIRECT */
+      if (str[i] == '%') /* DIRECT */
 	{
+	  j = i;
+	  k = 0;
+	  memset(tmp, 0, 64);
+	  while (str[j] != ',' && str[j])
+	    tmp[k++] = str[j++];
+	  printf(">> Direct : %s\n", tmp);
 	  c2 = 0x00;
 	  write(fd, &c2, 1);
 	  c2 = 0x00;
@@ -128,6 +154,12 @@ void	write_data(int ibase, char *str, int fd)
 	}
       if ('0' <= str[i] && str[i] <= '9' && str[i - 1] == ',') /* INDIRECT */
 	{
+	  j = i;
+	  k = 0;
+	  memset(tmp, 0, 64);
+	  while (str[j] != ',' && str[j])
+	    tmp[k++] = str[j++];
+	  printf(">> Indirect : %s\n", tmp);
 	  c2 = 0;
 	  write(fd, &c2, 1);
 	  c2 = 0;
@@ -139,6 +171,7 @@ void	write_data(int ibase, char *str, int fd)
 	}
       i++;
     }
+  printf("\n\nFin d'écriture des Args\n\n");
 }
 
 int	write_to_file(char *str, int fd)
@@ -196,7 +229,7 @@ int	write_to_file(char *str, int fd)
 	    c += 0b00000001;
 	  i += 1;
 	}
-      if (str[i] == '\\' && str[i + 1] == '%') /* DIRECT */
+      if (str[i] == '%') /* DIRECT */
 	{
 	  if (cmptr_param == 0)
 	    c += 0b10000000;
