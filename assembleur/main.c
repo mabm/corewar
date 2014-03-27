@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Thu Mar 27 16:05:07 2014 Jeremy Mediavilla
+** Last update Thu Mar 27 16:47:41 2014 Joris Bertomeu
 */
 
 #include <stdio.h>
@@ -362,12 +362,17 @@ void	init_cmd_asm(t_system *system)
 
   i = 0;
   system->cmd_asm = malloc(16 * sizeof(*system->cmd_asm));
+  memset(system->cmd_asm, 0, 16 * sizeof(*system->cmd_asm) - 1);
   while (i < 16)
     {
       system->cmd_asm[i] = malloc(2 * sizeof(**system->cmd_asm));
+      memset(system->cmd_asm[i], 0, 2 * sizeof(**system->cmd_asm) - 1);
       j = 0;
       while (j < 2)
-	system->cmd_asm[i][j++] = malloc(32 * sizeof(***system->cmd_asm));
+	{
+	  system->cmd_asm[i][j] = malloc(32 * sizeof(***system->cmd_asm));
+	  memset(system->cmd_asm[i][j++], 0, 32 * sizeof(***system->cmd_asm) - 1);
+	}
       i++;
     }
   parse_list_asm(system);
@@ -394,7 +399,6 @@ void		init(int ac, char **argv)
   i = 1;
   system = malloc(sizeof(*system));
   check_ext(ac, argv);
-  init_cmd_asm(system);
   while (i < ac)
     {
       system->comment = 0;
