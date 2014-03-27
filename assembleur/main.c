@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Thu Mar 27 14:46:42 2014 Joris Bertomeu
+** Last update Thu Mar 27 15:52:56 2014 Joris Bertomeu
 */
 
 #include <stdio.h>
@@ -189,7 +189,6 @@ int	write_to_file(char *str, int fd)
 	  ibase = i;
 	  if (str[i] == ':')
 	    {
-	      printf(">> Label : %s\n", &str[i - 4]);
 	      while (str[i])
 		i++;
 	    }
@@ -203,7 +202,6 @@ int	write_to_file(char *str, int fd)
 	  ibase = i;
 	  if (str[i] == ':')
 	    {
-	      printf(">> Label : %s\n", &str[i - 4]);
 	      while (str[i])
 		i++;
 	    }
@@ -217,7 +215,6 @@ int	write_to_file(char *str, int fd)
 	  ibase = i;
 	  if (str[i] == ':')
 	    {
-	      printf(">> Label : %s\n", &str[i - 4]);
 	      while (str[i])
 		i++;
 	    }
@@ -231,7 +228,6 @@ int	write_to_file(char *str, int fd)
 	  ibase = i;
 	  if (str[i] == ':')
 	    {
-	      printf(">> Label : %s\n", &str[i - 4]);
 	      while (str[i])
 		i++;
 	    }
@@ -338,8 +334,6 @@ void	tread_line_cnf_asm(t_system *system, char *buff, int line)
   i++;
   while (buff[i] != '\0')
     system->cmd_asm[line][1][j++] = buff[i++];
-  printf("%s = %s\n", system->cmd_asm[line][0],
-	 system->cmd_asm[line][1]);
 }
 
 void	parse_list_asm(t_system *system)
