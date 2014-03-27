@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Thu Mar 27 14:13:35 2014 Joris Bertomeu
+** Last update Thu Mar 27 14:17:28 2014 Jeremy Mediavilla
 */
 
 #include <stdio.h>
@@ -171,71 +171,88 @@ void		write_data(int ibase, char *str, int fd)
   printf("\n\nFin d'écriture des Args\n\n");
 }
 
-int	write_to_file(char *str, int fd)
+void		sti_instruction (int fd, char *c, int *i, int *ibase)
 {
-  char	c = 0;
-  int	i = 0;
-  int	cmptr_param = 0;
-  int	ibase;
+  printf("sti\n");
+  *c = 0x0b;
+  write(fd, c, 1);
+  *c = 0;
+  *i += 3;
+  *ibase = *i;
+  printf("ibase : [%i]\n", *ibase);
+}
 
+void		and_instruction(int fd, char *c, int *i, int *ibase)
+{
+  printf("and\n");
+  *c = 0x06;
+  write(fd, c, 1);
+  *c = 0;
+  *i += 3;
+  *ibase = *i;
+}
+
+void		ld_instruction(int fd, char *c, int *i, int *ibase)
+{
+  printf("ld\n");
+  *c = 0x02;
+  write(fd, c, 1);
+  *c = 0;
+  *i += 2;
+  *ibase = *i;
+}
+
+void		live_instruction(int fd, char *c, int *i, int *ibase)
+{
+  printf("live\n");
+  *c = 0x01;
+  write(fd, c, 1);
+  *c = 0;
+  *i += 4;
+  *ibase = *i;
+}
+
+int		check_instruction(char *str, char *c, int *i, int *ibase, int fd)
+{
+  char		*tab[4];
+  void		(*which_instruction[4])(int fd, char *c, int *i, int *ibase);
+  int		j;
+
+  tab[0] = "sti";
+  tab[1] = "and";
+  tab[2] = "ld";
+  tab[3] = "live";
+  which_instruction[0] = &sti_instruction;
+  which_instruction[1] = &and_instruction;
+  which_instruction[2] = &ld_instruction;
+  which_instruction[3] = &live_instruction;
+  j = 0;
+  while (j < 4)
+    {
+      if (strncmp(&str[*i], tab[j], strlen(tab[j])) == 0)
+	{
+	  (*which_instruction[j])(fd, c, i, ibase);
+	  j = 5;
+	}
+      j++;
+    }
+  if (j == 4)
+    return (0);
+}
+
+int		write_to_file(char *str, int fd)
+{
+  char		c;
+  int		i;
+  int		cmptr_param;
+  int		ibase;
+
+  i = 0;
+  c = 0;
+  cmptr_param = 0;
   while (str[i])
     {
-      if (strncmp(&str[i], "sti", 3) == 0)
-	{
-	  c = 0x0b;
-	  write(fd, &c, 1);
-	  c = 0;
-	  i += 3;
-	  ibase = i;
-	  if (str[i] == ':')
-	    {
-	      printf(">> Label : %s\n", &str[i - 4]);
-	      while (str[i])
-		i++;
-	    }
-	}
-      if (strncmp(&str[i], "and", 3) == 0)
-	{
-	  c = 0x06;
-	  write(fd, &c, 1);
-	  c = 0;
-	  i += 3;
-	  ibase = i;
-	  if (str[i] == ':')
-	    {
-	      printf(">> Label : %s\n", &str[i - 4]);
-	      while (str[i])
-		i++;
-	    }
-	}
-      if (strncmp(&str[i], "ld", 2) == 0)
-	{
-	  c = 0x02;
-	  write(fd, &c, 1);
-	  c = 0;
-	  i += 2;
-	  ibase = i;
-	  if (str[i] == ':')
-	    {
-	      printf(">> Label : %s\n", &str[i - 4]);
-	      while (str[i])
-		i++;
-	    }
-	}
-      if (strncmp(&str[i], "live", 4) == 0)
-	{
-	  c = 0x01;
-	  write(fd, &c, 1);
-	  c = 0;
-	  i += 4;
-	  ibase = i;
-	  if (str[i] == ':')
-	    {
-	      printf(">> Label : %s\n", &str[i - 4]);
-	      while (str[i])
-		i++;
-	    }
-	}
+      check_instruction(str, &c, &i, &ibase, fd);
       if (str[i] == ',')
 	cmptr_param++;
       if (str[i] == 'r' && '0' <= str[i + 1] &&
