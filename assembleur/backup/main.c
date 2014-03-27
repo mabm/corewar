@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Thu Mar 27 16:05:07 2014 Jeremy Mediavilla
+** Last update Thu Mar 27 14:13:35 2014 Joris Bertomeu
 */
 
 #include <stdio.h>
@@ -14,8 +14,6 @@
 #include <fcntl.h>
 #include <string.h>
 #include <byteswap.h>
-#include <sys/stat.h>
-#include <sys/types.h>
 #include "gnl.h"
 
 typedef struct s_system t_system;
@@ -110,12 +108,14 @@ int	parse_line_cn(char *buff, t_system *system)
 void		write_data(int ibase, char *str, int fd)
 {
   int		i;
+  char		c2;
   int		j;
   char		tmp[64];
   int		k;
   t_conv	*conv;
 
   conv = malloc(sizeof(*conv));
+  c2 = 0;
   i = ibase;
   printf("Ecriture des args\n\n");
   while (str[i])
@@ -171,7 +171,7 @@ void		write_data(int ibase, char *str, int fd)
   printf("\n\nFin d'écriture des Args\n\n");
 }
 
-void	write_to_file(char *str, int fd)
+int	write_to_file(char *str, int fd)
 {
   char	c = 0;
   int	i = 0;
@@ -189,6 +189,7 @@ void	write_to_file(char *str, int fd)
 	  ibase = i;
 	  if (str[i] == ':')
 	    {
+	      printf(">> Label : %s\n", &str[i - 4]);
 	      while (str[i])
 		i++;
 	    }
@@ -202,6 +203,7 @@ void	write_to_file(char *str, int fd)
 	  ibase = i;
 	  if (str[i] == ':')
 	    {
+	      printf(">> Label : %s\n", &str[i - 4]);
 	      while (str[i])
 		i++;
 	    }
@@ -215,6 +217,7 @@ void	write_to_file(char *str, int fd)
 	  ibase = i;
 	  if (str[i] == ':')
 	    {
+	      printf(">> Label : %s\n", &str[i - 4]);
 	      while (str[i])
 		i++;
 	    }
@@ -228,6 +231,7 @@ void	write_to_file(char *str, int fd)
 	  ibase = i;
 	  if (str[i] == ':')
 	    {
+	      printf(">> Label : %s\n", &str[i - 4]);
 	      while (str[i])
 		i++;
 	    }
@@ -277,7 +281,7 @@ void	write_to_file(char *str, int fd)
   write_data(ibase, str, fd);
 }
 
-void	tread_line(char *buff, t_system *system, int fd)
+int	tread_line(char *buff, t_system *system, int fd)
 {
   int	ret;
 
@@ -285,7 +289,9 @@ void	tread_line(char *buff, t_system *system, int fd)
   if (ret == 0)
     {
       write_to_file(buff, fd);
+      return (1);
     }
+  return (0);
 }
 
 void	tread_file(char *path, t_system *sys)
@@ -293,16 +299,19 @@ void	tread_file(char *path, t_system *sys)
   int	fd;
   char	*buff;
   int	fd2;
+  int	flag;
+  int	i;
 
+  i = 0;
   buff = malloc(4096 * sizeof(*buff));
   memset(buff, 0, 4096);
   fd = open(path, O_RDONLY);
-  fd2 = open("champ_test.core",
+  fd2 = open("baba.core",
 	    O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU | S_IRWXG | S_IRWXO);
   if (fd != -1 && fd2 != -1)
     {
       while ((buff = get_next_line(fd)) != NULL)
-	tread_line(buff, sys, fd2);
+	flag = tread_line(buff, sys, fd2);
     }
   free(buff);
 }
@@ -325,16 +334,12 @@ void	tread_line_cnf_asm(t_system *system, char *buff, int line)
   j = 0;
   i = 0;
   while (buff[i] != ':')
-    {
-      system->cmd_asm[line][0][i] = buff[i];
-      i++;
-    }
+    system->cmd_asm[line][0][i] = buff[i++];
   i++;
   while (buff[i] != '\0')
-    {
-      system->cmd_asm[line][1][j++] = buff[i];
-      i++;
-    }
+    system->cmd_asm[line][1][j++] = buff[i++];
+  printf("%s = %s\n", system->cmd_asm[line][0],
+	 system->cmd_asm[line][1]);
 }
 
 void	parse_list_asm(t_system *system)
@@ -376,6 +381,7 @@ void	init_cmd_asm(t_system *system)
 void	check_ext(int ac, char **argv)
 {
   int	i;
+  int	j;
 
   i = 1;
   while (i < ac)

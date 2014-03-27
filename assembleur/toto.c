@@ -5,54 +5,73 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Thu Mar 27 11:54:34 2014 Jeremy Mediavilla
-** Last update Thu Mar 27 14:11:35 2014 Jeremy Mediavilla
+** Last update Thu Mar 27 14:57:18 2014 Jeremy Mediavilla
 */
 
-void		sti_instruction (int fd, char *c, int *i, int *ibase)
+void		sti_instruction (int fd, char *c, int *i, int *ibase, char *str)
 {
-  printf("sti\n");
   *c = 0x0b;
   write(fd, c, 1);
   *c = 0;
   *i += 3;
   *ibase = *i;
-  printf("ibase : [%i]\n", *ibase);
+  if (str[*i] == ':')
+    {
+      printf(">> Label : %s\n", &str[(*i) - 4]);
+      while (str[*i])
+	(*i)++;
+    }
 }
 
-void		and_instruction(int fd, char *c, int *i, int *ibase)
+void		and_instruction(int fd, char *c, int *i, int *ibase, char *str)
 {
-  printf("and\n");
   *c = 0x06;
   write(fd, c, 1);
   *c = 0;
   *i += 3;
   *ibase = *i;
+  if (str[*i] == ':')
+    {
+      printf(">> Label : %s\n", &str[(*i) - 4]);
+      while (str[*i])
+	(*i)++;
+    }
 }
 
-void		ld_instruction(int fd, char *c, int *i, int *ibase)
+void		ld_instruction(int fd, char *c, int *i, int *ibase, char *str)
 {
-  printf("ld\n");
   *c = 0x02;
   write(fd, c, 1);
   *c = 0;
   *i += 2;
   *ibase = *i;
+  if (str[*i] == ':')
+    {
+      printf(">> Label : %s\n", &str[(*i) - 4]);
+      while (str[*i])
+	(*i)++;
+    }
 }
 
-void		live_instruction(int fd, char *c, int *i, int *ibase)
+void		live_instruction(int fd, char *c, int *i, int *ibase, char *str)
 {
-  printf("live\n");
   *c = 0x01;
   write(fd, c, 1);
   *c = 0;
   *i += 4;
   *ibase = *i;
+  if (str[*i] == ':')
+    {
+      printf(">> Label : %s\n", &str[(*i) - 4]);
+      while (str[*i])
+	(*i)++;
+    }
 }
 
 int		check_instruction(char *str, char *c, int *i, int *ibase, int fd)
 {
   char		*tab[4];
-  void		(*which_instruction[4])(int fd, char *c, int *i, int *ibase);
+  void		(*which_instruction[4])(int fd, char *c, int *i, int *ibase, char *str);
   int		j;
 
   tab[0] = "sti";
@@ -68,7 +87,7 @@ int		check_instruction(char *str, char *c, int *i, int *ibase, int fd)
     {
       if (strncmp(&str[*i], tab[j], strlen(tab[j])) == 0)
 	{
-	  (*which_instruction[j])(fd, c, i, ibase);
+	  (*which_instruction[j])(fd, c, i, ibase, str);
 	  j = 5;
 	}
       j++;
