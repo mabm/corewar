@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Mar 26 13:22:43 2014 Geoffrey Merran
-** Last update Wed Mar 26 13:26:14 2014 Geoffrey Merran
+** Last update Thu Mar 27 18:17:09 2014 Geoffrey Merran
 */
 
 #ifndef XFUNCTION_
@@ -18,5 +18,6 @@
 # include "my_printf.h"
 
 int	xopen(char *pathname, int flags, mode_t mode);
+void	my_error(char *str);
 
 #endif /* XFUNCTION_ */

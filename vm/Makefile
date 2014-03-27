@@ -5,14 +5,14 @@
 ## Login   <merran_g@epitech.net>
 ## 
 ## Started on  Mon Oct 21 13:28:05 2013 Geoffrey Merran
-## Last update Tue Mar 25 17:26:04 2014 Geoffrey Merran
+## Last update Thu Mar 27 19:15:28 2014 Geoffrey Merran
 ##
 
 RM	= rm -f
 
 CC	= cc
 
-CFLAGS	+= -Wextra -Wall -W -pedantic -ansi -I$(I_PATH)
+CFLAGS	+= -Wextra -Wall -W -pedantic -g3 -ansi -I$(I_PATH)
 I_PATH	= ../includes/
 
 NAME	= corewar
@@ -21,7 +21,8 @@ OBJ	= $(SRC:.c=.o)
 
 LIB	= ../libmy/
 
-SRC	= main.c
+SRC	= main.c vm_pars.c \
+	xfunction.c
 
 all:		libs $(NAME)
 

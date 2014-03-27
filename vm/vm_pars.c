@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Wed Mar 26 11:40:53 2014 Nicolas Ades
-** Last update Thu Mar 27 14:12:20 2014 Nicolas Ades
+** Last update Thu Mar 27 19:22:08 2014 Geoffrey Merran
 */
 
 #include "vm_parser.h"
@@ -18,19 +18,21 @@ int	dump_opt(int i, int ac, char **av)
   nbr_cycle = -1;
   if (my_strcmp(av[i], "-dump") == 0)
     {
-      if (i + 2 < ac)
+      if (i + 1 < ac)
 	{
 	  nbr_cycle = my_getnbr(av[i + 1]);
 	  if (nbr_cycle <= 0)
-	    my_putstr("-dump must be positive\n");
+	    my_error("-dump error : -dump must be positive\n");
 	  else
-	    /* il faut stocker nbr_cycle */
+	    {
+	      /* il faut stocker nbr_cycle */
+	    }
 	}
       else
-	my_putstr("You must give a value with the option\n");
+	my_error("-dump error : You must give a value with the option\n");
     }
-  return (i + 1);
-} 
+  return (i);
+}
 
 int	a_opt(int i, int ac, char **av)
 {
@@ -38,20 +40,19 @@ int	a_opt(int i, int ac, char **av)
 
   if (my_strcmp(av[i], "-a") == 0)
     {
-      if (i + 2 < ac)
+      if (i + 1 < ac)
 	{
 	  ld_add = my_getnbr(av[i + 1]);
 	  if (ld_add < 0 || ld_add > MEM_SIZE - 1)
 	    {
-	      my_putstr("Value must be contain in memory\n");
-	      exit(-1);
+	      my_error("-a error : Value must be contain in memory\n");
 	    }
 	}
       else
-	my_putstr("You must give a value with the option\n");
+	my_error("-a : You must give a value with the option\n");
     }
-  return (i + 1);
-} 
+  return (i);
+}
 
 int	n_opt(int i, int ac, char **av)
 {
@@ -59,7 +60,7 @@ int	n_opt(int i, int ac, char **av)
 
   if (my_strcmp(av[i], "-n") == 0)
     {
-      if (i + 2 < ac)
+      if (i + 1 < ac)
 	{
 	  prog_nb = my_getnbr(av[i + 1]);
 	  /* a finir */
@@ -67,11 +68,11 @@ int	n_opt(int i, int ac, char **av)
       else
 	{
 	  prog_nb = 1;
-	  my_putstr("Default value set as 1\n");
+	  my_error("-n error : Default value set as 1\n");
 	}
     }
-  return (i + 1);
-} 
+  return (i);
+}
 
 int	get_cor(int i, int ac, char **av)
 {
@@ -80,7 +81,7 @@ int	get_cor(int i, int ac, char **av)
   k = my_strlen(av[i]);
   if (k < 4)
     {
-      my_putstr("Invalid champion\n");
+      my_error("champ error : Invalid champion\n");
       return (i);
     }
   if (my_strcmp(&(av[i][k - 4]), ".cor") == 0)
@@ -89,11 +90,11 @@ int	get_cor(int i, int ac, char **av)
     }
   else
     {
-      my_putstr("Invalid champion\n");
+      my_error("champ error : Invalid champion\n");
       return (i);
     }
   return (i);
-} 
+}
 
 void	vm_pars(int ac, char **av)
 {
