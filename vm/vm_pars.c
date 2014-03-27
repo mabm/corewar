@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Wed Mar 26 11:40:53 2014 Nicolas Ades
-** Last update Thu Mar 27 11:44:13 2014 Nicolas Ades
+** Last update Thu Mar 27 14:09:11 2014 Nicolas Ades
 */
 
 #include "vm_parser.h"
@@ -74,7 +74,21 @@ int	get_cor(int i, int ac, char **av)
 {
   int	k;
 
-  k = my_strlen(av[i]) - 4;
+  k = my_strlen(av[i]);
+  if (k < 4)
+    {
+      my_putstr("Invalid champion\n");
+      return (i);
+    }
+  if (my_strcmp(&(av[i][k - 4]), ".cor") == 0)
+    {
+      /* stockage du champion et incrémentation du compteur de champion */
+    }
+  else
+    {
+      my_putstr("Invalid champion\n");
+      return (i);
+    }
   return (i);
 } 
 
