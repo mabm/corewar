@@ -1,7 +1,16 @@
+##
+## Makefile for  in /home/mediav_j/corewar
+## 
+## Made by Jeremy Mediavilla
+## Login   <mediav_j@epitech.net>
+## 
+## Started on  Thu Mar 27 18:08:19 2014 Jeremy Mediavilla
+## Last update Fri Mar 28 16:13:33 2014 Jeremy Mediavilla
+##
 
 CC		=	gcc
 
-CFLAGS		+=	-W -Wextra -Wall -ansi -pedantic -o3
+CFLAGS		+=	-W -Wextra -Wall -ansi -pedantic -g3
 
 RM		=	rm -f
 
@@ -23,7 +32,7 @@ asm:		$(OBJ)
 		$(CC) -o $(NOM) $(OBJ) -lmy -L ./libmy
 		@echo -e "\n > COMPILATION DES .C ASSEMBLEUR TERMINEE"
 		@cat makefile_deco/logins
-		@cat makefile_deco/girl2
+		# @cat makefile_deco/girl2
 
 lib:
 		@echo -e "\n > COMPILATION DE LA LIB EN COURS\n"

@@ -252,6 +252,55 @@ int		check_instruction(char *str, char *c, int *i, int *ibase, int fd)
   return (0);
 }
 
+void		register_condition(int *i, char *c, int *cmptr, char *str)
+{
+  if (str[*i] == 'r' && '0' <= str[*i + 1] &&
+      str[*i + 1] <= '9')
+    {
+      if (*cmptr == 0)
+	*c += 0b01000000;
+      else if (*cmptr == 1)
+	*c += 0b00010000;
+      else if (*cmptr == 2)
+	*c += 0b00000100;
+      else if (*cmptr == 3)
+	*c += 0b00000001;
+      *i += 1;
+    }
+}
+
+void		direct_condition(int *i, char *c, int *cmptr, char *str)
+{
+  if (str[*i] == '%')
+    {
+      if (*cmptr == 0)
+	*c += 0b10000000;
+      else if (*cmptr == 1)
+	*c += 0b00100000;
+      else if (*cmptr == 2)
+	*c += 0b00001000;
+      else if (*cmptr == 3)
+	*c += 0b00000010;
+      while (str[*i + 1] != ',' && str[*i + 1] != '\0')
+	(*i)++;
+    }
+}
+
+void		indirect_condition(int *i, char *c, int *cmptr, char *str)
+{
+  if ('0' <= str[*i] && str[*i] <= '9' && str[*i - 1] == ',')
+    {
+      if (*cmptr == 0)
+	*c += 0b11000000;
+      else if (*cmptr == 1)
+	*c += 0b00110000;
+      else if (*cmptr == 2)
+	*c += 0b00001100;
+      else if (*cmptr == 3)
+	*c += 0b00000011;
+    }
+}
+
 void		write_to_file(char *str, int fd)
 {
   char		c;
@@ -268,43 +317,9 @@ void		write_to_file(char *str, int fd)
       check_instruction(str, &c, &i, &ibase, fd);
       if (str[i] == ',')
 	cmptr_param++;
-      if (str[i] == 'r' && '0' <= str[i + 1] &&
-	  str[i + 1] <= '9') /* REGISTRE ! */
-	{
-	  if (cmptr_param == 0)
-	    c += 0b01000000;
-	  else if (cmptr_param == 1)
-	    c += 0b00010000;
-	  else if (cmptr_param == 2)
-	    c += 0b00000100;
-	  else if (cmptr_param == 3)
-	    c += 0b00000001;
-	  i += 1;
-	}
-      if (str[i] == '%') /* DIRECT */
-	{
-	  if (cmptr_param == 0)
-	    c += 0b10000000;
-	  else if (cmptr_param == 1)
-	    c += 0b00100000;
-	  else if (cmptr_param == 2)
-	    c += 0b00001000;
-	  else if (cmptr_param == 3)
-	    c += 0b00000010;
-	  while (str[i + 1] != ',' && str[i + 1] != '\0')
-	    i++;
-	}
-      if ('0' <= str[i] && str[i] <= '9' && str[i - 1] == ',') /* INDIRECT */
-	{
-	  if (cmptr_param == 0)
-	    c += 0b11000000;
-	  else if (cmptr_param == 1)
-	    c += 0b00110000;
-	  else if (cmptr_param == 2)
-	    c += 0b00001100;
-	  else if (cmptr_param == 3)
-	    c += 0b00000011;
-	}
+      register_condition(&i, &c, &cmptr_param, str);
+      direct_condition(&i, &c, &cmptr_param, str);
+      indirect_condition(&i, &c, &cmptr_param, str);
       i++;
     }
   write(fd, &c, 1);
