@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Mar 26 12:00:22 2014 Geoffrey Merran
-** Last update Wed Mar 26 13:55:14 2014 Geoffrey Merran
+** Last update Sat Mar 29 19:46:41 2014 Geoffrey Merran
 */
 
 #ifndef VM_COREWAR_
@@ -15,6 +15,7 @@
 typedef struct		s_champ
 {
   int			id;
+  int			address;
   char			*name;
   char			*comment;
   int			carry;
@@ -28,6 +29,7 @@ typedef	struct	s_cycles
   int		nbr_live;
   int		cycle_to_die;
   int		current_cycle;
+  int		cycle_max;
 }		t_cycles;
 
 #endif /* VM_COREWAR_ */
