@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Wed Mar 26 11:40:53 2014 Nicolas Ades
-** Last update Sat Mar 29 20:33:32 2014 Geoffrey Merran
+** Last update Sat Mar 29 20:44:15 2014 Geoffrey Merran
 */
 
 #include "vm_parser.h"
@@ -102,19 +102,6 @@ int	get_cor(int i, int ac, char **av, t_champ **champ)
   return (i);
 }
 
-void		aff_champ(t_champ *champs)
-{
-  t_champ	*tmp;
-
-  tmp = champs;
-  while (tmp != NULL)
-    {
-      my_printf("id : %d\nname : %s\n", tmp->id, tmp->name);
-      my_printf("carry : %d, adress : %d\n", tmp->carry, tmp->address);
-      tmp = tmp->next;
-    }
-}
-
 void	vm_pars(int ac, char **av, t_cycles *cycles, t_champ **champs)
 {
   int	i;
@@ -128,5 +115,4 @@ void	vm_pars(int ac, char **av, t_cycles *cycles, t_champ **champs)
       i = get_cor(i, ac, av, champs);
       i++;
     }
-  aff_champ(*champs);
 }

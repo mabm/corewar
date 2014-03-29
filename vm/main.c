@@ -5,10 +5,42 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Mar 25 16:39:29 2014 Geoffrey Merran
-** Last update Sat Mar 29 19:35:42 2014 Geoffrey Merran
+** Last update Sat Mar 29 20:53:43 2014 Geoffrey Merran
 */
 
 #include "main_vm.h"
+
+void		aff_champ(t_champ *champs)
+{
+  t_champ	*tmp;
+
+  tmp = champs;
+  while (tmp != NULL)
+    {
+      my_printf("id : %d\nname : %s\n", tmp->id, tmp->name);
+      my_printf("carry : %d, adress : %d\n", tmp->carry, tmp->address);
+      tmp = tmp->next;
+    }
+}
+
+void   	aff_arena(unsigned char *arena)
+{
+  int  	i;
+
+  i = 0;
+  while (i < MEM_SIZE)
+    {
+      my_printf("%p ", arena[i]);
+      if ((i + 1) % 50  == 0)
+	my_printf("\n");
+      i++;
+    }
+  my_printf("\n");
+}
+
+/*
+** Fonctions d'affichage / debug
+*/
 
 void		init_all(int ac, char **av)
 {
@@ -20,6 +52,8 @@ void		init_all(int ac, char **av)
   init_cycle(&cycles);
   init_arena(&arena);
   vm_pars(ac, av, &cycles, &champs);
+  aff_champ(champs);
+  aff_arena(arena);
 }
 
 int	main(int ac, char **av)
