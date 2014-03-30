@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Mar 25 16:39:29 2014 Geoffrey Merran
-** Last update Sat Mar 29 20:53:43 2014 Geoffrey Merran
+** Last update Sun Mar 30 18:08:49 2014 Nicolas Ades
 */
 
 #include "main_vm.h"
@@ -54,6 +54,8 @@ void		init_all(int ac, char **av)
   vm_pars(ac, av, &cycles, &champs);
   aff_champ(champs);
   aff_arena(arena);
+  free(champs);
+  free(arena);
 }
 
 int	main(int ac, char **av)
