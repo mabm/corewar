@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Sun Mar 30 11:13:43 2014 Joris Bertomeu
+** Last update Sun Mar 30 13:00:23 2014 Joris Bertomeu
 */
 
 #include <stdio.h>
@@ -120,7 +120,6 @@ void		write_data(int ibase, char *str, int fd)
 
   conv = malloc(sizeof(*conv));
   i = ibase;
-  printf("Ecriture des args\n\n");
   while (str[i])
     {
       if (str[i] == 'r' && '0' <= str[i + 1] &&
@@ -152,6 +151,14 @@ void		write_data(int ibase, char *str, int fd)
 	      write(fd, &conv->octets[1], 1);
 	      write(fd, &conv->octets[0], 1);
 	    }
+	  else
+	    {
+	      conv->value = 0;
+	      write(fd, &conv->octets[3], 1);
+	      write(fd, &conv->octets[2], 1);
+	      write(fd, &conv->octets[1], 1);
+	      write(fd, &conv->octets[0], 1);
+	    }
 	  while (str[i + 1] != ',' && str[i + 1] != '\0')
 	    i++;
 	}
@@ -172,94 +179,127 @@ void		write_data(int ibase, char *str, int fd)
       if (str[i] != '\0')
 	i++;
     }
-  printf("\n\nFin d'écriture des Args\n\n");
+  printf("\n\nNext line\n\n");
 }
 
-void		sti_instruction (int fd, char *c, int *i, int *ibase, char *str)
+void		sti_instruction (int fd, char *c, int *i, int *ibase, char *str, int *ret_chck)
 {
   *c = 0x0b;
   write(fd, c, 1);
   *c = 0;
   *i += 3;
-  *ibase = *i;
+  *ret_chck = 1;
+  printf(">> Instruction : sti\n");
   if (str[*i] == ':')
     {
+      *ret_chck = 0;
       printf(">> Label : %s\n", &str[(*i) - 4]);
-      while (str[*i])
+      while (str[*i] && str[*i] != '%')
   	(*i)++;
     }
+  *ibase = *i;
 }
 
-void		and_instruction(int fd, char *c, int *i, int *ibase, char *str)
+void		and_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_chck)
 {
   *c = 0x06;
   write(fd, c, 1);
   *c = 0;
   *i += 3;
-  *ibase = *i;
+  *ret_chck = 1;
+  printf(">> Instruction : and\n");
   if (str[*i] == ':')
     {
+      *ret_chck = 0;
       printf(">> Label : %s\n", &str[(*i) - 4]);
-      while (str[*i])
+      while (str[*i] && str[*i] != '%')
   	(*i)++;
     }
+  *ibase = *i;
 }
 
-void		ld_instruction(int fd, char *c, int *i, int *ibase, char *str)
+void		ld_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_chck)
 {
   *c = 0x02;
   write(fd, c, 1);
   *c = 0;
   *i += 2;
-  *ibase = *i;
+  *ret_chck = 1;
+  printf(">> Instruction : ld\n");
   if (str[*i] == ':')
     {
+      *ret_chck = 0;
       printf(">> Label : %s\n", &str[(*i) - 4]);
-      while (str[*i])
+      while (str[*i] && str[*i] != '%')
   	(*i)++;
     }
+  *ibase = *i;
 }
 
-void		live_instruction(int fd, char *c, int *i, int *ibase, char *str)
+void		live_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_chck)
 {
   *c = 0x01;
   write(fd, c, 1);
   *c = 0;
   *i += 4;
-  *ibase = *i;
+  *ret_chck = 1;
+  printf(">> Instruction : live\n");
   if (str[*i] == ':')
     {
+      *ret_chck = 0;
       printf(">> Label : %s\n", &str[(*i) - 4]);
-      while (str[*i])
+      while (str[*i] && str[*i] != '%')
   	(*i)++;
     }
+  *ibase = *i;
+}
+
+void		zjmp_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_chck)
+{
+  *c = 0x09;
+  write(fd, c, 1);
+  *c = 0;
+  *i += 4;
+  *ret_chck = 0;
+  printf(">> Instruction : zjmp\n");
+  if (str[*i] == ':')
+    {
+      *ret_chck = 0;
+      printf(">> Label : %s\n", &str[(*i) - 4]);
+      while (str[*i] && str[*i] != '%')
+  	(*i)++;
+    }
+  *ibase = *i;
 }
 
 int		check_instruction(char *str, char *c, int *i, int *ibase, int fd)
 {
-  char		*tab[4];
-  void		(*which_instruction[4])(int fd, char *c, int *i, int *ibase, char *str);
+  char		*tab[5];
+  void		(*which_instruction[5])(int fd, char *c, int *i, int *ibase, char *str, int *ret_chck);
   int		j;
+  int		ret_chck;
 
   tab[0] = "sti";
   tab[1] = "and";
   tab[2] = "ld";
   tab[3] = "live";
+  tab[4] = "zjmp";
   which_instruction[0] = &sti_instruction;
   which_instruction[1] = &and_instruction;
   which_instruction[2] = &ld_instruction;
   which_instruction[3] = &live_instruction;
+  which_instruction[4] = &zjmp_instruction;
   j = 0;
-  while (j < 4)
+  while (j < 5)
     {
       if (strncmp(&str[*i], tab[j], strlen(tab[j])) == 0)
 	{
-	  (*which_instruction[j])(fd, c, i, ibase, str);
+	  (*which_instruction[j])(fd, c, i, ibase, str, &ret_chck);
 	  j = 5;
 	}
       j++;
     }
-  return (0);
+  return (ret_chck);
 }
 
 void		register_condition(int *i, char *c, int *cmptr, char *str)
@@ -317,6 +357,7 @@ void		write_to_file(char *str, int fd)
   int		i;
   int		cmptr_param;
   int		ibase;
+  int		ret_chck;
 
   c = 0;
   i = 0;
@@ -324,7 +365,7 @@ void		write_to_file(char *str, int fd)
   ibase = 0;
   while (str[i])
     {
-      check_instruction(str, &c, &i, &ibase, fd);
+      ret_chck = check_instruction(str, &c, &i, &ibase, fd);
       if (str[i] == ',')
 	cmptr_param++;
       register_condition(&i, &c, &cmptr_param, str);
@@ -332,8 +373,8 @@ void		write_to_file(char *str, int fd)
       indirect_condition(&i, &c, &cmptr_param, str);
       i++;
     }
-  write(fd, &c, 1);
-  printf("[ibase : %i]\n", ibase);
+  if (ret_chck == 1)
+    write(fd, &c, 1);
   write_data(ibase, str, fd);
 }
 
