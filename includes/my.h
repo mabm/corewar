@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 **
 ** Started on  Thu Oct 10 12:00:24 2013 Geoffrey Merran
-** Last update Thu Mar 20 15:55:07 2014 Geoffrey Merran
+** Last update Fri Mar 28 16:26:37 2014 Geoffrey Merran
 */
 
 #ifndef MY_
@@ -57,7 +57,7 @@ void			*my_xmalloc(int size);
 char			*my_realloc(char *str, int size_alloc);
 int			my_isdigit(char c);
 int			my_isalpha(char c);
-char			*my_memset(char *str, char c, int size);
+char			*my_memset(char *s, char c, int size);
 int			my_strlen_tabs(char **);
 char			*my_strcut(char *str, int start, int end);
 char			*my_strfusion(char *dest, char *src);

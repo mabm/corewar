@@ -5,20 +5,20 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Mon Nov 25 22:54:24 2013 Geoffrey Merran
-** Last update Mon Nov 25 22:54:46 2013 Geoffrey Merran
+** Last update Fri Mar 28 16:25:34 2014 Geoffrey Merran
 */
 
 #include "my.h"
 
-char	*my_memset(char *str, char c, int size)
+char	*my_memset(char *s, char c, int size)
 {
   int	i;
 
   i = 0;
   while (i < size)
     {
-      str[i] = c;
+      s[i] = c;
       i++;
     }
-  return (str);
+  return (s);
 }

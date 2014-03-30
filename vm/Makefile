@@ -5,7 +5,7 @@
 ## Login   <merran_g@epitech.net>
 ## 
 ## Started on  Mon Oct 21 13:28:05 2013 Geoffrey Merran
-## Last update Thu Mar 27 19:15:28 2014 Geoffrey Merran
+## Last update Sat Mar 29 19:39:40 2014 Geoffrey Merran
 ##
 
 RM	= rm -f
@@ -21,7 +21,10 @@ OBJ	= $(SRC:.c=.o)
 
 LIB	= ../libmy/
 
-SRC	= main.c vm_pars.c \
+SRC	= main.c  \
+	vm_pars.c \
+	vm_init.c \
+	vm_getchamp.c \
 	xfunction.c
 
 all:		libs $(NAME)
@@ -37,8 +40,8 @@ clean:
 	$(RM) $(OBJ)
 
 fclean:		clean
-	(cd $(LIB); make fclean)
 	$(RM) $(NAME)
+	(cd $(LIB); make fclean)
 
 re:		fclean all
 
