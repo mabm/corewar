@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Sun Mar 30 13:00:23 2014 Joris Bertomeu
+** Last update Sun Mar 30 16:02:39 2014 Joris Bertomeu
 */
 
 #include <stdio.h>
@@ -26,6 +26,9 @@ struct s_system
   char	*comment;
   int	nb_comment;
   int	nb_name;
+  int	f_c;
+  int	f_n;
+  int	wm;
 };
 
 typedef union u_conv t_conv;
@@ -66,6 +69,8 @@ void		parse_name(char *buff, int k, t_system *system)
   int		j;
 
   j = 0;
+  if (strlen(buff) >= 199)
+    aff_error("Name >= 199, name must be shorter\n");
   system->name = malloc(strlen(buff) * sizeof(*system->name));
   memset(system->name, 0, strlen(buff));
   i = 2 + k + strlen(".name");
@@ -79,6 +84,8 @@ void		parse_comment(char *buff, int k, t_system *system)
   int		j;
 
   j = 0;
+  if (strlen(buff) >= 199)
+    aff_error("Comment >= 199, comment must be shorter\n");
   system->comment = malloc(strlen(buff) * sizeof(*system->comment));
   memset(system->comment, 0, strlen(buff));
   i = 2 + k + strlen(".comment");
@@ -86,7 +93,49 @@ void		parse_comment(char *buff, int k, t_system *system)
     system->comment[j++] = buff[i++];
 }
 
-int		parse_line_cn(char *buff, t_system *system)
+void	create_header(int fd, t_system *sys, int fg)
+{
+  int	i;
+  int	j;
+  char	c;
+
+  i = 0;
+  c = 0x0;
+  if (fg == 1)
+    {
+      sys->f_n = 1;
+      j = (int) lseek(fd, 0, SEEK_CUR);
+      write(fd, "name:", 5);
+      write(fd, sys->name, strlen(sys->name));
+      i = (int) lseek(fd, 0, SEEK_CUR) - j;
+      j = 0;
+      while (j < 200 - i)
+	{
+	  write(fd, &c, 1);
+	  j++;
+	}
+      printf(">> Comment wrote ( %d/200 octets, Total %d octets )\n", i,
+	     (int) lseek(fd, 0, SEEK_CUR));
+    }
+  else
+    {
+      sys->f_c = 1;
+      j = (int) lseek(fd, 0, SEEK_CUR);
+      write(fd, "comment:", 8);
+      write(fd, sys->comment, strlen(sys->comment));
+      i = (int) lseek(fd, 0, SEEK_CUR) - j;
+      j = 0;
+      while (j < 200 - i)
+	{
+	  write(fd, &c, 1);
+	  j++;
+	}
+      printf(">> Comment wrote ( %d/200 octets, Total %d octets )\n", i,
+	     (int) lseek(fd, 0, SEEK_CUR));
+    }
+}
+
+int		parse_line_cn(char *buff, t_system *system, int fd)
 {
   int		i;
   int		ret;
@@ -98,11 +147,13 @@ int		parse_line_cn(char *buff, t_system *system)
       if (strncmp(&buff[i], ".comment", strlen(".comment")) == 0)
 	{
 	  parse_comment(buff, i, system);
+	  create_header(fd, system, 2);
 	  ret = 1;
 	}
       if (strncmp(&buff[i], ".name", strlen(".name")) == 0)
 	{
 	  parse_name(buff, i, system);
+	  create_header(fd, system, 1);
 	  ret = 1;
 	}
 	i++;
@@ -131,7 +182,8 @@ void		write_data(int ibase, char *str, int fd)
 	  while (str[j] != ',' && str[j])
 	    tmp[k++] = str[j++];
 	  conv->value = atoi(&tmp[1]);
-	  printf(">> Registre : %s -> %x (%d)\n", tmp, conv->octets[0], conv->value);
+	  printf(">> Registre : %s -> %x (%d) (1 Octet)\n", tmp,
+		 conv->octets[0], conv->value);
 	  write(fd, &conv->octets[0], 1);
 	  i += 1;
 	}
@@ -143,7 +195,7 @@ void		write_data(int ibase, char *str, int fd)
 	  while (str[j] != ',' && str[j])
 	    tmp[k++] = str[j++];
 	  conv->value = atoi(&tmp[1]);
-	  printf(">> Direct : %s -> %x\n", tmp, conv->octets[0]);
+	  printf(">> Direct : %s -> %x (4 Octets)\n", tmp, conv->octets[0]);
 	  if (str[i + 1] != ':')
 	    {
 	      write(fd, &conv->octets[3], 1);
@@ -170,7 +222,8 @@ void		write_data(int ibase, char *str, int fd)
 	  while (str[j] != ',' && str[j] && '0' <= str[j] && str[j] <= '9')
 	    tmp[k++] = str[j++];
 	  conv->value = atoi(&tmp[1]);
-	  printf(">> Indirect : %s -> %x (%d)\n", tmp, conv->octets[0], conv->value);
+	  printf(">> Indirect : %s -> %x (%d) (4 Octets)\n", tmp,
+		 conv->octets[0], conv->value);
 	  write(fd, &conv->octets[3], 1);
 	  write(fd, &conv->octets[2], 1);
 	  write(fd, &conv->octets[1], 1);
@@ -179,7 +232,7 @@ void		write_data(int ibase, char *str, int fd)
       if (str[i] != '\0')
 	i++;
     }
-  printf("\n\nNext line\n\n");
+  printf("\n>>------ Next line ------<<\n");
 }
 
 void		sti_instruction (int fd, char *c, int *i, int *ibase, char *str, int *ret_chck)
@@ -189,7 +242,7 @@ void		sti_instruction (int fd, char *c, int *i, int *ibase, char *str, int *ret_
   *c = 0;
   *i += 3;
   *ret_chck = 1;
-  printf(">> Instruction : sti\n");
+  printf(">> Instruction : sti (1 Octet)\n");
   if (str[*i] == ':')
     {
       *ret_chck = 0;
@@ -207,7 +260,7 @@ void		and_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_c
   *c = 0;
   *i += 3;
   *ret_chck = 1;
-  printf(">> Instruction : and\n");
+  printf(">> Instruction : and (1 Octet)\n");
   if (str[*i] == ':')
     {
       *ret_chck = 0;
@@ -225,7 +278,7 @@ void		ld_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_ch
   *c = 0;
   *i += 2;
   *ret_chck = 1;
-  printf(">> Instruction : ld\n");
+  printf(">> Instruction : ld (1 Octet)\n");
   if (str[*i] == ':')
     {
       *ret_chck = 0;
@@ -243,11 +296,12 @@ void		live_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_
   *c = 0;
   *i += 4;
   *ret_chck = 1;
-  printf(">> Instruction : live\n");
+  printf(">> Instruction : live (1 Octet)\n");
   if (str[*i] == ':')
     {
       *ret_chck = 0;
-      printf(">> Label : %s\n", &str[(*i) - 4]);
+      printf(">> Label @%d: %s\n", (int) lseek(fd, 0, SEEK_CUR),
+	     &str[(*i) - 4]);
       while (str[*i] && str[*i] != '%')
   	(*i)++;
     }
@@ -261,7 +315,7 @@ void		zjmp_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_
   *c = 0;
   *i += 4;
   *ret_chck = 0;
-  printf(">> Instruction : zjmp\n");
+  printf(">> Instruction : zjmp (1 Octet)\n");
   if (str[*i] == ':')
     {
       *ret_chck = 0;
@@ -378,15 +432,28 @@ void		write_to_file(char *str, int fd)
   write_data(ibase, str, fd);
 }
 
+void	write_magic(int fd, t_system *sys)
+{
+  char	c[4];
+
+  c[0] = 'm';
+  c[1] = 'a';
+  c[2] = 'b';
+  c[3] = 'm';
+  sys->wm = 1;
+  write(fd, &c, 4);
+  printf(">> Passphrase Wrote : **** ( 4 Octets )\n\n");
+}
+
 void		tread_line(char *buff, t_system *system, int fd)
 {
   int		ret;
 
-  ret = parse_line_cn(buff, system);
+  ret = parse_line_cn(buff, system, fd);
+  if (system->f_c == 1 && system->f_n == 1 && system->wm == 0)
+    write_magic(fd, system);
   if (ret == 0)
-    {
-      write_to_file(buff, fd);
-    }
+    write_to_file(buff, fd);
 }
 
 void		tread_file(char *path, t_system *sys)
@@ -398,7 +465,7 @@ void		tread_file(char *path, t_system *sys)
   buff = malloc(4096 * sizeof(*buff));
   memset(buff, 0, 4096);
   fd = open(path, O_RDONLY);
-  fd2 = open("champ_test.core",
+  fd2 = open("champion.core",
 	    O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU | S_IRWXG | S_IRWXO);
   if (fd != -1 && fd2 != -1)
     {
@@ -500,6 +567,9 @@ void		init(int ac, char **argv)
   i = 1;
   system = malloc(sizeof(*system));
   check_ext(ac, argv);
+  system->f_c = 0;
+  system->f_n = 0;
+  system->wm = 0;
   while (i < ac)
     {
       system->comment = 0;
