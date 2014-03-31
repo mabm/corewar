@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Mon Mar 31 10:43:47 2014 Jeremy Mediavilla
+** Last update Mon Mar 31 16:30:59 2014 Jeremy Mediavilla
 */
 
 #include <stdio.h>
@@ -36,6 +36,7 @@ union u_conv
 {
   char	octets[4];
   int	value;
+  int	fd;
 };
 
 void		affbin(unsigned n)
@@ -167,6 +168,29 @@ int		parse_line_cn(char *buff, t_system *system, int fd)
   return (ret);
 }
 
+/* void		write_reg_data(char *str, int *i, t_conv *conv, int fd) */
+/* { */
+/*   int		j; */
+/*   int		k; */
+/*   char		*tmp; */
+
+/*   j = *i; */
+/*   k = 0; */
+/*   tmp = malloc(64 * sizeof(char)); */
+/*   if (str[*i] == 'r' && '0' <= str[*i + 1] && */
+/*       str[*i + 1] <= '9') /\* REGISTRE ! *\/ */
+/*     { */
+/*       memset(tmp, 0, 64); */
+/*       while (str[j] != ',' && str[j]) */
+/* 	tmp[k++] = str[j++]; */
+/*       conv->value = atoi(tmp); */
+/*       printf(">> Registre : %s -> %x (%d) (1 Octet)\n", tmp, */
+/* 	     conv->octets[0], conv->value); */
+/*       write(fd, &conv->octets[0], 1); */
+/*       *i += 1; */
+/*     } */
+/* } */
+
 void		write_data(int ibase, char *str, int fd)
 {
   int		i;
@@ -179,20 +203,21 @@ void		write_data(int ibase, char *str, int fd)
   i = ibase;
   while (str[i])
     {
+      /* write_reg_data(str, &i, conv, fd); */
       if (str[i] == 'r' && '0' <= str[i + 1] &&
-	  str[i + 1] <= '9') /* REGISTRE ! */
-	{
-	  j = i;
-	  k = 0;
-	  memset(tmp, 0, 64);
-	  while (str[j] != ',' && str[j])
-	    tmp[k++] = str[j++];
-	  conv->value = atoi(&tmp[1]);
-	  printf(">> Registre : %s -> %x (%d) (1 Octet)\n", tmp,
-		 conv->octets[0], conv->value);
-	  write(fd, &conv->octets[0], 1);
-	  i += 1;
-	}
+      	  str[i + 1] <= '9') /* REGISTRE ! */
+      	{
+      	  j = i;
+      	  k = 0;
+      	  memset(tmp, 0, 64);
+      	  while (str[j] != ',' && str[j])
+      	    tmp[k++] = str[j++];
+      	  conv->value = atoi(&tmp[1]);
+      	  printf(">> Registre : %s -> %x (%d) (1 Octet)\n", tmp,
+      		 conv->octets[0], conv->value);
+      	  write(fd, &conv->octets[0], 1);
+      	  i += 1;
+      	}
       if (str[i] == '%') /* DIRECT */
 	{
 	  j = i;
