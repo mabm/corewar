@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Sun Mar 30 19:18:06 2014 Nicolas Ades
+** Last update Mon Mar 31 10:43:47 2014 Jeremy Mediavilla
 */
 
 #include <stdio.h>
@@ -93,30 +93,36 @@ void		parse_comment(char *buff, int k, t_system *system)
     system->comment[j++] = buff[i++];
 }
 
-void	create_header(int fd, t_system *sys, int fg)
+void		header_init1(int *j, t_system *sys, int fd, int *i)
 {
-  int	i;
-  int	j;
-  char	c;
+  char		c;
+
+  c = 0x0;
+  sys->f_n = 1;
+  *j = (int) lseek(fd, 0, SEEK_CUR);
+  write(fd, "name:", 5);
+  write(fd, sys->name, strlen(sys->name));
+  *i = (int) lseek(fd, 0, SEEK_CUR) - *j;
+  *j = 0;
+  while (*j < 200 - *i)
+    {
+      write(fd, &c, 1);
+      (*j)++;
+    }
+  printf(">> Comment wrote ( %d/200 octets, Total %d octets )\n", *i,
+	 (int) lseek(fd, 0, SEEK_CUR));
+}
+
+void		create_header(int fd, t_system *sys, int fg)
+{
+  int		i;
+  int		j;
+  char		c;
 
   i = 0;
   c = 0x0;
   if (fg == 1)
-    {
-      sys->f_n = 1;
-      j = (int) lseek(fd, 0, SEEK_CUR);
-      write(fd, "name:", 5);
-      write(fd, sys->name, strlen(sys->name));
-      i = (int) lseek(fd, 0, SEEK_CUR) - j;
-      j = 0;
-      while (j < 200 - i)
-	{
-	  write(fd, &c, 1);
-	  j++;
-	}
-      printf(">> Comment wrote ( %d/200 octets, Total %d octets )\n", i,
-	     (int) lseek(fd, 0, SEEK_CUR));
-    }
+    header_init1(&j, sys, fd, &i);
   else
     {
       sys->f_c = 1;
@@ -338,6 +344,7 @@ int		check_instruction(char *str, char *c, int *i, int *ibase, int fd)
   tab[2] = "ld";
   tab[3] = "live";
   tab[4] = "zjmp";
+  ret_chck = 0;
   which_instruction[0] = &sti_instruction;
   which_instruction[1] = &and_instruction;
   which_instruction[2] = &ld_instruction;
@@ -417,6 +424,7 @@ void		write_to_file(char *str, int fd)
   i = 0;
   cmptr_param = 0;
   ibase = 0;
+  ret_chck = 0;
   while (str[i])
     {
       ret_chck = check_instruction(str, &c, &i, &ibase, fd);
