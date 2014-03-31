@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Mar 26 13:22:43 2014 Geoffrey Merran
-** Last update Thu Mar 27 18:17:09 2014 Geoffrey Merran
+** Last update Mon Mar 31 19:18:33 2014 Geoffrey Merran
 */
 
 #ifndef XFUNCTION_
@@ -14,10 +14,12 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <unistd.h>
 # include "my.h"
 # include "my_printf.h"
 
 int	xopen(char *pathname, int flags, mode_t mode);
+int	xread(int fd, void *buf, size_t count);
 void	my_error(char *str);
 
 #endif /* XFUNCTION_ */

@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Wed Mar 26 11:40:53 2014 Nicolas Ades
-** Last update Sat Mar 29 20:44:15 2014 Geoffrey Merran
+** Last update Mon Mar 31 18:07:58 2014 Geoffrey Merran
 */
 
 #include "vm_parser.h"
@@ -95,7 +95,7 @@ int	get_cor(int i, int ac, char **av, t_champ **champ)
     {
       add_champ(champ);
       (*champ)->name = av[i];
-      (*champ)->carry = 1;
+      (*champ)->carry = 0;
     }
   else
     my_error("champ error : Invalid champion extansion\n");

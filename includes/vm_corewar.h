@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Mar 26 12:00:22 2014 Geoffrey Merran
-** Last update Sat Mar 29 19:46:41 2014 Geoffrey Merran
+** Last update Mon Mar 31 19:03:07 2014 Geoffrey Merran
 */
 
 #ifndef VM_COREWAR_
@@ -15,10 +15,12 @@
 typedef struct		s_champ
 {
   int			id;
+  int			magic;
   int			address;
   char			*name;
   char			*comment;
   int			carry;
+  int			cursor;
   char			reg[REG_NUMBER];
   struct s_champ	*next;
   struct s_champ	*prev;
