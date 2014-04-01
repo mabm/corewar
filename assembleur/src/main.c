@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Tue Apr  1 09:13:21 2014 Jeremy Mediavilla
+** Last update Tue Apr  1 16:19:47 2014 Jeremy Mediavilla
 */
 
 #include <stdio.h>
@@ -177,7 +177,7 @@ void		write_reg_data(char *str, int *i, t_conv *conv, int fd)
   j = *i;
   k = 0;
   if (str[*i] == 'r' && '0' <= str[*i + 1] &&
-      str[*i + 1] <= '9') /* REGISTRE ! */
+      str[*i + 1] <= '9')
     {
       memset(tmp, 0, 64);
       while (str[j] != ',' && str[j])
@@ -208,7 +208,7 @@ void		write_dir_data(char *str, int *i, t_conv *conv, int fd)
 
   j = *i;
   k = 0;
-  if (str[*i] == '%') /* DIRECT */
+  if (str[*i] == '%')
     {
       memset(tmp, 0, 64);
       while (str[j] != ',' && str[j])
@@ -232,7 +232,7 @@ void		write_undir_data(char *str, int *i, t_conv *conv, int fd)
 
   j = *i;
   k = 0;
-  if ('0' <= str[*i] && str[*i] <= '9' && str[*i - 1] == ',') /* INDIRECT */
+  if ('0' <= str[*i] && str[*i] <= '9' && str[*i - 1] == ',')
     {
       memset(tmp, 0, 64);
       while (str[j] != ',' && str[j] && '0' <= str[j] && str[j] <= '9')
@@ -353,18 +353,28 @@ void		zjmp_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_
   *ibase = *i;
 }
 
-int		check_instruction(char *str, char *c, int *i, int *ibase, int fd)
+char		**init_tab()
 {
-  char		*tab[5];
-  void		(*which_instruction[5])(int fd, char *c, int *i, int *ibase, char *str, int *ret_chck);
-  int		j;
-  int		ret_chck;
+  char		**tab;
 
+  tab = malloc(6 * sizeof(char *));
   tab[0] = "sti";
   tab[1] = "and";
   tab[2] = "ld";
   tab[3] = "live";
   tab[4] = "zjmp";
+  tab[5] = NULL;
+  return (tab);
+}
+
+int		check_instruction(char *str, char *c, int *i, int *ibase, int fd)
+{
+  char		**tab;
+  void		(*which_instruction[5])(int fd, char *c, int *i, int *ibase, char *str, int *ret_chck);
+  int		j;
+  int		ret_chck;
+
+  tab = init_tab();
   ret_chck = 0;
   which_instruction[0] = &sti_instruction;
   which_instruction[1] = &and_instruction;
