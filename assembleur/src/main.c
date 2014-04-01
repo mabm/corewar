@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Mon Mar 31 16:30:59 2014 Jeremy Mediavilla
+** Last update Tue Apr  1 09:13:21 2014 Jeremy Mediavilla
 */
 
 #include <stdio.h>
@@ -168,98 +168,94 @@ int		parse_line_cn(char *buff, t_system *system, int fd)
   return (ret);
 }
 
-/* void		write_reg_data(char *str, int *i, t_conv *conv, int fd) */
-/* { */
-/*   int		j; */
-/*   int		k; */
-/*   char		*tmp; */
+void		write_reg_data(char *str, int *i, t_conv *conv, int fd)
+{
+  int		j;
+  int		k;
+  char		tmp[64];
 
-/*   j = *i; */
-/*   k = 0; */
-/*   tmp = malloc(64 * sizeof(char)); */
-/*   if (str[*i] == 'r' && '0' <= str[*i + 1] && */
-/*       str[*i + 1] <= '9') /\* REGISTRE ! *\/ */
-/*     { */
-/*       memset(tmp, 0, 64); */
-/*       while (str[j] != ',' && str[j]) */
-/* 	tmp[k++] = str[j++]; */
-/*       conv->value = atoi(tmp); */
-/*       printf(">> Registre : %s -> %x (%d) (1 Octet)\n", tmp, */
-/* 	     conv->octets[0], conv->value); */
-/*       write(fd, &conv->octets[0], 1); */
-/*       *i += 1; */
-/*     } */
-/* } */
+  j = *i;
+  k = 0;
+  if (str[*i] == 'r' && '0' <= str[*i + 1] &&
+      str[*i + 1] <= '9') /* REGISTRE ! */
+    {
+      memset(tmp, 0, 64);
+      while (str[j] != ',' && str[j])
+	tmp[k++] = str[j++];
+      conv->value = atoi(&tmp[1]);
+      printf(">> Registre : %s -> %x (%d) (1 Octet)\n", tmp,
+	     conv->octets[0], conv->value);
+      write(fd, &conv->octets[0], 1);
+      *i += 1;
+    }
+}
+
+void		dir_data_condition(int fd, t_conv *conv, int flag)
+{
+  if (flag == 1)
+    conv->value = 0;
+  write(fd, &conv->octets[3], 1);
+  write(fd, &conv->octets[2], 1);
+  write(fd, &conv->octets[1], 1);
+  write(fd, &conv->octets[0], 1);  
+}
+
+void		write_dir_data(char *str, int *i, t_conv *conv, int fd)
+{
+  char		tmp[64];
+  int		j;
+  int		k;
+
+  j = *i;
+  k = 0;
+  if (str[*i] == '%') /* DIRECT */
+    {
+      memset(tmp, 0, 64);
+      while (str[j] != ',' && str[j])
+	tmp[k++] = str[j++];
+      conv->value = atoi(&tmp[1]);
+      printf(">> Direct : %s -> %x (4 Octets)\n", tmp, conv->octets[0]);
+      if (str[*i + 1] != ':')
+	dir_data_condition(fd, conv, 0);
+      else
+	dir_data_condition(fd, conv, 0);
+      while (str[*i + 1] != ',' && str[*i + 1] != '\0')
+	(*i)++;
+    }
+}
+
+void		write_undir_data(char *str, int *i, t_conv *conv, int fd)
+{
+  char		tmp[64];
+  int		j;
+  int		k;
+
+  j = *i;
+  k = 0;
+  if ('0' <= str[*i] && str[*i] <= '9' && str[*i - 1] == ',') /* INDIRECT */
+    {
+      memset(tmp, 0, 64);
+      while (str[j] != ',' && str[j] && '0' <= str[j] && str[j] <= '9')
+	tmp[k++] = str[j++];
+      conv->value = atoi(&tmp[1]);
+      printf(">> Indirect : %s -> %x (%d) (4 Octets)\n", tmp,
+	     conv->octets[0], conv->value);
+      dir_data_condition(fd, conv, 0);
+    }
+}
 
 void		write_data(int ibase, char *str, int fd)
 {
   int		i;
-  int		j;
-  char		tmp[64];
-  int		k;
   t_conv	*conv;
 
   conv = malloc(sizeof(*conv));
   i = ibase;
   while (str[i])
     {
-      /* write_reg_data(str, &i, conv, fd); */
-      if (str[i] == 'r' && '0' <= str[i + 1] &&
-      	  str[i + 1] <= '9') /* REGISTRE ! */
-      	{
-      	  j = i;
-      	  k = 0;
-      	  memset(tmp, 0, 64);
-      	  while (str[j] != ',' && str[j])
-      	    tmp[k++] = str[j++];
-      	  conv->value = atoi(&tmp[1]);
-      	  printf(">> Registre : %s -> %x (%d) (1 Octet)\n", tmp,
-      		 conv->octets[0], conv->value);
-      	  write(fd, &conv->octets[0], 1);
-      	  i += 1;
-      	}
-      if (str[i] == '%') /* DIRECT */
-	{
-	  j = i;
-	  k = 0;
-	  memset(tmp, 0, 64);
-	  while (str[j] != ',' && str[j])
-	    tmp[k++] = str[j++];
-	  conv->value = atoi(&tmp[1]);
-	  printf(">> Direct : %s -> %x (4 Octets)\n", tmp, conv->octets[0]);
-	  if (str[i + 1] != ':')
-	    {
-	      write(fd, &conv->octets[3], 1);
-	      write(fd, &conv->octets[2], 1);
-	      write(fd, &conv->octets[1], 1);
-	      write(fd, &conv->octets[0], 1);
-	    }
-	  else
-	    {
-	      conv->value = 0;
-	      write(fd, &conv->octets[3], 1);
-	      write(fd, &conv->octets[2], 1);
-	      write(fd, &conv->octets[1], 1);
-	      write(fd, &conv->octets[0], 1);
-	    }
-	  while (str[i + 1] != ',' && str[i + 1] != '\0')
-	    i++;
-	}
-      if ('0' <= str[i] && str[i] <= '9' && str[i - 1] == ',') /* INDIRECT */
-	{
-	  j = i;
-	  k = 0;
-	  memset(tmp, 0, 64);
-	  while (str[j] != ',' && str[j] && '0' <= str[j] && str[j] <= '9')
-	    tmp[k++] = str[j++];
-	  conv->value = atoi(&tmp[1]);
-	  printf(">> Indirect : %s -> %x (%d) (4 Octets)\n", tmp,
-		 conv->octets[0], conv->value);
-	  write(fd, &conv->octets[3], 1);
-	  write(fd, &conv->octets[2], 1);
-	  write(fd, &conv->octets[1], 1);
-	  write(fd, &conv->octets[0], 1);
-	}
+      write_reg_data(str, &i, conv, fd);
+      write_dir_data(str, &i, conv, fd);
+      write_undir_data(str, &i, conv, fd);
       if (str[i] != '\0')
 	i++;
     }
