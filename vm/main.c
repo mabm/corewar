@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Mar 25 16:39:29 2014 Geoffrey Merran
-** Last update Sun Mar 30 18:08:49 2014 Nicolas Ades
+** Last update Mon Mar 31 18:52:07 2014 Geoffrey Merran
 */
 
 #include "main_vm.h"
@@ -52,9 +52,10 @@ void		init_all(int ac, char **av)
   init_cycle(&cycles);
   init_arena(&arena);
   vm_pars(ac, av, &cycles, &champs);
+  init_id(&champs);
+  /* check error (nbr champ load) | mettre la bonne address de depart */
+  load_champs(&champs, arena);
   aff_champ(champs);
-  aff_arena(arena);
-  free(champs);
   free(arena);
 }
 
