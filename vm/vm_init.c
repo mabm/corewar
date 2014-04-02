@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Fri Mar 28 16:00:42 2014 Geoffrey Merran
-** Last update Mon Mar 31 18:45:08 2014 Geoffrey Merran
+** Last update Wed Apr  2 17:11:53 2014 Geoffrey Merran
 */
 
 #include "vm_init.h"
@@ -58,5 +58,33 @@ void		init_id(t_champ **champs)
 	  id++;
 	}
       tmp = tmp->next;
+    }
+}
+
+void		init_addr(t_champ **champs)
+{
+  int		i;
+  int		nb_champs;
+  int		mem_pos;
+  t_champ	*tmp;
+
+  nb_champs = get_nb_champs(*champs);
+  if (nb_champs > 4 || nb_champs < 2)
+    my_error("Champs error : You must load 2 to 4 champions only\n");
+  tmp = *champs;
+  mem_pos = 0;
+  i = 1;
+  while (tmp != NULL)
+    {
+      if (tmp->address == -1)
+	{
+	  if (i == 2 && nb_champs == 2)
+	    mem_pos += MEM_SIZE / 4;
+	  tmp->address = mem_pos;
+	}
+      i++;
+      my_printf("Starting adress of champion n°%d loaded !\n", tmp->id);
+      tmp = tmp->next;
+      mem_pos += MEM_SIZE / 4;
     }
 }
