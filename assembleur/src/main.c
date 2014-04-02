@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Tue Apr  1 16:19:47 2014 Jeremy Mediavilla
+** Last update Wed Apr  2 11:17:48 2014 Jeremy Mediavilla
 */
 
 #include <stdio.h>
@@ -262,6 +262,24 @@ void		write_data(int ibase, char *str, int fd)
   printf("\n>>------ Next line ------<<\n");
 }
 
+void		st_instruction (int fd, char *c, int *i, int *ibase, char *str, int *ret_chck)
+{
+  *c = 0x03;
+  write(fd, c, 1);
+  *c = 0;
+  *i += 2;
+  *ret_chck = 1;
+  printf(">> Instruction : sti (1 Octet)\n");
+  if (str[*i] == ':')
+    {
+      *ret_chck = 0;
+      printf(">> Label : %s\n", &str[(*i) - 4]);
+      while (str[*i] && str[*i] != '%')
+  	(*i)++;
+    }
+  *ibase = *i;
+}
+
 void		sti_instruction (int fd, char *c, int *i, int *ibase, char *str, int *ret_chck)
 {
   *c = 0x0b;
@@ -270,6 +288,24 @@ void		sti_instruction (int fd, char *c, int *i, int *ibase, char *str, int *ret_
   *i += 3;
   *ret_chck = 1;
   printf(">> Instruction : sti (1 Octet)\n");
+  if (str[*i] == ':')
+    {
+      *ret_chck = 0;
+      printf(">> Label : %s\n", &str[(*i) - 4]);
+      while (str[*i] && str[*i] != '%')
+  	(*i)++;
+    }
+  *ibase = *i;
+}
+
+void		add_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_chck)
+{
+  *c = 0x04;
+  write(fd, c, 1);
+  *c = 0;
+  *i += 3;
+  *ret_chck = 1;
+  printf(">> Instruction : and (1 Octet)\n");
   if (str[*i] == ':')
     {
       *ret_chck = 0;
@@ -304,6 +340,24 @@ void		ld_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_ch
   write(fd, c, 1);
   *c = 0;
   *i += 2;
+  *ret_chck = 1;
+  printf(">> Instruction : ld (1 Octet)\n");
+  if (str[*i] == ':')
+    {
+      *ret_chck = 0;
+      printf(">> Label : %s\n", &str[(*i) - 4]);
+      while (str[*i] && str[*i] != '%')
+  	(*i)++;
+    }
+  *ibase = *i;
+}
+
+void		sub_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_chck)
+{
+  *c = 0x05;
+  write(fd, c, 1);
+  *c = 0;
+  *i += 3;
   *ret_chck = 1;
   printf(">> Instruction : ld (1 Octet)\n");
   if (str[*i] == ':')
@@ -353,24 +407,179 @@ void		zjmp_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_
   *ibase = *i;
 }
 
+void		or_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_chck)
+{
+  *c = 0x07;
+  write(fd, c, 1);
+  *c = 0;
+  *i += 2;
+  *ret_chck = 0;
+  printf(">> Instruction : zjmp (1 Octet)\n");
+  if (str[*i] == ':')
+    {
+      *ret_chck = 0;
+      printf(">> Label : %s\n", &str[(*i) - 4]);
+      while (str[*i] && str[*i] != '%')
+  	(*i)++;
+    }
+  *ibase = *i;
+}
+
+void		xor_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_chck)
+{
+  *c = 0x08;
+  write(fd, c, 1);
+  *c = 0;
+  *i += 3;
+  *ret_chck = 0;
+  printf(">> Instruction : zjmp (1 Octet)\n");
+  if (str[*i] == ':')
+    {
+      *ret_chck = 0;
+      printf(">> Label : %s\n", &str[(*i) - 4]);
+      while (str[*i] && str[*i] != '%')
+  	(*i)++;
+    }
+  *ibase = *i;
+}
+
+void		ldi_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_chck)
+{
+  *c = 0x0a;
+  write(fd, c, 1);
+  *c = 0;
+  *i += 3;
+  *ret_chck = 0;
+  printf(">> Instruction : zjmp (1 Octet)\n");
+  if (str[*i] == ':')
+    {
+      *ret_chck = 0;
+      printf(">> Label : %s\n", &str[(*i) - 4]);
+      while (str[*i] && str[*i] != '%')
+  	(*i)++;
+    }
+  *ibase = *i;
+}
+
+void		fork_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_chck)
+{
+  *c = 0x0c;
+  write(fd, c, 1);
+  *c = 0;
+  *i += 4;
+  *ret_chck = 0;
+  printf(">> Instruction : zjmp (1 Octet)\n");
+  if (str[*i] == ':')
+    {
+      *ret_chck = 0;
+      printf(">> Label : %s\n", &str[(*i) - 4]);
+      while (str[*i] && str[*i] != '%')
+  	(*i)++;
+    }
+  *ibase = *i;
+}
+
+void		lfork_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_chck)
+{
+  *c = 0x0f;
+  write(fd, c, 1);
+  *c = 0;
+  *i += 5;
+  *ret_chck = 0;
+  printf(">> Instruction : zjmp (1 Octet)\n");
+  if (str[*i] == ':')
+    {
+      *ret_chck = 0;
+      printf(">> Label : %s\n", &str[(*i) - 4]);
+      while (str[*i] && str[*i] != '%')
+  	(*i)++;
+    }
+  *ibase = *i;
+}
+
+void		lld_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_chck)
+{
+  *c = 0x0d;
+  write(fd, c, 1);
+  *c = 0;
+  *i += 3;
+  *ret_chck = 0;
+  printf(">> Instruction : zjmp (1 Octet)\n");
+  if (str[*i] == ':')
+    {
+      *ret_chck = 0;
+      printf(">> Label : %s\n", &str[(*i) - 4]);
+      while (str[*i] && str[*i] != '%')
+  	(*i)++;
+    }
+  *ibase = *i;
+}
+
+void		lldi_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_chck)
+{
+  *c = 0x0e;
+  write(fd, c, 1);
+  *c = 0;
+  *i += 4;
+  *ret_chck = 0;
+  printf(">> Instruction : zjmp (1 Octet)\n");
+  if (str[*i] == ':')
+    {
+      *ret_chck = 0;
+      printf(">> Label : %s\n", &str[(*i) - 4]);
+      while (str[*i] && str[*i] != '%')
+  	(*i)++;
+    }
+  *ibase = *i;
+}
+
+void		aff_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_chck)
+{
+  *c = 0x10;
+  write(fd, c, 1);
+  *c = 0;
+  *i += 3;
+  *ret_chck = 0;
+  printf(">> Instruction : zjmp (1 Octet)\n");
+  if (str[*i] == ':')
+    {
+      *ret_chck = 0;
+      printf(">> Label : %s\n", &str[(*i) - 4]);
+      while (str[*i] && str[*i] != '%')
+  	(*i)++;
+    }
+  *ibase = *i;
+}
+
 char		**init_tab()
 {
   char		**tab;
 
-  tab = malloc(6 * sizeof(char *));
+  tab = malloc(17 * sizeof(char *));
   tab[0] = "sti";
   tab[1] = "and";
   tab[2] = "ld";
   tab[3] = "live";
   tab[4] = "zjmp";
-  tab[5] = NULL;
+  tab[5] = "st";
+  tab[6] = "add";
+  tab[7] = "sub";
+  tab[8] = "or";
+  tab[9] = "xor";
+  tab[10] = "ldi";
+  tab[11] = "fork";
+  tab[12] = "lld";
+  tab[13] = "lldi";
+  tab[14] = "lfork";
+  tab[15] = "aff";
+  tab[16] = NULL;
   return (tab);
 }
 
 int		check_instruction(char *str, char *c, int *i, int *ibase, int fd)
 {
   char		**tab;
-  void		(*which_instruction[5])(int fd, char *c, int *i, int *ibase, char *str, int *ret_chck);
+  void		(*which_instruction[16])(int fd, char *c, int *i, int *ibase, char *str, int *ret_chck);
   int		j;
   int		ret_chck;
 
@@ -381,13 +590,24 @@ int		check_instruction(char *str, char *c, int *i, int *ibase, int fd)
   which_instruction[2] = &ld_instruction;
   which_instruction[3] = &live_instruction;
   which_instruction[4] = &zjmp_instruction;
+  which_instruction[5] = &st_instruction;
+  which_instruction[6] = &add_instruction;
+  which_instruction[7] = &sub_instruction;
+  which_instruction[8] = &or_instruction;
+  which_instruction[9] = &xor_instruction;
+  which_instruction[10] = &ldi_instruction;
+  which_instruction[11] = &fork_instruction;
+  which_instruction[12] = &lld_instruction;
+  which_instruction[13] = &lldi_instruction;
+  which_instruction[14] = &lfork_instruction;
+  which_instruction[15] = &aff_instruction;
   j = 0;
-  while (j < 5)
+  while (j < 16)
     {
       if (strncmp(&str[*i], tab[j], strlen(tab[j])) == 0)
 	{
 	  (*which_instruction[j])(fd, c, i, ibase, str, &ret_chck);
-	  j = 5;
+	  j = 16;
 	}
       j++;
     }
