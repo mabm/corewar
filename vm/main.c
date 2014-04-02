@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Mar 25 16:39:29 2014 Geoffrey Merran
-** Last update Mon Mar 31 18:52:07 2014 Geoffrey Merran
+** Last update Wed Apr  2 12:27:55 2014 Geoffrey Merran
 */
 
 #include "main_vm.h"
@@ -17,8 +17,9 @@ void		aff_champ(t_champ *champs)
   tmp = champs;
   while (tmp != NULL)
     {
-      my_printf("id : %d\nname : %s\n", tmp->id, tmp->name);
+      my_printf("id : %d\nname : %s\n", tmp->id, tmp->header.prog_name);
       my_printf("carry : %d, adress : %d\n", tmp->carry, tmp->address);
+      my_printf("comment : %s\n", tmp->header.comment);
       tmp = tmp->next;
     }
 }
@@ -53,7 +54,7 @@ void		init_all(int ac, char **av)
   init_arena(&arena);
   vm_pars(ac, av, &cycles, &champs);
   init_id(&champs);
-  /* check error (nbr champ load) | mettre la bonne address de depart */
+  /* check error (nbr champ load) | mettre la bonne address de depart | size_champ */
   load_champs(&champs, arena);
   aff_champ(champs);
   free(arena);

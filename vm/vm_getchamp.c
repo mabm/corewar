@@ -5,37 +5,37 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Mar 26 11:51:37 2014 Geoffrey Merran
-** Last update Mon Mar 31 19:22:03 2014 Geoffrey Merran
+** Last update Wed Apr  2 12:26:30 2014 Geoffrey Merran
 */
 
 #include "vm_getchamp.h"
 
-int		fill_champ(t_champ *champ, int fd)
+void		fill_champ(t_champ *champ, int fd, unsigned char *arena)
 {
   char		*buffer;
 
   buffer = my_xmalloc(BUFFER_SIZE * sizeof(char));
   my_memset(buffer, 0, BUFFER_SIZE);
-  while (xread(fd, buffer, (BUFFER_SIZE - 1)) > 0)
+  if (xread(fd, buffer, (BUFFER_SIZE - 1)) > 0)
     {
-      my_putstr(buffer);
-      my_memset(buffer, 0, BUFFER_SIZE);
+      champ->header.magic = get_magic(buffer);
+      get_name(buffer, champ->header.prog_name);
+      get_comment(buffer, champ->header.comment);
+      free(buffer);
     }
-  free(buffer);
-  return (0);
 }
 
 void		load_champs(t_champ **champs, unsigned char *arena)
 {
   t_champ	*tmp;
   int		fd;
-  int		pos;
 
   tmp = *champs;
   while (tmp != NULL)
     {
+      my_printf("\nLoading champion n°%d\n\n", tmp->id);
       fd = xopen(tmp->name, O_RDONLY, 0);
-      pos = fill_champ(tmp, fd);
+      fill_champ(tmp, fd, arena);
       close(fd);
       tmp = tmp->next;
     }
@@ -48,10 +48,8 @@ void		create_champ(t_champ **champ)
 
   tmp = my_xmalloc(sizeof(*tmp));
   tmp->id = 0;
-  tmp->magic = 0;
   tmp->address = -1;
   tmp->name = NULL;
-  tmp->comment = NULL;
   tmp->carry = -1;
   tmp->cursor = -1;
   i = 0;
