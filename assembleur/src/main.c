@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Mon Mar 31 10:43:47 2014 Jeremy Mediavilla
+** Last update Wed Apr  2 15:01:10 2014 Joris Bertomeu
 */
 
 #include <stdio.h>
@@ -100,16 +100,15 @@ void		header_init1(int *j, t_system *sys, int fd, int *i)
   c = 0x0;
   sys->f_n = 1;
   *j = (int) lseek(fd, 0, SEEK_CUR);
-  write(fd, "name:", 5);
   write(fd, sys->name, strlen(sys->name));
   *i = (int) lseek(fd, 0, SEEK_CUR) - *j;
   *j = 0;
-  while (*j < 200 - *i)
+  while (*j < 128 - *i)
     {
       write(fd, &c, 1);
       (*j)++;
     }
-  printf(">> Comment wrote ( %d/200 octets, Total %d octets )\n", *i,
+  printf(">> Name wrote ( %d/128 octets, Total %d octets )\n", *i,
 	 (int) lseek(fd, 0, SEEK_CUR));
 }
 
@@ -127,16 +126,15 @@ void		create_header(int fd, t_system *sys, int fg)
     {
       sys->f_c = 1;
       j = (int) lseek(fd, 0, SEEK_CUR);
-      write(fd, "comment:", 8);
       write(fd, sys->comment, strlen(sys->comment));
       i = (int) lseek(fd, 0, SEEK_CUR) - j;
       j = 0;
-      while (j < 200 - i)
+      while (j < 2048 - i)
 	{
 	  write(fd, &c, 1);
 	  j++;
 	}
-      printf(">> Comment wrote ( %d/200 octets, Total %d octets )\n", i,
+      printf(">> Comment wrote ( %d/2048 octets, Total %d octets )\n", i,
 	     (int) lseek(fd, 0, SEEK_CUR));
     }
 }
@@ -177,6 +175,7 @@ void		write_data(int ibase, char *str, int fd)
 
   conv = malloc(sizeof(*conv));
   i = ibase;
+  
   while (str[i])
     {
       if (str[i] == 'r' && '0' <= str[i + 1] &&
@@ -360,6 +359,7 @@ int		check_instruction(char *str, char *c, int *i, int *ibase, int fd)
 	}
       j++;
     }
+  printf("\t\t\t\t\t\t\tRET = %d\n", ret_chck);
   return (ret_chck);
 }
 
@@ -427,7 +427,8 @@ void		write_to_file(char *str, int fd)
   ret_chck = 0;
   while (str[i])
     {
-      ret_chck = check_instruction(str, &c, &i, &ibase, fd);
+      if (ret_chck == 0)
+	ret_chck = check_instruction(str, &c, &i, &ibase, fd);
       if (str[i] == ',')
 	cmptr_param++;
       register_condition(&i, &c, &cmptr_param, str);
@@ -440,7 +441,7 @@ void		write_to_file(char *str, int fd)
   write_data(ibase, str, fd);
 }
 
-void	write_magic(int fd, t_system *sys)
+void	write_magic(int fd)
 {
   char	c[4];
 
@@ -448,7 +449,6 @@ void	write_magic(int fd, t_system *sys)
   c[1] = 'a';
   c[2] = 'b';
   c[3] = 'm';
-  sys->wm = 1;
   write(fd, &c, 4);
   printf(">> Passphrase Wrote : **** ( 4 Octets )\n\n");
 }
@@ -458,8 +458,6 @@ void		tread_line(char *buff, t_system *system, int fd)
   int		ret;
 
   ret = parse_line_cn(buff, system, fd);
-  if (system->f_c == 1 && system->f_n == 1 && system->wm == 0)
-    write_magic(fd, system);
   if (ret == 0)
     write_to_file(buff, fd);
 }
@@ -477,6 +475,7 @@ void		tread_file(char *path, t_system *sys)
 	    O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU | S_IRWXG | S_IRWXO);
   if (fd != -1 && fd2 != -1)
     {
+      write_magic(fd2);
       while ((buff = get_next_line(fd)) != NULL)
 	tread_line(buff, sys, fd2);
     }
