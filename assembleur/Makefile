@@ -6,6 +6,17 @@ RM		=	rm -f
 
 SRC		=	src/main.c				\
 			src/gnl.c				\
+			src/init.c				\
+			src/pars.c				\
+			src/aff.c				\
+			src/instruction1.c			\
+			src/instruction2.c			\
+			src/instruction3.c			\
+			src/instruction4.c			\
+			src/data.c				\
+			src/file.c				\
+			src/magic.c				\
+			src/tread.c				\
 
 SRC_LOADING	=	makefile_deco/loading.c
 
