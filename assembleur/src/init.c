@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:07:56 2014 Jeremy Mediavilla
-** Last update Wed Apr  2 15:16:51 2014 Jeremy Mediavilla
+** Last update Wed Apr  2 17:28:08 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -89,11 +89,11 @@ void		header_init1(int *j, t_system *sys, int fd, int *i)
   write(fd, sys->name, strlen(sys->name));
   *i = (int) lseek(fd, 0, SEEK_CUR) - *j;
   *j = 0;
-  while (*j < 128 - *i)
+  while (*j < PROG_NAME_LENGTH - *i)
     {
       write(fd, &c, 1);
       (*j)++;
     }
-  printf(">> Name wrote ( %d/128 octets, Total %d octets )\n", *i,
-	 (int) lseek(fd, 0, SEEK_CUR));
+  printf(">> Name wrote ( %d/%i octets, Total %d octets )\n", *i,
+	 PROG_NAME_LENGTH, (int) lseek(fd, 0, SEEK_CUR));
 }

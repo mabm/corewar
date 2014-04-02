@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Wed Apr  2 15:39:50 2014 Jeremy Mediavilla
+** Last update Wed Apr  2 17:31:16 2014 Jeremy Mediavilla
 */
 
 #include "gnl.h"
@@ -28,13 +28,13 @@ void		create_header(int fd, t_system *sys, int fg)
       write(fd, sys->comment, strlen(sys->comment));
       i = (int) lseek(fd, 0, SEEK_CUR) - j;
       j = 0;
-      while (j < 2048 - i)
+      while (j < COMMENT_LENGTH - i)
 	{
 	  write(fd, &c, 1);
 	  j++;
 	}
-      printf(">> Comment wrote ( %d/2048 octets, Total %d octets )\n", i,
-	     (int) lseek(fd, 0, SEEK_CUR));
+      printf(">> Comment wrote ( %d/%i octets, Total %d octets )\n", i,
+	     COMMENT_LENGTH, (int) lseek(fd, 0, SEEK_CUR));
     }
 }
 
