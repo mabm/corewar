@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:03:51 2014 Jeremy Mediavilla
-** Last update Wed Apr  2 15:43:01 2014 Jeremy Mediavilla
+** Last update Wed Apr  2 17:26:42 2014 Jeremy Mediavilla
 */
 
 #ifndef COREWAR_H
@@ -19,6 +19,7 @@
 #include <byteswap.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include "op.h"
 
 typedef struct s_system t_system;
 struct s_system
