@@ -5,32 +5,40 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:03:51 2014 Jeremy Mediavilla
-** Last update Wed Apr  2 15:43:01 2014 Jeremy Mediavilla
+** Last update Thu Apr  3 15:20:14 2014 Joris Bertomeu
 */
 
 #ifndef COREWAR_H
 # define COREWAR_H
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <string.h>
+# include <byteswap.h>
+# include <sys/stat.h>
+# include <sys/types.h>
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <string.h>
-#include <byteswap.h>
-#include <sys/stat.h>
-#include <sys/types.h>
+typedef struct s_labels t_labels;
+struct s_labels
+{
+  int	offset;
+  char	name[128];
+  
+};
 
 typedef struct s_system t_system;
 struct s_system
 {
-  char	***cmd_asm;
-  char	*name;
-  char	*comment;
-  int	nb_comment;
-  int	nb_name;
-  int	f_c;
-  int	f_n;
-  int	wm;
+  char		***cmd_asm;
+  char		*name;
+  char		*comment;
+  int		nb_comment;
+  int		nb_name;
+  int		f_c;
+  int		f_n;
+  int		wm;
+  t_labels	labels[128];
 };
 
 typedef union u_conv t_conv;

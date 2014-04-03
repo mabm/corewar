@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:35:59 2014 Jeremy Mediavilla
-** Last update Wed Apr  2 15:36:22 2014 Jeremy Mediavilla
+** Last update Thu Apr  3 14:21:47 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -14,6 +14,7 @@
 void	write_magic(int fd)
 {
   char	c[4];
+  t_conv	conv;
 
   c[0] = 'm';
   c[1] = 'a';
@@ -21,4 +22,6 @@ void	write_magic(int fd)
   c[3] = 'm';
   write(fd, &c, 4);
   printf(">> Passphrase Wrote : **** ( 4 Octets )\n\n");
+  conv.value = 0;
+  write(fd, &conv.octets, 4);
 }

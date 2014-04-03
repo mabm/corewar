@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Wed Apr  2 15:39:50 2014 Jeremy Mediavilla
+** Last update Thu Apr  3 14:59:02 2014 Joris Bertomeu
 */
 
 #include "gnl.h"
@@ -73,7 +73,6 @@ int		check_instruction(char *str, char *c, int *i, int *ibase, int fd)
 	}
       j++;
     }
-  printf("\t\t\t\t\t\t\tRET = %d\n", ret_chck);
   return (ret_chck);
 }
 

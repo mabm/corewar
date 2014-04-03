@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:11:09 2014 Jeremy Mediavilla
-** Last update Wed Apr  2 15:12:30 2014 Jeremy Mediavilla
+** Last update Thu Apr  3 14:28:53 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -17,8 +17,8 @@ void		parse_name(char *buff, int k, t_system *system)
   int		j;
 
   j = 0;
-  if (strlen(buff) >= 199)
-    aff_error("Name >= 199, name must be shorter\n");
+  if (strlen(buff) >= 128)
+    aff_error("Name >= 128, name must be shorter\n");
   system->name = malloc(strlen(buff) * sizeof(*system->name));
   memset(system->name, 0, strlen(buff));
   i = 2 + k + strlen(".name");
@@ -32,8 +32,8 @@ void		parse_comment(char *buff, int k, t_system *system)
   int		j;
 
   j = 0;
-  if (strlen(buff) >= 199)
-    aff_error("Comment >= 199, comment must be shorter\n");
+  if (strlen(buff) >= 2048)
+    aff_error("Comment >= 2048, comment must be shorter\n");
   system->comment = malloc(strlen(buff) * sizeof(*system->comment));
   memset(system->comment, 0, strlen(buff));
   i = 2 + k + strlen(".comment");

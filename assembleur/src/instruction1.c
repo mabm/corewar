@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:18:04 2014 Jeremy Mediavilla
-** Last update Wed Apr  2 15:20:05 2014 Jeremy Mediavilla
+** Last update Thu Apr  3 15:20:15 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -22,8 +22,8 @@ void		live_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_
   if (str[*i] == ':')
     {
       *ret_chck = 0;
-      printf(">> Label @%d: %s\n", (int) lseek(fd, 0, SEEK_CUR),
-	     &str[(*i) - 4]);
+      printf(">> Label %s\n", &str[(*i) - 4]);
+      
       while (str[*i] && str[*i] != '%')
   	(*i)++;
     }
