@@ -5,10 +5,10 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Fri Mar 21 23:44:08 2014 Joris Bertomeu
-** Last update Fri Mar 21 23:45:11 2014 Joris Bertomeu
+** Last update Wed Apr  2 15:27:33 2014 Geoffrey Merran
 */
 
-#include "../mylib/my.h"
+#include "../libmy/my.h"
 
 void	homemade_usleep()
 {

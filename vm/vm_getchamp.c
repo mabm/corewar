@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Mar 26 11:51:37 2014 Geoffrey Merran
-** Last update Wed Apr  2 12:26:30 2014 Geoffrey Merran
+** Last update Wed Apr  2 17:04:21 2014 Geoffrey Merran
 */
 
 #include "vm_getchamp.h"
@@ -13,14 +13,16 @@
 void		fill_champ(t_champ *champ, int fd, unsigned char *arena)
 {
   char		*buffer;
+  int		ret;
 
   buffer = my_xmalloc(BUFFER_SIZE * sizeof(char));
   my_memset(buffer, 0, BUFFER_SIZE);
-  if (xread(fd, buffer, (BUFFER_SIZE - 1)) > 0)
+  if ((ret = xread(fd, buffer, (BUFFER_SIZE - 1))) > 0)
     {
       champ->header.magic = get_magic(buffer);
       get_name(buffer, champ->header.prog_name);
       get_comment(buffer, champ->header.comment);
+      write_champ_in(buffer, champ->address, arena, ret);
       free(buffer);
     }
 }
@@ -62,10 +64,23 @@ void		create_champ(t_champ **champ)
   *champ = tmp;
 }
 
+int		get_nb_champs(t_champ *champs)
+{
+  t_champ	*tmp;
+  int		i;
+
+  i = 0;
+  tmp = champs;
+  while (tmp != NULL)
+    {
+      tmp = tmp->next;
+      i++;
+    }
+  return (i);
+}
+
 void	add_champ(t_champ **champ)
 {
   if ((*champ) == NULL || (*champ)->carry == 0)
-    {
-      create_champ(champ);
-    }
+    create_champ(champ);
 }

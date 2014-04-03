@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Mar 25 16:39:29 2014 Geoffrey Merran
-** Last update Wed Apr  2 12:27:55 2014 Geoffrey Merran
+** Last update Wed Apr  2 17:24:43 2014 Geoffrey Merran
 */
 
 #include "main_vm.h"
@@ -31,12 +31,12 @@ void   	aff_arena(unsigned char *arena)
   i = 0;
   while (i < MEM_SIZE)
     {
-      my_printf("%p ", arena[i]);
-      if ((i + 1) % 50  == 0)
-	my_printf("\n");
+      printf("%02X ", arena[i]);
+      if ((i + 1) % 32  == 0)
+	printf("\n");
       i++;
     }
-  my_printf("\n");
+  printf("\n");
 }
 
 /*
@@ -54,9 +54,10 @@ void		init_all(int ac, char **av)
   init_arena(&arena);
   vm_pars(ac, av, &cycles, &champs);
   init_id(&champs);
-  /* check error (nbr champ load) | mettre la bonne address de depart | size_champ */
+  init_addr(&champs);
   load_champs(&champs, arena);
-  aff_champ(champs);
+  /* aff_champ(champs); */
+  aff_arena(arena);
   free(arena);
 }
 
