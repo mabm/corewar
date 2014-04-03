@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Mar 25 16:39:29 2014 Geoffrey Merran
-** Last update Wed Apr  2 17:24:43 2014 Geoffrey Merran
+** Last update Thu Apr  3 12:47:03 2014 Geoffrey Merran
 */
 
 #include "main_vm.h"
@@ -56,7 +56,7 @@ void		init_all(int ac, char **av)
   init_id(&champs);
   init_addr(&champs);
   load_champs(&champs, arena);
-  /* aff_champ(champs); */
+  aff_champ(champs);
   aff_arena(arena);
   free(arena);
 }
