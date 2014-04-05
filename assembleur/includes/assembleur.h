@@ -5,16 +5,12 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:03:51 2014 Jeremy Mediavilla
-<<<<<<< HEAD
 ** Last update Thu Apr  3 15:20:14 2014 Joris Bertomeu
-=======
 ** Last update Wed Apr  2 17:26:42 2014 Jeremy Mediavilla
->>>>>>> b456fd4ae6f1b2a71bf1b13e461d1481bf99a7bc
 */
 
 #ifndef COREWAR_H
 # define COREWAR_H
-<<<<<<< HEAD
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -31,7 +27,6 @@ struct s_labels
   char	name[128];
   
 };
-=======
 
 #include <stdio.h>
 #include <unistd.h>
@@ -42,7 +37,6 @@ struct s_labels
 #include <sys/stat.h>
 #include <sys/types.h>
 #include "op.h"
->>>>>>> b456fd4ae6f1b2a71bf1b13e461d1481bf99a7bc
 
 typedef struct s_system t_system;
 struct s_system
