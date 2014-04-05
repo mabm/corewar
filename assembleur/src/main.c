@@ -71,6 +71,7 @@ int		check_instruction(char *str, char *c, int *i, int *ibase, int fd)
 	{
 	  (*which_instruction[j])(fd, c, i, ibase, str, &ret_chck);
 	  j = 16;
+	  printf("Hexa : %x\n", *c);
 	}
       j++;
     }

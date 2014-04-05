@@ -15,7 +15,6 @@ void		and_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_c
 {
   *c = 0x06;
   write(fd, c, 1);
-  *c = 0;
   *i += 3;
   *ret_chck = 1;
   printf(">> Instruction : and (1 Octet)\n");
@@ -33,7 +32,6 @@ void		or_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_ch
 {
   *c = 0x07;
   write(fd, c, 1);
-  *c = 0;
   *i += 2;
   *ret_chck = 0;
   printf(">> Instruction : zjmp (1 Octet)\n");
@@ -51,7 +49,6 @@ void		xor_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_c
 {
   *c = 0x08;
   write(fd, c, 1);
-  *c = 0;
   *i += 3;
   *ret_chck = 0;
   printf(">> Instruction : zjmp (1 Octet)\n");
@@ -69,7 +66,6 @@ void		zjmp_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_
 {
   *c = 0x09;
   write(fd, c, 1);
-  *c = 0;
   *i += 4;
   *ret_chck = 0;
   printf(">> Instruction : zjmp (1 Octet)\n");
@@ -87,7 +83,6 @@ void		ldi_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_c
 {
   *c = 0x0a;
   write(fd, c, 1);
-  *c = 0;
   *i += 3;
   *ret_chck = 0;
   printf(">> Instruction : zjmp (1 Octet)\n");

@@ -15,7 +15,6 @@ void		aff_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_c
 {
   *c = 0x10;
   write(fd, c, 1);
-  *c = 0;
   *i += 3;
   *ret_chck = 0;
   printf(">> Instruction : zjmp (1 Octet)\n");
