@@ -5,12 +5,18 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Mon Apr  7 16:09:38 2014 Geoffrey Merran
-** Last update Mon Apr  7 16:09:42 2014 Geoffrey Merran
+** Last update Mon Apr  7 17:00:08 2014 Geoffrey Merran
 */
 
 #include "vm_arena.h"
 
-void		execute_procs(t_proc **proc)
+void	execute_instru(t_proc *proc, unsigned char *arena)
+{
+  if (arena[proc->pc] > 0 && arena[proc->pc] <= 17)
+    
+}
+
+void		execute_procs(t_proc **proc, unsigned char *arena)
 {
   t_proc	*tmp;
 
@@ -20,7 +26,7 @@ void		execute_procs(t_proc **proc)
       if (tmp->cycle_dodo > 0)
 	tmp->cycle_dodo--;
       else
-	;
+	execute_intru(tmp, arena);
       tmp = tmp->next;
     }
 }
@@ -43,7 +49,7 @@ void		launch_battle(unsigned char *arena, t_cycles *cycles, t_champ *champs)
   init_proc(&proc, champs);
   while (cycles->current_cycle != cycles->cycle_max && !winner)
     {
-      execute_procs(&proc);
+      execute_procs(&proc, arena);
       my_printf("\rCurrent Cycle : %d | Cycle to die : %d",
 		cycles->current_cycle, cycles->cycle_to_die);
       cycles->current_cycle++;
