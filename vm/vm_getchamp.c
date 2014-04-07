@@ -5,18 +5,18 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Mar 26 11:51:37 2014 Geoffrey Merran
-** Last update Wed Apr  2 17:04:21 2014 Geoffrey Merran
+** Last update Thu Apr  3 12:43:44 2014 Geoffrey Merran
 */
 
 #include "vm_getchamp.h"
 
 void		fill_champ(t_champ *champ, int fd, unsigned char *arena)
 {
-  char		*buffer;
+  unsigned char	*buffer;
   int		ret;
 
   buffer = my_xmalloc(BUFFER_SIZE * sizeof(char));
-  my_memset(buffer, 0, BUFFER_SIZE);
+  my_memset((char *) buffer, 0, BUFFER_SIZE);
   if ((ret = xread(fd, buffer, (BUFFER_SIZE - 1))) > 0)
     {
       champ->header.magic = get_magic(buffer);
