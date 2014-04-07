@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Apr  2 10:48:31 2014 Geoffrey Merran
-** Last update Thu Apr  3 12:42:03 2014 Geoffrey Merran
+** Last update Mon Apr  7 15:28:09 2014 Geoffrey Merran
 */
 
 #include "vm_getchamp.h"
@@ -28,14 +28,29 @@ int	get_magic(unsigned char *buffer)
   return (-1);
 }
 
+int		get_size(unsigned char *buffer)
+{
+  int		i;
+  t_conv	conv;
+
+  i = 4;
+  while (i < 8)
+    {
+      conv.octet[7 - i] = buffer[i];
+      i++;
+    }
+  my_printf("Size ok !\n");
+  return (conv.integer);
+}
+
 void	get_name(unsigned char *buffer, char prog_name[])
 {
   int	i;
 
-  i = 4;
-  while (i < PROG_NAME_LENGTH + 4)
+  i = 8;
+  while (i < (PROG_NAME_LENGTH + 8))
     {
-      prog_name[i - 4] = buffer[i];
+      prog_name[i - 8] = buffer[i];
       i++;
     }
   prog_name[PROG_NAME_LENGTH] = '\0';
@@ -49,7 +64,7 @@ void	get_comment(unsigned char *buffer, char comment[])
   int	i;
   int	pos;
 
-  pos = 4 + PROG_NAME_LENGTH;
+  pos = 8 + PROG_NAME_LENGTH;
   i = pos;
   while (i < (pos + COMMENT_LENGTH))
     {
@@ -65,7 +80,7 @@ void	write_champ_in(unsigned char *buffer, int address,
 {
   int	i;
 
-  i = 4 + PROG_NAME_LENGTH + COMMENT_LENGTH;
+  i = 8 + PROG_NAME_LENGTH + COMMENT_LENGTH;
   while (i < size)
     arena[address++] = buffer[i++];
 }

@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Mar 26 11:51:37 2014 Geoffrey Merran
-** Last update Mon Apr  7 11:46:00 2014 Geoffrey Merran
+** Last update Mon Apr  7 15:07:10 2014 Geoffrey Merran
 */
 
 #include "vm_getchamp.h"
@@ -20,6 +20,7 @@ void		fill_champ(t_champ *champ, int fd, unsigned char *arena)
   if ((ret = xread(fd, buffer, (BUFFER_SIZE - 1))) > 0)
     {
       champ->header.magic = get_magic(buffer);
+      champ->header.prog_size = get_size(buffer);
       get_name(buffer, champ->header.prog_name);
       get_comment(buffer, champ->header.comment);
       write_champ_in(buffer, champ->address, arena, ret);

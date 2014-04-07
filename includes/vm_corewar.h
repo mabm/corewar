@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Mar 26 12:00:22 2014 Geoffrey Merran
-** Last update Mon Apr  7 12:17:54 2014 Geoffrey Merran
+** Last update Mon Apr  7 15:10:12 2014 Geoffrey Merran
 */
 
 #ifndef VM_COREWAR_
@@ -42,5 +42,11 @@ typedef struct	s_proc
   int		reg[REG_NUMBER];
   struct s_proc	*next;
 }		t_proc;
+
+typedef union	u_conv
+{
+  char	octet[4];
+  int	integer;
+}		t_conv;
 
 #endif /* VM_COREWAR_ */

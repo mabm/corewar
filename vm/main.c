@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Mar 25 16:39:29 2014 Geoffrey Merran
-** Last update Mon Apr  7 11:47:00 2014 Geoffrey Merran
+** Last update Mon Apr  7 15:14:04 2014 Geoffrey Merran
 */
 
 #include "main_vm.h"
@@ -18,7 +18,7 @@ void		aff_champ(t_champ *champs)
   while (tmp != NULL)
     {
       my_printf("id : %d\nname : %s\n", tmp->id, tmp->header.prog_name);
-      my_printf("carry : %d, adress : %d\n", tmp->carry, tmp->address);
+      my_printf("size : %d, adress : %d\n", tmp->header.prog_size, tmp->address);
       my_printf("comment : %s\n", tmp->header.comment);
       tmp = tmp->next;
     }
