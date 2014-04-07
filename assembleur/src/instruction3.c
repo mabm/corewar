@@ -15,7 +15,6 @@ void		sti_instruction (int fd, char *c, int *i, int *ibase, char *str, int *ret_
 {
   *c = 0x0b;
   write(fd, c, 1);
-  *c = 0;
   *i += 3;
   *ret_chck = 1;
   printf(">> Instruction : sti (1 Octet)\n");
@@ -33,7 +32,6 @@ void		fork_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_
 {
   *c = 0x0c;
   write(fd, c, 1);
-  *c = 0;
   *i += 4;
   *ret_chck = 0;
   printf(">> Instruction : zjmp (1 Octet)\n");
@@ -51,7 +49,6 @@ void		lfork_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret
 {
   *c = 0x0f;
   write(fd, c, 1);
-  *c = 0;
   *i += 5;
   *ret_chck = 0;
   printf(">> Instruction : zjmp (1 Octet)\n");
@@ -69,7 +66,6 @@ void		lld_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_c
 {
   *c = 0x0d;
   write(fd, c, 1);
-  *c = 0;
   *i += 3;
   *ret_chck = 0;
   printf(">> Instruction : zjmp (1 Octet)\n");
@@ -87,7 +83,6 @@ void		lldi_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_
 {
   *c = 0x0e;
   write(fd, c, 1);
-  *c = 0;
   *i += 4;
   *ret_chck = 0;
   printf(">> Instruction : zjmp (1 Octet)\n");
