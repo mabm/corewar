@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Mar 25 16:39:29 2014 Geoffrey Merran
-** Last update Thu Apr  3 12:47:03 2014 Geoffrey Merran
+** Last update Mon Apr  7 11:47:00 2014 Geoffrey Merran
 */
 
 #include "main_vm.h"
@@ -39,10 +39,6 @@ void   	aff_arena(unsigned char *arena)
   printf("\n");
 }
 
-/*
-** Fonctions d'affichage / debug
-*/
-
 void		init_all(int ac, char **av)
 {
   unsigned char	*arena;
@@ -57,8 +53,9 @@ void		init_all(int ac, char **av)
   init_addr(&champs);
   load_champs(&champs, arena);
   aff_champ(champs);
-  aff_arena(arena);
+  launch_battle(arena, &cycles, champs);
   free(arena);
+  free_champ(&champs);
 }
 
 int	main(int ac, char **av)

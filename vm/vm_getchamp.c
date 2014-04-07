@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Mar 26 11:51:37 2014 Geoffrey Merran
-** Last update Thu Apr  3 12:43:44 2014 Geoffrey Merran
+** Last update Mon Apr  7 11:46:00 2014 Geoffrey Merran
 */
 
 #include "vm_getchamp.h"
@@ -36,7 +36,7 @@ void		load_champs(t_champ **champs, unsigned char *arena)
   while (tmp != NULL)
     {
       my_printf("\nLoading champion n°%d\n\n", tmp->id);
-      fd = xopen(tmp->name, O_RDONLY, 0);
+      fd = xopen(tmp->path, O_RDONLY, 0);
       fill_champ(tmp, fd, arena);
       close(fd);
       tmp = tmp->next;
@@ -46,17 +46,12 @@ void		load_champs(t_champ **champs, unsigned char *arena)
 void		create_champ(t_champ **champ)
 {
   t_champ	*tmp;
-  int		i;
 
   tmp = my_xmalloc(sizeof(*tmp));
   tmp->id = 0;
   tmp->address = -1;
-  tmp->name = NULL;
+  tmp->path = NULL;
   tmp->carry = -1;
-  tmp->cursor = -1;
-  i = 0;
-  while (i < REG_NUMBER)
-    tmp->reg[i++] = 0;
   tmp->next = *champ;
   tmp->prev = NULL;
   if (*champ != NULL)

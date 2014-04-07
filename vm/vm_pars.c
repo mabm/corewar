@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Wed Mar 26 11:40:53 2014 Nicolas Ades
-** Last update Mon Mar 31 18:07:58 2014 Geoffrey Merran
+** Last update Mon Apr  7 11:45:42 2014 Geoffrey Merran
 */
 
 #include "vm_parser.h"
@@ -94,7 +94,7 @@ int	get_cor(int i, int ac, char **av, t_champ **champ)
   if (my_strcmp(&(av[i][k - 4]), ".cor") == 0)
     {
       add_champ(champ);
-      (*champ)->name = av[i];
+      (*champ)->path = av[i];
       (*champ)->carry = 0;
     }
   else
