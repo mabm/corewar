@@ -1,16 +1,14 @@
 /*
-** vm_arene.c for  in /home/nicolas/Workspace/Corewar/vm
+** vm_arena.c for vm_arena in /home/merran_g/work/c_elem/corewar
 ** 
-** Made by Nicolas Ades
-** Login   <nicolas@epitech.net>
+** Made by Geoffrey Merran
+** Login   <merran_g@epitech.net>
 ** 
-** Started on  Thu Mar 27 14:14:19 2014 Nicolas Ades
-** Last update Mon Apr  7 16:03:55 2014 Geoffrey Merran
+** Started on  Mon Apr  7 16:09:38 2014 Geoffrey Merran
+** Last update Mon Apr  7 16:09:42 2014 Geoffrey Merran
 */
 
 #include "vm_arena.h"
-
-
 
 void		execute_procs(t_proc **proc)
 {
