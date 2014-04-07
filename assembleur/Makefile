@@ -17,6 +17,11 @@ SRC		=	src/main.c				\
 			src/file.c				\
 			src/magic.c				\
 			src/tread.c				\
+			src/check_errors.c			\
+			src/error_instruction1.c		\
+			src/error_instruction2.c		\
+			src/error_instruction3.c		\
+			src/error_instruction4.c		\
 
 SRC_LOADING	=	makefile_deco/loading.c
 

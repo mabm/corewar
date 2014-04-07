@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:03:51 2014 Jeremy Mediavilla
-** Last update Mon Apr  7 11:38:47 2014 Jeremy Mediavilla
+** Last update Mon Apr  7 16:04:56 2014 Jeremy Mediavilla
 ** Last update Wed Apr  2 17:26:42 2014 Jeremy Mediavilla
 */
 
@@ -45,6 +45,7 @@ typedef struct	s_instruction
   int		i;
   int		ibase;
   char		c;
+  char		c_save;
   int		ret_chck;
   int		cmptr;
 }		t_instruction;
@@ -74,6 +75,7 @@ union u_conv
 
 /* fonctions dans init.c */
 char		**init_tab();
+char		*init_tab_char();
 void		init_cmd_asm(t_system *);
 void		init(int, char **);
 void		header_init1(int *, t_system *, int, int *);
@@ -121,9 +123,9 @@ void		write_dir_data(char *, int *, t_conv *, int);
 void		write_data(int, char *, int);
 
 /* fonctions dans file.c */
-void		register_condition(t_system *);
-void		direct_condition(t_system *);
-void		indirect_condition(t_system *);
+int		register_condition(t_system *);
+int		direct_condition(t_system *);
+int		indirect_condition(t_system *);
 void		write_to_file(char *, int);
 
 /* fonction dans magic.c */
@@ -134,10 +136,37 @@ void		tread_line(char *, t_system *, int);
 void		tread_file(char *, t_system *);
 void		tread_line_cnf_asm(t_system *, char *, int);
 
+/* fonctions dans check_errors.c */
+void		check_inst_error(int*, t_system *);
+
 /* fonctions dans main.c */
 void		create_header(int, t_system *, int);
 int		check_instruction(t_system *);
 void		check_ext(int, char **);
 int		main(int, char **);
+
+/* fonctions dans error_instruction1.c */
+void		sti_check_err(t_system *, int *);
+void		and_check_err(t_system *, int *);
+void		ld_check_err(t_system *, int *);
+void		live_check_err(t_system *, int *);
+void		zjmp_check_err(t_system *, int *);
+
+/* fonctions dans error_instruction2.c */
+void		st_check_err(t_system *, int *);
+void		add_check_err(t_system *, int *);
+void		sub_check_err(t_system *, int *);
+void		or_check_err(t_system *, int *);
+void		xor_check_err(t_system *, int *);
+
+/* fonctions dans error_instruction3.c */
+void		ldi_check_err(t_system *, int *);
+void		fork_check_err(t_system *, int *);
+void		lld_check_err(t_system *, int *);
+void		lldi_check_err(t_system *, int *);
+void		lfork_check_err(t_system *, int *);
+
+/* fonctions dans error_instruction4.c */
+void		aff_check_err(t_system *, int *);
 
 #endif /* COREWAR_H */

@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:07:56 2014 Jeremy Mediavilla
-** Last update Wed Apr  2 17:28:08 2014 Jeremy Mediavilla
+** Last update Mon Apr  7 16:10:12 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -96,4 +96,29 @@ void		header_init1(int *j, t_system *sys, int fd, int *i)
     }
   printf(">> Name wrote ( %d/%i octets, Total %d octets )\n", *i,
 	 PROG_NAME_LENGTH, (int) lseek(fd, 0, SEEK_CUR));
+}
+
+char		*init_tab_char()
+{
+  char		*tab;
+
+  tab = malloc(17 * sizeof(char));
+  tab[0] = 0x1;
+  tab[1] = 0x2;
+  tab[2] = 0x3;
+  tab[3] = 0x4;
+  tab[4] = 0x5;
+  tab[5] = 0x6;
+  tab[6] = 0x7;
+  tab[7] = 0x8;
+  tab[8] = 0x9;
+  tab[9] = 0xa;
+  tab[10] = 0xb;
+  tab[11] = 0xc;
+  tab[12] = 0xd;
+  tab[13] = 0xe;
+  tab[14] = 0xf;
+  tab[15] = 0x10;
+  tab[16] = '\0';
+  return (tab);
 }

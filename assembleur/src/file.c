@@ -5,13 +5,13 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:33:49 2014 Jeremy Mediavilla
-** Last update Mon Apr  7 16:01:40 2014 Joris Bertomeu
+** Last update Mon Apr  7 16:22:33 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
 #include "gnl.h"
 
-void		register_condition(t_system *sys)
+int		register_condition(t_system *sys)
 {
   if (sys->ins.str[sys->ins.i] == 'r' && '0' <= sys->ins.str[sys->ins.i + 1] &&
       sys->ins.str[sys->ins.i + 1] <= '9')
@@ -25,10 +25,12 @@ void		register_condition(t_system *sys)
       else if (sys->ins.cmptr == 3)
 	sys->ins.c += 0x1;
       sys->ins.i += 1;
+      return (1);
     }
+  return (0);
 }
 
-void		direct_condition(t_system *sys)
+int		direct_condition(t_system *sys)
 {
   if (sys->ins.str[sys->ins.i] == '%')
     {
@@ -43,10 +45,12 @@ void		direct_condition(t_system *sys)
       while (sys->ins.str[sys->ins.i + 1] != ',' &&
 	     sys->ins.str[sys->ins.i + 1] != '\0')
 	(sys->ins.i)++;
+      return (2);
     }
+  return (0);
 }
 
-void		indirect_condition(t_system *sys)
+int		indirect_condition(t_system *sys)
 {
   if ('0' <= sys->ins.str[sys->ins.i] && sys->ins.str[sys->ins.i] <= '9' &&
       sys->ins.str[sys->ins.i - 1] == ',')
@@ -59,13 +63,21 @@ void		indirect_condition(t_system *sys)
 	sys->ins.c += 0xC;
       else if (sys->ins.cmptr == 3)
 	sys->ins.c += 0x3;
+      return (3);
     }
+  return (0);
 }
 
 void		write_to_file(char *str, int fd)
 {
   t_system	sys;
+  int		*values;
+  int		tmp;
 
+  values = malloc(3 * sizeof(int));
+  values[0] = 0;
+  values[1] = 0;
+  values[2] = 0;
   sys.ins.fd = fd;
   sys.ins.str = str;
   sys.ins.c = 0;
@@ -78,15 +90,20 @@ void		write_to_file(char *str, int fd)
       if (sys.ins.ret_chck == 0)
 	{
 	  sys.ins.ret_chck = check_instruction(&sys);
+	  sys.ins.c_save = sys.ins.c;
 	  sys.ins.c = 0;
 	}
       if (str[sys.ins.i] == ',')
 	sys.ins.cmptr++;
-      register_condition(&sys);
-      direct_condition(&sys);
-      indirect_condition(&sys);
+      if ((tmp = register_condition(&sys)) != 0)
+	values[sys.ins.cmptr] = tmp;
+      if ((tmp = direct_condition(&sys)) != 0)
+	values[sys.ins.cmptr] = tmp;
+      if ((tmp = indirect_condition(&sys)) != 0)
+	values[sys.ins.cmptr] = tmp;
       sys.ins.i++;
     }
+  check_inst_error(values, &sys);
   if (sys.ins.ret_chck == 1)
     write(fd, &sys.ins.c, 1);
   write_data(sys.ins.ibase, str, fd);
