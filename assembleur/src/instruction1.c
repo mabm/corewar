@@ -5,94 +5,93 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:18:04 2014 Jeremy Mediavilla
-** Last update Thu Apr  3 15:20:15 2014 Joris Bertomeu
+** Last update Mon Apr  7 11:45:48 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
 #include "gnl.h"
 
-void		live_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_chck)
+void		live_instruction(t_system *sys)
 {
-  *c = 0x01;
-  write(fd, c, 1);
-  *i += 4;
-  *ret_chck = 1;
+  sys->ins.c = 0x01;
+  write(sys->ins.fd, &sys->ins.c, 1);
+  sys->ins.i += 4;
+  sys->ins.ret_chck = 1;
   printf(">> Instruction : live (1 Octet)\n");
-  if (str[*i] == ':')
+  if (sys->ins.str[sys->ins.i] == ':')
     {
-      *ret_chck = 0;
-      printf(">> Label %s\n", &str[(*i) - 4]);
-      
-      while (str[*i] && str[*i] != '%')
-  	(*i)++;
+      sys->ins.ret_chck = 0;
+      printf(">> Label %s\n", &sys->ins.str[(sys->ins.i) - 4]);
+      while (sys->ins.str[sys->ins.i] && sys->ins.str[sys->ins.i] != '%')
+  	(sys->ins.i)++;
     }
-  *ibase = *i;
+  sys->ins.ibase = sys->ins.i;
 }
 
-void		ld_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_chck)
+void		ld_instruction(t_system *sys)
 {
-  *c = 0x02;
-  write(fd, c, 1);
-  *i += 2;
-  *ret_chck = 1;
+  sys->ins.c = 0x02;
+  write(sys->ins.fd, &sys->ins.c, 1);
+  sys->ins.i += 2;
+  sys->ins.ret_chck = 1;
   printf(">> Instruction : ld (1 Octet)\n");
-  if (str[*i] == ':')
+  if (sys->ins.str[sys->ins.i] == ':')
     {
-      *ret_chck = 0;
-      printf(">> Label : %s\n", &str[(*i) - 4]);
-      while (str[*i] && str[*i] != '%')
-  	(*i)++;
+      sys->ins.ret_chck = 0;
+      printf(">> Label : %s\n", &sys->ins.str[(sys->ins.i) - 4]);
+      while (sys->ins.str[sys->ins.i] && sys->ins.str[sys->ins.i] != '%')
+  	(sys->ins.i)++;
     }
-  *ibase = *i;
+  sys->ins.ibase = sys->ins.i;
 }
 
-void		st_instruction (int fd, char *c, int *i, int *ibase, char *str, int *ret_chck)
+void		st_instruction (t_system *sys)
 {
-  *c = 0x03;
-  write(fd, c, 1);
-  *i += 2;
-  *ret_chck = 1;
+  sys->ins.c = 0x03;
+  write(sys->ins.fd, &sys->ins.c, 1);
+  sys->ins.i += 2;
+  sys->ins.ret_chck = 1;
   printf(">> Instruction : sti (1 Octet)\n");
-  if (str[*i] == ':')
+  if (sys->ins.str[sys->ins.i] == ':')
     {
-      *ret_chck = 0;
-      printf(">> Label : %s\n", &str[(*i) - 4]);
-      while (str[*i] && str[*i] != '%')
-  	(*i)++;
+      sys->ins.ret_chck = 0;
+      printf(">> Label : %s\n", &sys->ins.str[(sys->ins.i) - 4]);
+      while (sys->ins.str[sys->ins.i] && sys->ins.str[sys->ins.i] != '%')
+  	(sys->ins.i)++;
     }
-  *ibase = *i;
+  sys->ins.ibase = sys->ins.i;
 }
 
-void		add_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_chck)
+void		add_instruction(t_system *sys)
 {
-  *c = 0x04;
-  write(fd, c, 1);
-  *i += 3;
-  *ret_chck = 1;
+  sys->ins.c = 0x04;
+  write(sys->ins.fd, &sys->ins.c, 1);
+  sys->ins.i += 3;
+  sys->ins.ret_chck = 1;
   printf(">> Instruction : and (1 Octet)\n");
-  if (str[*i] == ':')
+  if (sys->ins.str[sys->ins.i] == ':')
     {
-      *ret_chck = 0;
-      printf(">> Label : %s\n", &str[(*i) - 4]);
-      while (str[*i] && str[*i] != '%')
-  	(*i)++;
+      sys->ins.ret_chck = 0;
+      printf(">> Label : %s\n", &sys->ins.str[(sys->ins.i) - 4]);
+      while (sys->ins.str[sys->ins.i] && sys->ins.str[sys->ins.i] != '%')
+  	(sys->ins.i)++;
     }
-  *ibase = *i;
+  sys->ins.ibase = sys->ins.i;
 }
 
-void		sub_instruction(int fd, char *c, int *i, int *ibase, char *str, int *ret_chck)
+void		sub_instruction(t_system *sys)
 {
-  *c = 0x05;
-  write(fd, c, 1);
-  *i += 3;
-  *ret_chck = 1;
+  sys->ins.c = 0x05;
+  write(sys->ins.fd, &sys->ins.c, 1);
+  sys->ins.i += 3;
+  sys->ins.ret_chck = 1;
   printf(">> Instruction : ld (1 Octet)\n");
-  if (str[*i] == ':')
+  if (sys->ins.str[sys->ins.i] == ':')
     {
-      *ret_chck = 0;
-      printf(">> Label : %s\n", &str[(*i) - 4]);
-      while (str[*i] && str[*i] != '%')
-  	(*i)++;
+      sys->ins.ret_chck = 0;
+      printf(">> Label : %s\n", &sys->ins.str[(sys->ins.i) - 4]);
+      while (sys->ins.str[sys->ins.i] && sys->ins.str[sys->ins.i] != '%')
+  	(sys->ins.i)++;
     }
-  *ibase = *i;
+  sys->ins.ibase = sys->ins.i;
 }

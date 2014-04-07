@@ -5,86 +5,86 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:33:49 2014 Jeremy Mediavilla
-** Last update Wed Apr  2 15:34:28 2014 Jeremy Mediavilla
+** Last update Mon Apr  7 11:45:07 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
 #include "gnl.h"
 
-void		register_condition(int *i, char *c, int *cmptr, char *str)
+void		register_condition(t_system *sys)
 {
-  if (str[*i] == 'r' && '0' <= str[*i + 1] &&
-      str[*i + 1] <= '9')
+  if (sys->ins.str[sys->ins.i] == 'r' && '0' <= sys->ins.str[sys->ins.i + 1] &&
+      sys->ins.str[sys->ins.i + 1] <= '9')
     {
-      if (*cmptr == 0)
-	*c += 0x40;
-      else if (*cmptr == 1)
-	*c += 0x10;
-      else if (*cmptr == 2)
-	*c += 0x4;
-      else if (*cmptr == 3)
-	*c += 0x1;
-      *i += 1;
+      if (sys->ins.cmptr == 0)
+	sys->ins.c += 0x40;
+      else if (sys->ins.cmptr == 1)
+	sys->ins.c += 0x10;
+      else if (sys->ins.cmptr == 2)
+	sys->ins.c += 0x4;
+      else if (sys->ins.cmptr == 3)
+	sys->ins.c += 0x1;
+      sys->ins.i += 1;
     }
 }
 
-void		direct_condition(int *i, char *c, int *cmptr, char *str)
+void		direct_condition(t_system *sys)
 {
-  if (str[*i] == '%')
+  if (sys->ins.str[sys->ins.i] == '%')
     {
-      if (*cmptr == 0)
-	*c += 0x80;
-      else if (*cmptr == 1)
-	*c += 0x20;
-      else if (*cmptr == 2)
-	*c += 0x8;
-      else if (*cmptr == 3)
-	*c += 0x2;
-      while (str[*i + 1] != ',' && str[*i + 1] != '\0')
-	(*i)++;
+      if (sys->ins.cmptr == 0)
+	sys->ins.c += 0x80;
+      else if (sys->ins.cmptr == 1)
+	sys->ins.c += 0x20;
+      else if (sys->ins.cmptr == 2)
+	sys->ins.c += 0x8;
+      else if (sys->ins.cmptr == 3)
+	sys->ins.c += 0x2;
+      while (sys->ins.str[sys->ins.i + 1] != ',' &&
+	     sys->ins.str[sys->ins.i + 1] != '\0')
+	(sys->ins.i)++;
     }
 }
 
-void		indirect_condition(int *i, char *c, int *cmptr, char *str)
+void		indirect_condition(t_system *sys)
 {
-  if ('0' <= str[*i] && str[*i] <= '9' && str[*i - 1] == ',')
+  if ('0' <= sys->ins.str[sys->ins.i] && sys->ins.str[sys->ins.i] <= '9' &&
+      sys->ins.str[sys->ins.i - 1] == ',')
     {
-      if (*cmptr == 0)
-	*c += 0xC0;
-      else if (*cmptr == 1)
-	*c += 0x30;
-      else if (*cmptr == 2)
-	*c += 0xC;
-      else if (*cmptr == 3)
-	*c += 0x3;
+      if (sys->ins.cmptr == 0)
+	sys->ins.c += 0xC0;
+      else if (sys->ins.cmptr == 1)
+	sys->ins.c += 0x30;
+      else if (sys->ins.cmptr == 2)
+	sys->ins.c += 0xC;
+      else if (sys->ins.cmptr == 3)
+	sys->ins.c += 0x3;
     }
 }
 
 void		write_to_file(char *str, int fd)
 {
-  char		c;
-  int		i;
-  int		cmptr_param;
-  int		ibase;
-  int		ret_chck;
+  t_system	sys;
 
-  c = 0;
-  i = 0;
-  cmptr_param = 0;
-  ibase = 0;
-  ret_chck = 0;
-  while (str[i])
+  sys.ins.fd = fd;
+  sys.ins.str = str;
+  sys.ins.c = 0;
+  sys.ins.i = 0;
+  sys.ins.ibase = 0;
+  sys.ins.ret_chck = 0;
+  sys.ins.cmptr = 0;
+  while (str[sys.ins.i])
     {
-      if (ret_chck == 0)
-	ret_chck = check_instruction(str, &c, &i, &ibase, fd);
-      if (str[i] == ',')
-	cmptr_param++;
-      register_condition(&i, &c, &cmptr_param, str);
-      direct_condition(&i, &c, &cmptr_param, str);
-      indirect_condition(&i, &c, &cmptr_param, str);
-      i++;
+      if (sys.ins.ret_chck == 0)
+	sys.ins.ret_chck = check_instruction(&sys);
+      if (str[sys.ins.i] == ',')
+	sys.ins.cmptr++;
+      register_condition(&sys);
+      direct_condition(&sys);
+      indirect_condition(&sys);
+      sys.ins.i++;
     }
-  if (ret_chck == 1)
-    write(fd, &c, 1);
-  write_data(ibase, str, fd);
+  if (sys.ins.ret_chck == 1)
+    write(fd, &sys.ins.c, 1);
+  write_data(sys.ins.ibase, str, fd);
 }

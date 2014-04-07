@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Thu Apr  3 14:59:02 2014 Joris Bertomeu
+** Last update Mon Apr  7 11:24:24 2014 Jeremy Mediavilla
 ** Last update Wed Apr  2 17:31:16 2014 Jeremy Mediavilla
 */
 
@@ -39,15 +39,13 @@ void		create_header(int fd, t_system *sys, int fg)
     }
 }
 
-int		check_instruction(char *str, char *c, int *i, int *ibase, int fd)
+int		check_instruction(t_system *sys)
 {
   char		**tab;
-  void		(*which_instruction[16])(int fd, char *c, int *i, int *ibase, char *str, int *ret_chck);
+  void		(*which_instruction[16])(t_system *sys);
   int		j;
-  int		ret_chck;
 
   tab = init_tab();
-  ret_chck = 0;
   which_instruction[0] = &sti_instruction;
   which_instruction[1] = &and_instruction;
   which_instruction[2] = &ld_instruction;
@@ -67,15 +65,15 @@ int		check_instruction(char *str, char *c, int *i, int *ibase, int fd)
   j = 0;
   while (j < 16)
     {
-      if (strncmp(&str[*i], tab[j], strlen(tab[j])) == 0)
+      if (strncmp(&sys->ins.str[sys->ins.i], tab[j], strlen(tab[j])) == 0)
 	{
-	  (*which_instruction[j])(fd, c, i, ibase, str, &ret_chck);
+	  (*which_instruction[j])(sys);
 	  j = 16;
-	  printf("Hexa : %x\n", *c);
+	  printf("Hexa : %x\n", sys->ins.c);
 	}
       j++;
     }
-  return (ret_chck);
+  return (sys->ins.ret_chck);
 }
 
 void		check_ext(int ac, char **argv)
