@@ -5,12 +5,12 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Apr  2 10:48:31 2014 Geoffrey Merran
-** Last update Wed Apr  2 17:08:25 2014 Geoffrey Merran
+** Last update Thu Apr  3 12:42:03 2014 Geoffrey Merran
 */
 
 #include "vm_getchamp.h"
 
-int	get_magic(char *buffer)
+int	get_magic(unsigned char *buffer)
 {
   int	i;
   int	magic;
@@ -28,7 +28,7 @@ int	get_magic(char *buffer)
   return (-1);
 }
 
-void	get_name(char *buffer, char prog_name[])
+void	get_name(unsigned char *buffer, char prog_name[])
 {
   int	i;
 
@@ -44,7 +44,7 @@ void	get_name(char *buffer, char prog_name[])
   my_printf("Name ok !\n");
 }
 
-void	get_comment(char *buffer, char comment[])
+void	get_comment(unsigned char *buffer, char comment[])
 {
   int	i;
   int	pos;
@@ -60,7 +60,8 @@ void	get_comment(char *buffer, char comment[])
   my_printf("Comment ok !\n");
 }
 
-void	write_champ_in(char *buffer, int address, unsigned char *arena, int size)
+void	write_champ_in(unsigned char *buffer, int address,
+		       unsigned char *arena, int size)
 {
   int	i;
 

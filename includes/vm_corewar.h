@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Mar 26 12:00:22 2014 Geoffrey Merran
-** Last update Wed Apr  2 11:03:30 2014 Geoffrey Merran
+** Last update Mon Apr  7 12:17:54 2014 Geoffrey Merran
 */
 
 #ifndef VM_COREWAR_
@@ -18,10 +18,8 @@ typedef struct		s_champ
   int			id;
   header_t		header;
   int			address;
-  char			*name;
+  char			*path;
   int			carry;
-  int			cursor;
-  char			reg[REG_NUMBER];
   struct s_champ	*next;
   struct s_champ	*prev;
 }			t_champ;
@@ -33,5 +31,16 @@ typedef	struct	s_cycles
   int		current_cycle;
   int		cycle_max;
 }		t_cycles;
+
+typedef struct	s_proc
+{
+  int		id;
+  int		pc;
+  int		carry;
+  int		alive;
+  int		cycle_dodo;
+  int		reg[REG_NUMBER];
+  struct s_proc	*next;
+}		t_proc;
 
 #endif /* VM_COREWAR_ */

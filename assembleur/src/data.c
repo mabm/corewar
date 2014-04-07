@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:29:01 2014 Jeremy Mediavilla
-** Last update Wed Apr  2 15:38:19 2014 Jeremy Mediavilla
+** Last update Mon Apr  7 11:45:23 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -18,7 +18,7 @@ void		dir_data_condition(int fd, t_conv *conv, int flag)
   write(fd, &conv->octets[3], 1);
   write(fd, &conv->octets[2], 1);
   write(fd, &conv->octets[1], 1);
-  write(fd, &conv->octets[0], 1);  
+  write(fd, &conv->octets[0], 1);
 }
 
 void		write_reg_data(char *str, int *i, t_conv *conv, int fd)
@@ -93,7 +93,7 @@ void		write_data(int ibase, char *str, int fd)
   t_conv	*conv;
 
   conv = malloc(sizeof(*conv));
-  i = ibase;  
+  i = ibase;
   while (str[i])
     {
       write_reg_data(str, &i, conv, fd);
