@@ -5,8 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Mon Apr  7 11:24:24 2014 Jeremy Mediavilla
-** Last update Wed Apr  2 17:31:16 2014 Jeremy Mediavilla
+** Last update Mon Apr  7 15:30:06 2014 Joris Bertomeu
 */
 
 #include "gnl.h"

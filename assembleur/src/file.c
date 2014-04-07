@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:33:49 2014 Jeremy Mediavilla
-** Last update Mon Apr  7 11:45:07 2014 Jeremy Mediavilla
+** Last update Mon Apr  7 16:01:40 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -76,7 +76,10 @@ void		write_to_file(char *str, int fd)
   while (str[sys.ins.i])
     {
       if (sys.ins.ret_chck == 0)
-	sys.ins.ret_chck = check_instruction(&sys);
+	{
+	  sys.ins.ret_chck = check_instruction(&sys);
+	  sys.ins.c = 0;
+	}
       if (str[sys.ins.i] == ',')
 	sys.ins.cmptr++;
       register_condition(&sys);
