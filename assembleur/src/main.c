@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Mon Apr  7 15:30:06 2014 Joris Bertomeu
+** Last update Mon Apr  7 16:25:11 2014 Jeremy Mediavilla
 */
 
 #include "gnl.h"
@@ -68,7 +68,6 @@ int		check_instruction(t_system *sys)
 	{
 	  (*which_instruction[j])(sys);
 	  j = 16;
-	  printf("Hexa : %x\n", sys->ins.c);
 	}
       j++;
     }

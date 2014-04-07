@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:18:04 2014 Jeremy Mediavilla
-** Last update Mon Apr  7 15:33:19 2014 Joris Bertomeu
+** Last update Mon Apr  7 16:20:50 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -20,7 +20,7 @@ void		live_instruction(t_system *sys)
   printf(">> Instruction : live (1 Octet)\n");
   if (sys->ins.str[sys->ins.i] == ':')
     {
-      sys->ins.ret_chck = 0;
+      sys->ins.ret_chck = -1;
       printf(">> Label %s\n", &sys->ins.str[(sys->ins.i) - 4]);
       while (sys->ins.str[sys->ins.i] && sys->ins.str[sys->ins.i] != '%')
   	(sys->ins.i)++;
@@ -37,7 +37,7 @@ void		ld_instruction(t_system *sys)
   printf(">> Instruction : ld (1 Octet)\n");
   if (sys->ins.str[sys->ins.i] == ':')
     {
-      sys->ins.ret_chck = 0;
+      sys->ins.ret_chck = -1;
       printf(">> Label : %s\n", &sys->ins.str[(sys->ins.i) - 4]);
       while (sys->ins.str[sys->ins.i] && sys->ins.str[sys->ins.i] != '%')
   	(sys->ins.i)++;
@@ -54,7 +54,7 @@ void		st_instruction (t_system *sys)
   printf(">> Instruction : sti (1 Octet)\n");
   if (sys->ins.str[sys->ins.i] == ':')
     {
-      sys->ins.ret_chck = 0;
+      sys->ins.ret_chck = -1;
       printf(">> Label : %s\n", &sys->ins.str[(sys->ins.i) - 4]);
       while (sys->ins.str[sys->ins.i] && sys->ins.str[sys->ins.i] != '%')
   	(sys->ins.i)++;
@@ -71,7 +71,7 @@ void		add_instruction(t_system *sys)
   printf(">> Instruction : and (1 Octet)\n");
   if (sys->ins.str[sys->ins.i] == ':')
     {
-      sys->ins.ret_chck = 0;
+      sys->ins.ret_chck = -1;
       printf(">> Label : %s\n", &sys->ins.str[(sys->ins.i) - 4]);
       while (sys->ins.str[sys->ins.i] && sys->ins.str[sys->ins.i] != '%')
   	(sys->ins.i)++;
@@ -88,7 +88,7 @@ void		sub_instruction(t_system *sys)
   printf(">> Instruction : ld (1 Octet)\n");
   if (sys->ins.str[sys->ins.i] == ':')
     {
-      sys->ins.ret_chck = 0;
+      sys->ins.ret_chck = -1;
       printf(">> Label : %s\n", &sys->ins.str[(sys->ins.i) - 4]);
       while (sys->ins.str[sys->ins.i] && sys->ins.str[sys->ins.i] != '%')
   	(sys->ins.i)++;
