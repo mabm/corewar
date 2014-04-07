@@ -5,23 +5,15 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Tue Apr  1 11:50:43 2014 Nicolas Ades
-** Last update Tue Apr  1 11:58:38 2014 Nicolas Ades
+** Last update Mon Apr  7 13:31:11 2014 Geoffrey Merran
 */
 
-#ifndef VM_ARENA_H_
-# define VM_ARENA_H_
-
-# include <string.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include "my.h"
+#ifndef VM_ARENA_
+# define VM_ARENA_
+# include "vm_corewar.h"
+# include "vm_proc.h"
 # include "my_printf.h"
-# include "op.h"
 
-void	init_battle(unsigned char *arena);
+void	launch_battle(unsigned char *arena, t_cycles *cycles, t_champ *champs);
 
-#endif /* VM_ARENA_H_ */
+#endif /* VM_ARENA_ */
