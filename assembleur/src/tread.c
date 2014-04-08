@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:39:27 2014 Jeremy Mediavilla
-** Last update Thu Apr  3 14:37:03 2014 Joris Bertomeu
+** Last update Tue Apr  8 12:01:55 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -25,7 +25,7 @@ void	second_pass(int fd, t_system *sys)
   t_conv	conv;
   unsigned int	size;
 
-  size = lseek(fd, 0, SEEK_END) - ( 4 + 4 + 2048 + 128);
+  size = lseek(fd, 0, SEEK_END) - (4 + 4 + 2048 + 128);
   conv.value = size;
   lseek(fd, 4, SEEK_SET);
   write(fd, &conv.octets[3], 1);

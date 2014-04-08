@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Mon Apr  7 15:28:07 2014 Jeremy Mediavilla
-** Last update Mon Apr  7 17:16:32 2014 Jeremy Mediavilla
+** Last update Tue Apr  8 12:01:35 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -24,7 +24,7 @@ void		st_check_err(t_system *sys, int *values)
 void		add_check_err(t_system *sys, int *values)
 {
   (void)sys;
-  if (values[0] != 1 || values[1] != 1 || valeus[2] != 1)
+  if (values[0] != 1 || values[1] != 1 || values[2] != 1)
     {
       printf("Error on \"add\" instruction : all params must be register\n");
       exit(0);
@@ -34,7 +34,7 @@ void		add_check_err(t_system *sys, int *values)
 void		sub_check_err(t_system *sys, int *values)
 {
   (void)sys;
-  if (values[0] != 1 || values[1] != 1 || valeus[2] != 1)
+  if (values[0] != 1 || values[1] != 1 || values[2] != 1)
     {
       printf("Error on \"sub\" instruction : all params must be register\n");
       exit(0);
