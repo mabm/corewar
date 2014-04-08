@@ -5,12 +5,12 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Mar 26 11:51:37 2014 Geoffrey Merran
-** Last update Mon Apr  7 15:07:10 2014 Geoffrey Merran
+** Last update Tue Apr  8 23:36:19 2014 Geoffrey Merran
 */
 
 #include "vm_getchamp.h"
 
-void		fill_champ(t_champ *champ, int fd, unsigned char *arena)
+void		fill_champ(t_champ *champ, int fd, t_arena *arena)
 {
   unsigned char	*buffer;
   int		ret;
@@ -23,12 +23,16 @@ void		fill_champ(t_champ *champ, int fd, unsigned char *arena)
       champ->header.prog_size = get_size(buffer);
       get_name(buffer, champ->header.prog_name);
       get_comment(buffer, champ->header.comment);
-      write_champ_in(buffer, champ->address, arena, ret);
+      write_champ_in(buffer, champ, arena, ret);
       free(buffer);
+      if ((ret = xread(fd, NULL, 0)) > 0)
+	my_error("Champ error : Program too big\n");
+      else
+	my_printf("Done !\n");
     }
 }
 
-void		load_champs(t_champ **champs, unsigned char *arena)
+void		load_champs(t_champ **champs, t_arena *arena)
 {
   t_champ	*tmp;
   int		fd;
@@ -52,7 +56,7 @@ void		create_champ(t_champ **champ)
   tmp->id = 0;
   tmp->address = -1;
   tmp->path = NULL;
-  tmp->carry = -1;
+  tmp->live = -1;
   tmp->next = *champ;
   tmp->prev = NULL;
   if (*champ != NULL)
@@ -77,6 +81,6 @@ int		get_nb_champs(t_champ *champs)
 
 void	add_champ(t_champ **champ)
 {
-  if ((*champ) == NULL || (*champ)->carry == 0)
+  if ((*champ) == NULL || (*champ)->live == 0)
     create_champ(champ);
 }

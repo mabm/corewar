@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 12:46:20 2014 Geoffrey Merran
-** Last update Tue Apr  8 16:10:35 2014 Geoffrey Merran
+** Last update Tue Apr  8 23:28:59 2014 Geoffrey Merran
 */
 
 #ifndef VM_INSTRUCTION_
@@ -16,24 +16,22 @@
 # include "op.h"
 # include "my.h"
 
-typedef int (*inst)(t_proc *, unsigned char *);
-
 inst	*get_instr();
-int	live(t_proc *, unsigned char *);
-int	ld(t_proc *, unsigned char *);
-int	st(t_proc *, unsigned char *);
-int	add(t_proc *, unsigned char *);
-int	sub(t_proc *, unsigned char *);
-int	and(t_proc *, unsigned char *);
-int	or(t_proc *, unsigned char *);
-int	xor(t_proc *, unsigned char *);
-int	zjmp(t_proc *, unsigned char *);
-int	ldi(t_proc *, unsigned char *);
-int	sti(t_proc *, unsigned char *);
-int	vm_fork(t_proc *, unsigned char *);
-int	lld(t_proc *, unsigned char *);
-int	lldi(t_proc *, unsigned char *);
-int	lfork(t_proc *, unsigned char *);
-int	aff(t_proc *, unsigned char *);
+int	live(t_proc *, t_arena *);
+int	ld(t_proc *, t_arena *);
+int	st(t_proc *, t_arena *);
+int	add(t_proc *, t_arena *);
+int	sub(t_proc *, t_arena *);
+int	and(t_proc *, t_arena *);
+int	or(t_proc *, t_arena *);
+int	xor(t_proc *, t_arena *);
+int	zjmp(t_proc *, t_arena *);
+int	ldi(t_proc *, t_arena *);
+int	sti(t_proc *, t_arena *);
+int	vm_fork(t_proc *, t_arena *);
+int	lld(t_proc *, t_arena *);
+int	lldi(t_proc *, t_arena *);
+int	lfork(t_proc *, t_arena *);
+int	aff(t_proc *, t_arena *);
 
 #endif /* VM_INSTRUCTION */

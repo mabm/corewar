@@ -5,55 +5,28 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Mar 25 16:39:29 2014 Geoffrey Merran
-** Last update Tue Apr  8 16:21:57 2014 Geoffrey Merran
+** Last update Tue Apr  8 23:32:54 2014 Geoffrey Merran
 */
 
 #include "main_vm.h"
 
-void		aff_champ(t_champ *champs)
-{
-  t_champ	*tmp;
-
-  tmp = champs;
-  while (tmp != NULL)
-    {
-      my_printf("id : %d\nname : %s\n", tmp->id, tmp->header.prog_name);
-      my_printf("size : %d, adress : %d\n", tmp->header.prog_size, tmp->address);
-      my_printf("comment : %s\n", tmp->header.comment);
-      tmp = tmp->next;
-    }
-}
-
-void   	aff_arena(unsigned char *arena)
-{
-  int  	i;
-
-  i = 0;
-  while (i < MEM_SIZE)
-    {
-      printf("%02X ", arena[i]);
-      if ((i + 1) % 79  == 0)
-	printf("\n");
-      i++;
-    }
-  printf("\n");
-}
-
 void		init_all(int ac, char **av)
 {
-  unsigned char	*arena;
+  t_arena	*arena;
   t_champ	*champs;
   t_cycles	cycles;
 
   champs = NULL;
+  arena = my_xmalloc(sizeof(*arena));
   init_cycle(&cycles);
-  init_arena(&arena);
+  init_arena(arena);
   vm_pars(ac, av, &cycles, &champs);
   init_id(&champs);
   init_addr(&champs);
   load_champs(&champs, arena);
-  aff_champ(champs);
   launch_battle(arena, &cycles, champs);
+  free(arena->arena);
+  free(arena->color);
   free(arena);
   free_champ(&champs);
 }
@@ -65,5 +38,5 @@ int	main(int ac, char **av)
     init_all(ac, av);
   else
     my_printf(VM_USAGE);
-  return (0);
+  return (EXIT_SUCCESS);
 }

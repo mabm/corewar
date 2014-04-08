@@ -5,32 +5,32 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 14:27:51 2014 Geoffrey Merran
-** Last update Tue Apr  8 14:29:17 2014 Geoffrey Merran
+** Last update Tue Apr  8 23:30:23 2014 Geoffrey Merran
 */
 
 #include "vm_instruction.h"
 
-int		sub(t_proc *proc, unsigned char *arena)
+int		sub(t_proc *proc, t_arena *arena)
 {
   return (1);
 }
 
-int		and(t_proc *proc, unsigned char *arena)
+int		and(t_proc *proc, t_arena *arena)
 {
   return (1);
 }
 
-int		or(t_proc *proc, unsigned char *arena)
+int		or(t_proc *proc, t_arena *arena)
 {
   return (1);
 }
 
-int		xor(t_proc *proc, unsigned char *arena)
+int		xor(t_proc *proc, t_arena *arena)
 {
   return (1);
 }
 
-int		zjmp(t_proc *proc, unsigned char *arena)
+int		zjmp(t_proc *proc, t_arena *arena)
 {
   return (1);
 }

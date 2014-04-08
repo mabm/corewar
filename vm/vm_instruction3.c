@@ -5,32 +5,32 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 14:29:40 2014 Geoffrey Merran
-** Last update Tue Apr  8 14:33:39 2014 Geoffrey Merran
+** Last update Tue Apr  8 23:30:36 2014 Geoffrey Merran
 */
 
 #include "vm_instruction.h"
 
-int		ldi(t_proc *proc, unsigned char *arena)
+int		ldi(t_proc *proc, t_arena *arena)
 {
   return (1);
 }
 
-int		sti(t_proc *proc, unsigned char *arena)
+int		sti(t_proc *proc, t_arena *arena)
 {
   return (1);
 }
 
-int		vm_fork(t_proc *proc, unsigned char *arena)
+int		vm_fork(t_proc *proc, t_arena *arena)
 {
   return (1);
 }
 
-int		lld(t_proc *proc, unsigned char *arena)
+int		lld(t_proc *proc, t_arena *arena)
 {
   return (1);
 }
 
-int		lldi(t_proc *proc, unsigned char *arena)
+int		lldi(t_proc *proc, t_arena *arena)
 {
   return (1);
 }

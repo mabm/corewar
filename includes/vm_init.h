@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Fri Mar 28 16:04:33 2014 Geoffrey Merran
-** Last update Wed Apr  2 16:13:25 2014 Geoffrey Merran
+** Last update Tue Apr  8 23:18:26 2014 Geoffrey Merran
 */
 
 #ifndef VM_INIT_
@@ -19,7 +19,7 @@
 void   	init_id(t_champ **champs);
 int    	is_id_possible(t_champ *champs, int id);
 void	init_cycle(t_cycles *cycles);
-void	init_arena(unsigned char **arena);
+void	init_arena(t_arena *arena);
 void   	init_addr(t_champ **champs);
 
 #endif /* VM_INIT_ */

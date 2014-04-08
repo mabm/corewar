@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 12:45:16 2014 Geoffrey Merran
-** Last update Tue Apr  8 16:10:25 2014 Geoffrey Merran
+** Last update Tue Apr  8 23:46:26 2014 Geoffrey Merran
 */
 
 #include "vm_instruction.h"
@@ -35,7 +35,7 @@ inst	*get_instr()
   return (instruction);
 }
 
-int		live(t_proc *proc, unsigned char *arena)
+int		live(t_proc *proc, t_arena *arena)
 {
   int		i;
   int		j;
@@ -46,27 +46,27 @@ int		live(t_proc *proc, unsigned char *arena)
   j = 0;
   while (j < 4)
     {
-      conv.octet[3 - j] = arena[i];
+      conv.octet[3 - j] = arena->arena[i];
       i = increase_pc(i, 1);
       j++;
     }
   proc->alive = conv.integer;
-  my_printf("Live : %d", conv.integer);
+  my_printf("Live : %d\n", conv.integer);
   proc->cycle_dodo = op_tab[0].nbr_cycles;
   return (4);
 }
 
-int		ld(t_proc *proc, unsigned char *arena)
+int		ld(t_proc *proc, t_arena *arena)
 {
   return (1);
 }
 
-int		st(t_proc *proc, unsigned char *arena)
+int		st(t_proc *proc, t_arena *arena)
 {
   return (1);
 }
 
-int		add(t_proc *proc, unsigned char *arena)
+int		add(t_proc *proc, t_arena *arena)
 {
   return (1);
 }
