@@ -5,10 +5,12 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Tue Apr  8 11:57:41 2014 Nicolas Ades
-** Last update Tue Apr  8 14:14:04 2014 Geoffrey Merran
+** Last update Tue Apr  8 16:25:04 2014 Geoffrey Merran
 */
 
 #include "vm_arena.h"
+
+void   	aff_arena(unsigned char *arena);
 
 int	increase_pc(int pc, int i)
 {
@@ -16,7 +18,7 @@ int	increase_pc(int pc, int i)
   return (pc);
 }
 
-void	execute_instru(t_proc *proc, unsigned char *arena, instr *instruction)
+void	execute_instru(t_proc *proc, unsigned char *arena, inst *instruction)
 {
   if (arena[proc->pc] > 0 && arena[proc->pc] <= 1)
     {
@@ -27,7 +29,7 @@ void	execute_instru(t_proc *proc, unsigned char *arena, instr *instruction)
     proc->pc = increase_pc(proc->pc, 1);
 }
 
-void		execute_procs(t_proc **proc, unsigned char *arena, instr *instruction)
+void		execute_procs(t_proc **proc, unsigned char *arena, inst *instruction)
 {
   t_proc	*tmp;
 
@@ -63,7 +65,7 @@ void		launch_battle(unsigned char *arena, t_cycles *cycles, t_champ *champs)
 {
   t_proc	*proc;
   int		winner;
-  instr		*instruction;
+  inst		*instruction;
 
   winner = 0;
   init_proc(&proc, champs);
@@ -71,8 +73,10 @@ void		launch_battle(unsigned char *arena, t_cycles *cycles, t_champ *champs)
   while (cycles->current_cycle != (cycles->cycle_max + 1) && !winner)
     {
       execute_procs(&proc, arena, instruction);
-      my_printf("\rCurrent Cycle : %d | Cycle to die : %d",
-		cycles->current_cycle, cycles->cycle_to_die);
+      clear_term();
+      my_printf("Current Cycle : %d | Cycle to die : %d\n",
+      		cycles->current_cycle, cycles->cycle_to_die);
+      /* aff_arena(arena); */
       cycles->current_cycle++;
       winner = is_winner(proc, champs, cycles);
     }

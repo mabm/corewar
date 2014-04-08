@@ -5,7 +5,7 @@
 ## Login   <merran_g@epitech.net>
 ## 
 ## Started on  Mon Oct 21 13:28:05 2013 Geoffrey Merran
-## Last update Tue Apr  8 14:32:39 2014 Geoffrey Merran
+## Last update Tue Apr  8 16:14:09 2014 Geoffrey Merran
 ##
 
 RM	= rm -f
@@ -33,12 +33,13 @@ SRC	= main.c  \
 	vm_proc.c \
 	op.c \
 	my_free.c \
+	term_fct.c \
 	xfunction.c
 
 all:		libs $(NAME)
 
 $(NAME):	$(OBJ)
-	$(CC) -o $(NAME) $(OBJ) -lmy -L$(LIB)
+	$(CC) -o $(NAME) $(OBJ) -lmy -L$(LIB) -lncurses
 
 libs:
 	make -C $(LIB)

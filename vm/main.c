@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Mar 25 16:39:29 2014 Geoffrey Merran
-** Last update Mon Apr  7 15:14:04 2014 Geoffrey Merran
+** Last update Tue Apr  8 16:21:57 2014 Geoffrey Merran
 */
 
 #include "main_vm.h"
@@ -32,7 +32,7 @@ void   	aff_arena(unsigned char *arena)
   while (i < MEM_SIZE)
     {
       printf("%02X ", arena[i]);
-      if ((i + 1) % 32  == 0)
+      if ((i + 1) % 79  == 0)
 	printf("\n");
       i++;
     }
@@ -60,6 +60,7 @@ void		init_all(int ac, char **av)
 
 int	main(int ac, char **av)
 {
+  xtgetent(NULL, "xterm");
   if (ac > 1)
     init_all(ac, av);
   else

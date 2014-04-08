@@ -5,14 +5,14 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 12:45:16 2014 Geoffrey Merran
-** Last update Tue Apr  8 14:33:20 2014 Geoffrey Merran
+** Last update Tue Apr  8 16:10:25 2014 Geoffrey Merran
 */
 
 #include "vm_instruction.h"
 
-instr	*get_instr()
+inst	*get_instr()
 {
-  instr	*instruction;
+  inst	*instruction;
 
   instruction = my_xmalloc(17 * sizeof(*instruction));
   instruction[0] = live;
@@ -51,6 +51,7 @@ int		live(t_proc *proc, unsigned char *arena)
       j++;
     }
   proc->alive = conv.integer;
+  my_printf("Live : %d", conv.integer);
   proc->cycle_dodo = op_tab[0].nbr_cycles;
   return (4);
 }

@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 12:46:20 2014 Geoffrey Merran
-** Last update Tue Apr  8 14:34:50 2014 Geoffrey Merran
+** Last update Tue Apr  8 16:10:35 2014 Geoffrey Merran
 */
 
 #ifndef VM_INSTRUCTION_
@@ -16,9 +16,9 @@
 # include "op.h"
 # include "my.h"
 
-typedef int (*instr)(t_proc *, unsigned char *);
+typedef int (*inst)(t_proc *, unsigned char *);
 
-instr	*get_instr();
+inst	*get_instr();
 int	live(t_proc *, unsigned char *);
 int	ld(t_proc *, unsigned char *);
 int	st(t_proc *, unsigned char *);

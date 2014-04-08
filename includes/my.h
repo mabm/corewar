@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 **
 ** Started on  Thu Oct 10 12:00:24 2013 Geoffrey Merran
-** Last update Fri Mar 28 16:26:37 2014 Geoffrey Merran
+** Last update Tue Apr  8 16:08:36 2014 Geoffrey Merran
 */
 
 #ifndef MY_
@@ -18,7 +18,7 @@ int			my_swap(int *a, int *b);
 int			my_putstr(char *str);
 int			my_strlen(char *str);
 int			my_getnbr(char *str);
-void			my_sort_int_tab(int *tab, int size);
+void			my_sort_int_tab(int *, int size);
 int			my_power_rec(int nb, int power);
 int			my_square_root(int nb);
 int			my_is_prime(int nombre);
@@ -43,7 +43,7 @@ char			*my_strncat(char *dest, char *src, int nb);
 int			my_strlcat(char *dest, char *src, int size);
 char			**my_str_to_wordtab(char *str);
 char			**my_strd_to_wordtab(char *str, char *delim);
-int			my_show_wordtab(char **tab);
+int			my_show_wordtab(char **);
 char			*my_convert_base(char *nbr, char *base_from, char *base_to);
 int			my_putnbr_base(int nb, char *base);
 int			my_getnbr_base(char *str, char *base);
