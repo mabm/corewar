@@ -5,7 +5,7 @@
 ## Login   <merran_g@epitech.net>
 ## 
 ## Started on  Mon Oct 21 13:28:05 2013 Geoffrey Merran
-## Last update Mon Apr  7 13:28:19 2014 Geoffrey Merran
+## Last update Tue Apr  8 12:55:31 2014 Geoffrey Merran
 ##
 
 RM	= rm -f
@@ -26,6 +26,7 @@ SRC	= main.c  \
 	vm_init.c \
 	vm_getchamp.c vm_getchamp2.c \
 	vm_arena.c \
+	vm_instruction.c \
 	vm_proc.c \
 	my_free.c \
 	xfunction.c

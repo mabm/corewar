@@ -5,14 +5,14 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Nov  6 00:17:51 2013 Geoffrey Merran
-** Last update Sun Nov 17 17:53:20 2013 Geoffrey Merran
+** Last update Tue Apr  8 12:47:46 2014 Geoffrey Merran
 */
 
 #ifndef MY_PRINTF_
 # define MY_PRINTF_
 # define NB_FLAGS 14
 # define FLAG_N 11
-#include <stdarg.h>
+# include <stdarg.h>
 
 struct		s_count
 {
