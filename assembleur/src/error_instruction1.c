@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Mon Apr  7 15:26:21 2014 Jeremy Mediavilla
-** Last update Mon Apr  7 17:15:33 2014 Jeremy Mediavilla
+** Last update Tue Apr  8 12:21:30 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -19,9 +19,9 @@ void		sti_check_err(t_system *sys, int *values)
       printf("Error on \"sti\" instruction : first param is not a register\n");
       exit(0);
     }
-  if (values[1] == 1 || values[2] == 1)
+  if (values[2] == 0)
     {
-      printf("Error on \"sti\" instruction : wrong param\n");
+      printf("Error on \"sti\" instruction : wrong number of params\n");
       exit(0);
     }
 }
@@ -29,6 +29,11 @@ void		sti_check_err(t_system *sys, int *values)
 void		and_check_err(t_system *sys, int *values)
 {
   (void)sys;
+  if (values[2] == 0)
+    {
+      printf("Error on \"and\" instruction : wrong numbe of param\n");
+      exit(0);
+    }
   if (values[2] != 1)
     {
       printf("Error on \"and\" instruction : last param is not a register\n");
@@ -65,7 +70,7 @@ void		zjmp_check_err(t_system *sys, int *values)
       printf("Error on \"zjmp\" instruction : too many param\n");
       exit(0);
     }
-  if (values[0] != 1 || values[0] != 2)
+  if (values[0] != 2 || values[0] != 3)
     {
       printf("Error on \"zjmp\" instruction : first param is not an index\n");
       exit(0);
