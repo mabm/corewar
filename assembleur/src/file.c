@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:33:49 2014 Jeremy Mediavilla
-** Last update Wed Apr  9 17:25:35 2014 Joris Bertomeu
+** Last update Wed Apr  9 17:59:39 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -69,9 +69,9 @@ int		indirect_condition(t_system *sys)
   return (0);
 }
 
-void		write_to_file(char *str, int fd, int line)
+void		write_to_file(char *str, int fd, int line, t_system *sys)
 {
-  t_system	sys;
+  /* t_system	sys; */
   int		*values;
   int		tmp;
 
@@ -79,34 +79,36 @@ void		write_to_file(char *str, int fd, int line)
   values[0] = 0;
   values[1] = 0;
   values[2] = 0;
-  sys.cl = 0;
-  sys.ins.fd = fd;
-  sys.ins.str = str;
-  sys.ins.c = 0;
-  sys.ins.i = 0;
-  sys.ins.ibase = 0;
-  sys.ins.ret_chck = 0;
-  sys.ins.cmptr = 0;
-  while (str[sys.ins.i])
+  sys->ins.fd = fd;
+  sys->ins.str = str;
+  /* sys.cl = 0; */
+  /* sys.ins.fd = fd; */
+  /* sys.ins.str = str; */
+  /* sys.ins.c = 0; */
+  /* sys.ins.i = 0; */
+  /* sys.ins.ibase = 0; */
+  /* sys.ins.ret_chck = 0; */
+  /* sys.ins.cmptr = 0; */
+  while (str[sys->ins.i])
     {
-      if (sys.ins.ret_chck == 0)
+      if (sys->ins.ret_chck == 0)
 	{
-	  sys.ins.ret_chck = check_instruction(&sys);
-	  sys.ins.c_save = sys.ins.c;
-	  sys.ins.c = 0;
+	  sys->ins.ret_chck = check_instruction(sys);
+	  sys->ins.c_save = sys->ins.c;
+	  sys->ins.c = 0;
 	}
-      if (str[sys.ins.i] == ',')
-	sys.ins.cmptr++;
-      if ((tmp = register_condition(&sys)) != 0)
-	values[sys.ins.cmptr] = tmp;
-      if ((tmp = direct_condition(&sys)) != 0)
-	values[sys.ins.cmptr] = tmp;
-      if ((tmp = indirect_condition(&sys)) != 0)
-	values[sys.ins.cmptr] = tmp;
-      sys.ins.i++;
+      if (str[sys->ins.i] == ',')
+	sys->ins.cmptr++;
+      if ((tmp = register_condition(sys)) != 0)
+	values[sys->ins.cmptr] = tmp;
+      if ((tmp = direct_condition(sys)) != 0)
+	values[sys->ins.cmptr] = tmp;
+      if ((tmp = indirect_condition(sys)) != 0)
+	values[sys->ins.cmptr] = tmp;
+      sys->ins.i++;
     }
-  check_inst_error(values, &sys);
-  if (sys.ins.ret_chck == 1)
-    write(fd, &sys.ins.c, 1);
-  write_data(sys.ins.ibase, str, fd, line);
+  check_inst_error(values, sys);
+  if (sys->ins.ret_chck == 1)
+    write(fd, &sys->ins.c, 1);
+  write_data(sys->ins.ibase, str, fd, line);
 }

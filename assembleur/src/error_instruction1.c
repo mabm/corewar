@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Mon Apr  7 15:26:21 2014 Jeremy Mediavilla
-** Last update Wed Apr  9 17:06:35 2014 Jeremy Mediavilla
+** Last update Wed Apr  9 17:49:25 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -54,7 +54,16 @@ void		ld_check_err(t_system *sys, int *values)
 void		live_check_err(t_system *sys, int *values)
 {
   (void)sys;
-  (void)values;
+  if (values[1] != 0 || values[0] == 0)
+    {
+      printf("Error on \"live\" instruction : worng number of param\n");
+      exit(0);
+    }
+  if (values[0] == 1)
+    {
+      printf("Error on \"live\" instruction : first param must be an index\n");
+      exit(0);
+    }
 }
 
 void		zjmp_check_err(t_system *sys, int *values)
