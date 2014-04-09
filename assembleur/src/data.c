@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:29:01 2014 Jeremy Mediavilla
-** Last update Mon Apr  7 11:45:23 2014 Jeremy Mediavilla
+** Last update Tue Apr  8 23:46:42 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -39,7 +39,7 @@ void		write_reg_data(char *str, int *i, t_conv *conv, int fd)
       printf(">> Registre : %s -> %x (%d) (1 Octet)\n", tmp,
 	     conv->octets[0], conv->value);
       write(fd, &conv->octets[0], 1);
-      *i += 1;
+      *i = j;
     }
 }
 
@@ -51,7 +51,7 @@ void		write_undir_data(char *str, int *i, t_conv *conv, int fd)
 
   j = *i;
   k = 0;
-  if ('0' <= str[*i] && str[*i] <= '9' && str[*i - 1] == ',')
+  if ('0' <= str[*i] && str[*i] <= '9')
     {
       memset(tmp, 0, 64);
       while (str[j] != ',' && str[j] && '0' <= str[j] && str[j] <= '9')
@@ -60,6 +60,8 @@ void		write_undir_data(char *str, int *i, t_conv *conv, int fd)
       printf(">> Indirect : %s -> %x (%d) (4 Octets)\n", tmp,
 	     conv->octets[0], conv->value);
       dir_data_condition(fd, conv, 0);
+      while (str[*i] != ',' && str[*i])
+	*i += 1;
     }
 }
 
@@ -82,12 +84,12 @@ void		write_dir_data(char *str, int *i, t_conv *conv, int fd)
 	dir_data_condition(fd, conv, 0);
       else
 	dir_data_condition(fd, conv, 0);
-      while (str[*i + 1] != ',' && str[*i + 1] != '\0')
+      while (str[*i] != ',' && str[*i] != '\0')
 	(*i)++;
     }
 }
 
-void		write_data(int ibase, char *str, int fd)
+void		write_data(int ibase, char *str, int fd, int line)
 {
   int		i;
   t_conv	*conv;
@@ -102,5 +104,5 @@ void		write_data(int ibase, char *str, int fd)
       if (str[i] != '\0')
 	i++;
     }
-  printf("\n>>------ Next line ------<<\n");
+  printf("\n>> Line %d\n\n", line + 2);
 }
