@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Mar 26 12:00:22 2014 Geoffrey Merran
-** Last update Wed Apr  9 17:29:07 2014 Geoffrey Merran
+** Last update Wed Apr  9 18:40:01 2014 Geoffrey Merran
 */
 
 #ifndef VM_COREWAR_
@@ -57,6 +57,12 @@ typedef union	u_conv
   char	octet[4];
   int	integer;
 }		t_conv;
+
+typedef struct	s_fighter
+{
+  t_champ	*champs;
+  t_proc	*procs;
+}		t_fighter;
 
 typedef int (*inst)(t_proc *, t_arena *);
 

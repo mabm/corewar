@@ -5,7 +5,7 @@
 ## Login   <merran_g@epitech.net>
 ## 
 ## Started on  Mon Oct 21 13:28:05 2013 Geoffrey Merran
-## Last update Wed Apr  9 15:26:57 2014 Geoffrey Merran
+## Last update Wed Apr  9 19:06:59 2014 Geoffrey Merran
 ##
 
 RM	= rm -f
@@ -31,7 +31,7 @@ SRC	= main.c  \
 	vm_instruction3.c \
 	vm_instruction4.c \
 	vm_proc.c \
-	aff.c \
+	aff.c aff2.c \
 	op.c \
 	my_free.c \
 	xfunction.c \

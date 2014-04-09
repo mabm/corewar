@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 12:45:16 2014 Geoffrey Merran
-** Last update Wed Apr  9 15:05:25 2014 Geoffrey Merran
+** Last update Wed Apr  9 19:29:58 2014 Geoffrey Merran
 */
 
 #include "vm_instruction.h"
@@ -58,21 +58,21 @@ int		live(t_proc *proc, t_arena *arena)
 
 int		ld(t_proc *proc, t_arena *arena)
 {
-  (void) proc;
   (void) arena;
+  proc->cycle_dodo = op_tab[1].nbr_cycles;
   return (1);
 }
 
 int		st(t_proc *proc, t_arena *arena)
 {
-  (void) proc;
   (void) arena;
+  proc->cycle_dodo = op_tab[2].nbr_cycles;
   return (1);
 }
 
 int		add(t_proc *proc, t_arena *arena)
 {
-  (void) proc;
   (void) arena;
+  proc->cycle_dodo = op_tab[3].nbr_cycles;
   return (1);
 }
