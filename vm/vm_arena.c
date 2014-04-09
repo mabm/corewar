@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Tue Apr  8 11:57:41 2014 Nicolas Ades
-** Last update Wed Apr  9 15:00:20 2014 Geoffrey Merran
+** Last update Wed Apr  9 22:55:01 2014 Geoffrey Merran
 */
 
 #include "vm_arena.h"
@@ -53,8 +53,7 @@ int		is_winner(t_proc *proc, t_champ *champ, t_cycles *cycles)
       while (tmp != NULL)
 	{
 	  if (tmp->alive == 0)
-	    my_printf("mort\n");
-	  /* suppr l'elem tmp */
+	    del_proc(tmp);
 	  tmp_ch = champ;
 	  while (tmp_ch != NULL)
 	    {
@@ -65,7 +64,7 @@ int		is_winner(t_proc *proc, t_champ *champ, t_cycles *cycles)
 	  tmp = tmp->next;
 	}
       if (one_winner(proc, champ))
-	return (1);
+      	return (1);
       cycles->cycle_to_die -= CYCLE_DELTA;
     }
   return (0);
@@ -73,24 +72,25 @@ int		is_winner(t_proc *proc, t_champ *champ, t_cycles *cycles)
 
 void		launch_battle(t_arena *arena, t_cycles *cycles, t_champ *champs)
 {
-  t_proc	*proc;
+  t_fighter	fighters;
   t_win		win;
   int		winner;
   inst		*instruction;
 
   winner = 0;
-  init_proc(&proc, champs);
+  fighters.champs = champs;
+  init_proc(&fighters.procs, fighters.champs);
   instruction = get_instr();
   init_window(&win);
+  init_color(&win, fighters.champs);
+  aff_champions(&win, fighters.champs);
   while (cycles->current_cycle != (cycles->cycle_max + 1) && !winner)
     {
-      execute_procs(&proc, arena, instruction);
-      aff_window(&win, arena, proc, cycles);
+      execute_procs(&fighters.procs, arena, instruction);
+      aff_window(&win, arena, &fighters, cycles);
       cycles->current_cycle++;
-      winner = is_winner(proc, champs, cycles);
+      winner = is_winner(fighters.procs, fighters.champs, cycles);
     }
-  TTF_CloseFont(win.police);
-  TTF_Quit();
-  SDL_Quit();
-  free(instruction);
+  who_win(champs);
+  free_battle(instruction, &win, &fighters.procs);
 }

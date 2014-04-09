@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Mar 26 11:52:31 2014 Geoffrey Merran
-** Last update Tue Apr  8 23:37:39 2014 Geoffrey Merran
+** Last update Wed Apr  9 22:14:37 2014 Geoffrey Merran
 */
 
 #ifndef VM_GETCHAMP_
@@ -15,6 +15,7 @@
 # include "vm_corewar.h"
 
 void	add_champ(t_champ **champ);
+void   	create_champ(t_champ **champ);
 void	load_champs(t_champ **champs, t_arena *arena);
 void	fill_champ(t_champ *champ, int fd, t_arena *arena);
 void	write_champ_in(unsigned char *, t_champ *, t_arena *arena, int);

@@ -5,7 +5,7 @@
 ## Login   <merran_g@epitech.net>
 ## 
 ## Started on  Mon Oct 21 09:58:36 2013 Geoffrey Merran
-## Last update Mon Mar  3 15:34:21 2014 Geoffrey Merran
+## Last update Wed Apr  9 16:07:21 2014 Geoffrey Merran
 ##
 
 RM=		rm -f
@@ -67,6 +67,7 @@ SRC=		my_putchar.c \
 		my_memset.c \
 		my_realloc.c \
 		my_puterr.c \
+		conv_itc.c \
 
 OBJ=		$(SRC:.c=.o)
 

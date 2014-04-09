@@ -5,12 +5,13 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Mar 26 12:00:22 2014 Geoffrey Merran
-** Last update Wed Apr  9 14:46:47 2014 Geoffrey Merran
+** Last update Wed Apr  9 18:40:01 2014 Geoffrey Merran
 */
 
 #ifndef VM_COREWAR_
 # define VM_COREWAR_
 # define MAGIC_NUMBER 413
+# include <SDL/SDL.h>
 # include "op.h"
 
 typedef struct	s_arena
@@ -26,6 +27,7 @@ typedef struct		s_champ
   int			address;
   char			*path;
   int			live;
+  Uint32		color;
   struct s_champ	*next;
   struct s_champ	*prev;
 }			t_champ;
@@ -47,6 +49,7 @@ typedef struct	s_proc
   int		cycle_dodo;
   int		reg[REG_NUMBER];
   struct s_proc	*next;
+  struct s_proc	*prev;
 }		t_proc;
 
 typedef union	u_conv
@@ -54,6 +57,12 @@ typedef union	u_conv
   char	octet[4];
   int	integer;
 }		t_conv;
+
+typedef struct	s_fighter
+{
+  t_champ	*champs;
+  t_proc	*procs;
+}		t_fighter;
 
 typedef int (*inst)(t_proc *, t_arena *);
 

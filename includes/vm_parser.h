@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Wed Mar 26 11:51:33 2014 Nicolas Ades
-** Last update Sat Mar 29 20:12:35 2014 Geoffrey Merran
+** Last update Wed Apr  9 22:15:21 2014 Geoffrey Merran
 */
 
 #ifndef VM_PARSER_H_
@@ -22,6 +22,10 @@
 # include "vm_corewar.h"
 # include "vm_getchamp.h"
 
+int	dump_opt(int i, int ac, char **av, t_cycles *cycles);
+int	a_opt(int i, int ac, char **av, t_champ **champ);
+int	n_opt(int i, int ac, char **av, t_champ **champ);
+int	get_cor(int i, int ac, char **av, t_champ **champ);
 void	vm_pars(int ac, char **av, t_cycles *cycles, t_champ **champs);
 
 #endif /* VM_PARSER_H_ */
