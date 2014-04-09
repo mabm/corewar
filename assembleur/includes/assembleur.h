@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:03:51 2014 Jeremy Mediavilla
-** Last update Tue Apr  8 23:37:46 2014 Joris Bertomeu
+** Last update Wed Apr  9 17:56:07 2014 Jeremy Mediavilla
 ** Last update Wed Apr  2 17:26:42 2014 Jeremy Mediavilla
 */
 
@@ -24,8 +24,7 @@ typedef struct s_labels t_labels;
 struct s_labels
 {
   int	offset;
-  char	name[128];
-  
+  char	*name;
 };
 
 #include <stdio.h>
@@ -63,6 +62,7 @@ struct s_system
   int		wm;
   t_labels	labels[128];
   t_instruction	ins;
+  int		cl;
 };
 
 typedef union u_conv t_conv;
@@ -126,7 +126,7 @@ void		write_data(int, char *, int, int);
 int		register_condition(t_system *);
 int		direct_condition(t_system *);
 int		indirect_condition(t_system *);
-void		write_to_file(char *, int, int);
+void		write_to_file(char *, int, int, t_system *);
 
 /* fonction dans magic.c */
 void		write_magic(int);

@@ -1,11 +1,11 @@
 /*
-** main.c for main in /home/merran_g/work/c_elem/corewar/vm
+** main.c for  in /home/nicolas/Workspace/Corewar
 ** 
-** Made by Geoffrey Merran
-** Login   <merran_g@epitech.net>
+** Made by Nicolas Ades
+** Login   <nicolas@epitech.net>
 ** 
-** Started on  Tue Mar 25 16:39:29 2014 Geoffrey Merran
-** Last update Wed Apr  9 15:27:18 2014 Geoffrey Merran
+** Started on  Wed Apr  9 15:44:53 2014 Nicolas Ades
+** Last update Wed Apr  9 15:44:56 2014 Nicolas Ades
 */
 
 #include "main_vm.h"

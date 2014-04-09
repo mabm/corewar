@@ -1,11 +1,11 @@
 /*
-** vm_arena.h for  in /home/nicolas/Workspace/Corewar/includes
+** vm_arena.h for vm_arena in /home/merran_g/work/c_elem/corewar
 ** 
-** Made by Nicolas Ades
-** Login   <nicolas@epitech.net>
+** Made by Geoffrey Merran
+** Login   <merran_g@epitech.net>
 ** 
-** Started on  Tue Apr  1 11:50:43 2014 Nicolas Ades
-** Last update Wed Apr  9 18:00:22 2014 Geoffrey Merran
+** Started on  Wed Apr  9 18:03:23 2014 Geoffrey Merran
+** Last update Wed Apr  9 18:03:25 2014 Geoffrey Merran
 */
 
 #ifndef VM_ARENA_

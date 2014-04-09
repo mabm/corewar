@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:39:27 2014 Jeremy Mediavilla
-** Last update Tue Apr  8 23:36:58 2014 Joris Bertomeu
+** Last update Wed Apr  9 17:55:02 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -17,7 +17,7 @@ void		tread_line(char *buff, t_system *system, int fd, int line)
 
   ret = parse_line_cn(buff, system, fd);
   if (ret == 0)
-    write_to_file(buff, fd, line);
+    write_to_file(buff, fd, line, system);
 }
 
 void	second_pass(int fd, t_system *sys)

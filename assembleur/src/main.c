@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Wed Apr  9 14:51:15 2014 Jeremy Mediavilla
+** Last update Wed Apr  9 17:32:38 2014 Joris Bertomeu
 */
 
 #include "gnl.h"
@@ -17,7 +17,9 @@ int		get_inst_len(char *str)
 
   i = 0;
   while (str[i] && str[i] != ' ')
-    i++;
+    {
+      i++;
+    }
   return (i);
 }
 
@@ -48,12 +50,51 @@ void		create_header(int fd, t_system *sys, int fg)
     }
 }
 
+void	new_label(t_system *sys)
+{
+  int	i;
+  char	*nl;
+  int	flag;
+
+  i = 0;
+  flag = 0;
+  nl = malloc(128 * sizeof(char));
+  while (sys->ins.str[i] != ':' && sys->ins.str[i])
+    {
+      nl[i] = sys->ins.str[i];
+      i++;
+    }
+  nl[i] = '\0';
+  i = 0;
+  while (i < sys->cl)
+    {
+      if (strcmp(sys->labels[i].name, nl) == 0)
+	flag = 1;
+      i++;
+    }
+  if (flag != 1)
+    {
+      sys->labels[sys->cl].offset = lseek(sys->ins.fd, 0, SEEK_CUR);
+      sys->labels[sys->cl].name = malloc(128 * sizeof(char));
+      strcpy(sys->labels[sys->cl++].name, nl);
+      printf(">> Nouveau label détecté : %s | Pos : %d\n", nl,
+	     sys->labels[sys->cl - 1].offset);
+    }
+  else
+    {
+      printf("Error : Same label's name found\n");
+      exit(0);
+    }
+}
+
 int		check_instruction(t_system *sys)
 {
   char		**tab;
   void		(*which_instruction[16])(t_system *sys);
   int		j;
+  int		flag;
 
+  flag = 0;
   tab = init_tab();
   which_instruction[0] = &sti_instruction;
   which_instruction[1] = &and_instruction;
@@ -74,14 +115,17 @@ int		check_instruction(t_system *sys)
   j = 0;
   while (j < 16)
     {
-      if (strncmp(&sys->ins.str[sys->ins.i], tab[j], 
+      if (strncmp(&sys->ins.str[sys->ins.i], tab[j],
 		  get_inst_len(sys->ins.str)) == 0)
 	{
 	  (*which_instruction[j])(sys);
 	  j = 16;
+	  flag = 1;
 	}
       j++;
     }
+  if (flag != 1)
+    new_label(sys);
   return (sys->ins.ret_chck);
 }
 

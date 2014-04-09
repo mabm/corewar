@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Mon Apr  7 15:28:07 2014 Jeremy Mediavilla
-** Last update Tue Apr  8 23:38:49 2014 Joris Bertomeu
+** Last update Wed Apr  9 17:09:07 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -14,7 +14,7 @@
 void		st_check_err(t_system *sys, int *values)
 {
   (void)sys;
-  if (values[2] != 0 || values[1] == 0)
+  if (values[2] != 0 || values[1] == 0 || values[0] == 0)
     {
       printf("Error on \"st\" instruction : wrong number of params\n");
       exit(0);
@@ -24,6 +24,11 @@ void		st_check_err(t_system *sys, int *values)
 void		add_check_err(t_system *sys, int *values)
 {
   (void)sys;
+  if (values[2] == 0)
+    {
+      printf("Error on \"add\" instruction : wrong number of params\n");
+      exit(0);
+    }
   if (values[0] != 1 || values[1] != 1 || values[2] != 1)
     {
       printf("Error on \"add\" instruction : all params must be register\n");
@@ -34,6 +39,11 @@ void		add_check_err(t_system *sys, int *values)
 void		sub_check_err(t_system *sys, int *values)
 {
   (void)sys;
+  if (values[2] == 0)
+    {
+      printf("Error on \"sub\" instruction : wrong number of params\n");
+      exit(0);
+    }
   if (values[0] != 1 || values[1] != 1 || values[2] != 1)
     {
       printf("Error on \"sub\" instruction : all params must be register\n");
@@ -44,6 +54,11 @@ void		sub_check_err(t_system *sys, int *values)
 void		or_check_err(t_system *sys, int *values)
 {
   (void)sys;
+  if (values[2] == 0)
+    {
+      printf("Error on \"or\" instruction : wrong number of param\n");
+      exit(0);
+    }
     if (values[2] != 1)
     {
       printf("Error on \"or\" instruction : last param is not a register\n");
@@ -54,6 +69,11 @@ void		or_check_err(t_system *sys, int *values)
 void		xor_check_err(t_system *sys, int *values)
 {
   (void)sys;
+  if (values[2] == 0)
+    {
+      printf("Error on \"xor\" instruction : wrong number of param\n");
+      exit(0);
+    }
     if (values[2] != 1)
     {
       printf("Error on \"xor\" instruction : last param is not a register\n");
