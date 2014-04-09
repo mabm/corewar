@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 19:33:03 2014 Geoffrey Merran
-** Last update Wed Apr  9 00:36:56 2014 Geoffrey Merran
+** Last update Wed Apr  9 14:52:39 2014 Geoffrey Merran
 */
 
 #ifndef AFF_
@@ -20,7 +20,9 @@
 # include "vm_corewar.h"
 # include "sdl_xfunction.h"
 
-void	init_window(SDL_Surface **screen);
-void	aff_arena(SDL_Surface *screen, t_arena *arena, t_proc *procs);
+void	init_window(t_win *win);
+void	aff_arena(t_win *win, t_arena *arena, t_proc *procs);
+void   	aff_window(t_win *win, t_arena *arena,
+		   t_proc *procs, t_cycles *cycles);
 
 #endif /* AFF_ */
