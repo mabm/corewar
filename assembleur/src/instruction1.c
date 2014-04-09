@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:18:04 2014 Jeremy Mediavilla
-** Last update Mon Apr  7 16:20:50 2014 Jeremy Mediavilla
+** Last update Wed Apr  9 14:02:58 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -51,7 +51,7 @@ void		st_instruction (t_system *sys)
   write(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 2;
   sys->ins.ret_chck = 1;
-  printf(">> Instruction : sti (1 Octet)\n");
+  printf(">> Instruction : st (1 Octet)\n");
   if (sys->ins.str[sys->ins.i] == ':')
     {
       sys->ins.ret_chck = -1;
@@ -68,7 +68,7 @@ void		add_instruction(t_system *sys)
   write(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 3;
   sys->ins.ret_chck = 1;
-  printf(">> Instruction : and (1 Octet)\n");
+  printf(">> Instruction : add (1 Octet)\n");
   if (sys->ins.str[sys->ins.i] == ':')
     {
       sys->ins.ret_chck = -1;
@@ -85,7 +85,7 @@ void		sub_instruction(t_system *sys)
   write(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 3;
   sys->ins.ret_chck = 1;
-  printf(">> Instruction : ld (1 Octet)\n");
+  printf(">> Instruction : sub (1 Octet)\n");
   if (sys->ins.str[sys->ins.i] == ':')
     {
       sys->ins.ret_chck = -1;

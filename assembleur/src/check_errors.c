@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Mon Apr  7 15:16:14 2014 Jeremy Mediavilla
-** Last update Mon Apr  7 16:24:57 2014 Jeremy Mediavilla
+** Last update Wed Apr  9 14:25:00 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -37,8 +37,9 @@ void		check_inst_error(int *values, t_system *sys)
   j = 0;
   while (j < 16)
     {
-      if (sys->ins.c_save == tab[j])
+      if ((sys->ins.c_save - 1) == tab[j])
 	{
+	  printf("-[%x]\n", sys->ins.c_save);
 	  (*which_check[j])(sys, values);
 	  j = 16;
 	}

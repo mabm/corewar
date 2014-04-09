@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:21:46 2014 Jeremy Mediavilla
-** Last update Mon Apr  7 16:20:21 2014 Jeremy Mediavilla
+** Last update Wed Apr  9 14:03:28 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -34,7 +34,7 @@ void		or_instruction(t_system *sys)
   write(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 2;
   sys->ins.ret_chck = 1;
-  printf(">> Instruction : zjmp (1 Octet)\n");
+  printf(">> Instruction : or (1 Octet)\n");
   if (sys->ins.str[sys->ins.i] == ':')
     {
       sys->ins.ret_chck = -1;
@@ -51,7 +51,7 @@ void		xor_instruction(t_system *sys)
   write(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 3;
   sys->ins.ret_chck = 1;
-  printf(">> Instruction : zjmp (1 Octet)\n");
+  printf(">> Instruction : xor (1 Octet)\n");
   if (sys->ins.str[sys->ins.i] == ':')
     {
       sys->ins.ret_chck = -1;
@@ -85,7 +85,7 @@ void		ldi_instruction(t_system *sys)
   write(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 3;
   sys->ins.ret_chck = 1;
-  printf(">> Instruction : zjmp (1 Octet)\n");
+  printf(">> Instruction : ldi (1 Octet)\n");
   if (sys->ins.str[sys->ins.i] == ':')
     {
       sys->ins.ret_chck = -1;

@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:27:16 2014 Jeremy Mediavilla
-** Last update Mon Apr  7 16:21:46 2014 Jeremy Mediavilla
+** Last update Wed Apr  9 14:04:24 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -17,7 +17,7 @@ void		aff_instruction(t_system *sys)
   write(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 3;
   sys->ins.ret_chck = 1;
-  printf(">> Instruction : zjmp (1 Octet)\n");
+  printf(">> Instruction : aff (1 Octet)\n");
   if (sys->ins.str[sys->ins.i] == ':')
     {
       sys->ins.ret_chck = -1;
