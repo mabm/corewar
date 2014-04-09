@@ -5,11 +5,21 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Mon Apr  7 16:25:11 2014 Jeremy Mediavilla
+** Last update Wed Apr  9 14:51:15 2014 Jeremy Mediavilla
 */
 
 #include "gnl.h"
 #include "assembleur.h"
+
+int		get_inst_len(char *str)
+{
+  int		i;
+
+  i = 0;
+  while (str[i] && str[i] != ' ')
+    i++;
+  return (i);
+}
 
 void		create_header(int fd, t_system *sys, int fg)
 {
@@ -64,7 +74,8 @@ int		check_instruction(t_system *sys)
   j = 0;
   while (j < 16)
     {
-      if (strncmp(&sys->ins.str[sys->ins.i], tab[j], strlen(tab[j])) == 0)
+      if (strncmp(&sys->ins.str[sys->ins.i], tab[j], 
+		  get_inst_len(sys->ins.str)) == 0)
 	{
 	  (*which_instruction[j])(sys);
 	  j = 16;

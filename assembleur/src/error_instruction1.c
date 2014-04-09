@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Mon Apr  7 15:26:21 2014 Jeremy Mediavilla
-** Last update Tue Apr  8 12:21:30 2014 Jeremy Mediavilla
+** Last update Wed Apr  9 15:22:13 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -44,7 +44,7 @@ void		and_check_err(t_system *sys, int *values)
 void		ld_check_err(t_system *sys, int *values)
 {
   (void)sys;
-  if (values[2] != 0 || values[1] == 0)
+  if (values[2] != 0 || values[1] == 0 || values[0] == 0)
     {
       printf("Error on \"ld\" instruction : wrong number of params\n");
       exit(0);
@@ -70,7 +70,7 @@ void		zjmp_check_err(t_system *sys, int *values)
       printf("Error on \"zjmp\" instruction : too many param\n");
       exit(0);
     }
-  if (values[0] != 2 || values[0] != 3)
+  if (values[0] == 1)
     {
       printf("Error on \"zjmp\" instruction : first param is not an index\n");
       exit(0);

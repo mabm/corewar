@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:03:51 2014 Jeremy Mediavilla
-** Last update Mon Apr  7 16:04:56 2014 Jeremy Mediavilla
+** Last update Tue Apr  8 23:37:46 2014 Joris Bertomeu
 ** Last update Wed Apr  2 17:26:42 2014 Jeremy Mediavilla
 */
 
@@ -120,19 +120,19 @@ void		dir_data_condition(int, t_conv *, int);
 void		write_reg_data(char *, int *, t_conv *, int);
 void		write_undir_data(char *, int *, t_conv *, int);
 void		write_dir_data(char *, int *, t_conv *, int);
-void		write_data(int, char *, int);
+void		write_data(int, char *, int, int);
 
 /* fonctions dans file.c */
 int		register_condition(t_system *);
 int		direct_condition(t_system *);
 int		indirect_condition(t_system *);
-void		write_to_file(char *, int);
+void		write_to_file(char *, int, int);
 
 /* fonction dans magic.c */
 void		write_magic(int);
 
 /* fonctions dans tread.c */
-void		tread_line(char *, t_system *, int);
+void		tread_line(char *, t_system *, int, int);
 void		tread_file(char *, t_system *);
 void		tread_line_cnf_asm(t_system *, char *, int);
 

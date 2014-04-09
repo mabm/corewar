@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:23:20 2014 Jeremy Mediavilla
-** Last update Mon Apr  7 16:21:33 2014 Jeremy Mediavilla
+** Last update Wed Apr  9 14:04:15 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -34,7 +34,7 @@ void		fork_instruction(t_system *sys)
   write(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 4;
   sys->ins.ret_chck = 1;
-  printf(">> Instruction : zjmp (1 Octet)\n");
+  printf(">> Instruction : fork (1 Octet)\n");
   if (sys->ins.str[sys->ins.i] == ':')
     {
       sys->ins.ret_chck = -1;
@@ -51,7 +51,7 @@ void		lfork_instruction(t_system *sys)
   write(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 5;
   sys->ins.ret_chck = 1;
-  printf(">> Instruction : zjmp (1 Octet)\n");
+  printf(">> Instruction : lfork (1 Octet)\n");
   if (sys->ins.str[sys->ins.i] == ':')
     {
       sys->ins.ret_chck = -1;
@@ -68,7 +68,7 @@ void		lld_instruction(t_system *sys)
   write(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 3;
   sys->ins.ret_chck = 1;
-  printf(">> Instruction : zjmp (1 Octet)\n");
+  printf(">> Instruction : lld (1 Octet)\n");
   if (sys->ins.str[sys->ins.i] == ':')
     {
       sys->ins.ret_chck = -1;
@@ -85,7 +85,7 @@ void		lldi_instruction(t_system *sys)
   write(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 4;
   sys->ins.ret_chck = 1;
-  printf(">> Instruction : zjmp (1 Octet)\n");
+  printf(">> Instruction : lldi (1 Octet)\n");
   if (sys->ins.str[sys->ins.i] == ':')
     {
       sys->ins.ret_chck = -1;

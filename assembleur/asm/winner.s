@@ -1,6 +1,6 @@
 .name "BertomChamp"
 .comment "By Bertom_j"
-ld      %0, r3
+ld      %-3, r3
 zjmp    80
 zjmp    0
 live    %42

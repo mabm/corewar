@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Mon Apr  7 15:28:42 2014 Jeremy Mediavilla
-** Last update Mon Apr  7 17:19:50 2014 Jeremy Mediavilla
+** Last update Tue Apr  8 23:12:18 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -25,7 +25,7 @@ void		fork_check_err(t_system *sys, int *values)
       printf("Error on \"fork\" instruction : too many param\n");
       exit(0);
     }
-  if (values[0] != 1 || values[0] != 2)
+  if (values[0] == 1)
     {
       printf("Error on \"fork\" instruction : first param is not an index\n");
       exit(0);

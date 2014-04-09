@@ -5,19 +5,19 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:39:27 2014 Jeremy Mediavilla
-** Last update Tue Apr  8 12:01:55 2014 Jeremy Mediavilla
+** Last update Tue Apr  8 23:36:58 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
 #include "gnl.h"
 
-void		tread_line(char *buff, t_system *system, int fd)
+void		tread_line(char *buff, t_system *system, int fd, int line)
 {
   int		ret;
 
   ret = parse_line_cn(buff, system, fd);
   if (ret == 0)
-    write_to_file(buff, fd);
+    write_to_file(buff, fd, line);
 }
 
 void	second_pass(int fd, t_system *sys)
@@ -39,9 +39,11 @@ void		tread_file(char *path, t_system *sys)
   int		fd;
   char		*buff;
   int		fd2;
+  int		line;
 
   buff = malloc(4096 * sizeof(*buff));
   memset(buff, 0, 4096);
+  line = 0;
   fd = open(path, O_RDONLY);
   fd2 = open("champion.cor",
 	    O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU | S_IRWXG | S_IRWXO);
@@ -49,7 +51,7 @@ void		tread_file(char *path, t_system *sys)
     {
       write_magic(fd2);
       while ((buff = get_next_line(fd)) != NULL)
-	tread_line(buff, sys, fd2);
+	tread_line(buff, sys, fd2, line++);
     }
   second_pass(fd2, sys);
   free(buff);

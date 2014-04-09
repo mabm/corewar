@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:33:49 2014 Jeremy Mediavilla
-** Last update Mon Apr  7 16:22:33 2014 Jeremy Mediavilla
+** Last update Wed Apr  9 14:35:50 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -53,7 +53,8 @@ int		direct_condition(t_system *sys)
 int		indirect_condition(t_system *sys)
 {
   if ('0' <= sys->ins.str[sys->ins.i] && sys->ins.str[sys->ins.i] <= '9' &&
-      sys->ins.str[sys->ins.i - 1] == ',')
+      sys->ins.str[sys->ins.i - 2] == ',' &&
+      sys->ins.str[sys->ins.i - 1] == ' ')
     {
       if (sys->ins.cmptr == 0)
 	sys->ins.c += 0xC0;
@@ -68,7 +69,7 @@ int		indirect_condition(t_system *sys)
   return (0);
 }
 
-void		write_to_file(char *str, int fd)
+void		write_to_file(char *str, int fd, int line)
 {
   t_system	sys;
   int		*values;
@@ -103,8 +104,9 @@ void		write_to_file(char *str, int fd)
 	values[sys.ins.cmptr] = tmp;
       sys.ins.i++;
     }
+  printf("C ========== %x\n", sys.ins.c_save);
   check_inst_error(values, &sys);
   if (sys.ins.ret_chck == 1)
     write(fd, &sys.ins.c, 1);
-  write_data(sys.ins.ibase, str, fd);
+  write_data(sys.ins.ibase, str, fd, line);
 }
