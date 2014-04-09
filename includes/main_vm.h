@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Mar 25 17:19:00 2014 Geoffrey Merran
-** Last update Mon Apr  7 11:05:38 2014 Geoffrey Merran
+** Last update Tue Apr  8 19:27:26 2014 Geoffrey Merran
 */
 
 #ifndef MAIN_VM_
@@ -14,7 +14,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include <string.h>
+# include <unistd.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>

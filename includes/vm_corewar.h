@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Mar 26 12:00:22 2014 Geoffrey Merran
-** Last update Mon Apr  7 15:10:12 2014 Geoffrey Merran
+** Last update Tue Apr  8 23:28:35 2014 Geoffrey Merran
 */
 
 #ifndef VM_COREWAR_
@@ -13,13 +13,19 @@
 # define MAGIC_NUMBER 413
 # include "op.h"
 
+typedef struct	s_arena
+{
+  unsigned char *arena;
+  unsigned char *color;
+}		t_arena;
+
 typedef struct		s_champ
 {
   int			id;
   header_t		header;
   int			address;
   char			*path;
-  int			carry;
+  int			live;
   struct s_champ	*next;
   struct s_champ	*prev;
 }			t_champ;
@@ -48,5 +54,7 @@ typedef union	u_conv
   char	octet[4];
   int	integer;
 }		t_conv;
+
+typedef int (*inst)(t_proc *, t_arena *);
 
 #endif /* VM_COREWAR_ */

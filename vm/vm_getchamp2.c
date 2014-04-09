@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Apr  2 10:48:31 2014 Geoffrey Merran
-** Last update Mon Apr  7 15:28:09 2014 Geoffrey Merran
+** Last update Tue Apr  8 23:41:13 2014 Geoffrey Merran
 */
 
 #include "vm_getchamp.h"
@@ -75,12 +75,17 @@ void	get_comment(unsigned char *buffer, char comment[])
   my_printf("Comment ok !\n");
 }
 
-void	write_champ_in(unsigned char *buffer, int address,
-		       unsigned char *arena, int size)
+void	write_champ_in(unsigned char *buffer, t_champ *champ,
+		       t_arena *arena, int size)
 {
   int	i;
+  int	address;
 
+  address = champ->address;
   i = 8 + PROG_NAME_LENGTH + COMMENT_LENGTH;
   while (i < size)
-    arena[address++] = buffer[i++];
+    {
+      arena->color[address] = champ->id;
+      arena->arena[address++] = buffer[i++];
+    }
 }

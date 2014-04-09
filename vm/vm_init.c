@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Fri Mar 28 16:00:42 2014 Geoffrey Merran
-** Last update Wed Apr  2 17:11:53 2014 Geoffrey Merran
+** Last update Tue Apr  8 23:32:50 2014 Geoffrey Merran
 */
 
 #include "vm_init.h"
@@ -18,14 +18,19 @@ void	init_cycle(t_cycles *cycles)
   cycles->cycle_max = -1;
 }
 
-void	init_arena(unsigned char **arena)
+void	init_arena(t_arena *arena)
 {
   int	i;
 
-  *arena = my_xmalloc(MEM_SIZE * sizeof(char));
+  arena->arena = my_xmalloc(MEM_SIZE * sizeof(char));
+  arena->color = my_xmalloc(MEM_SIZE * sizeof(char));
   i = 0;
   while (i < MEM_SIZE)
-    (*arena)[i++] = 0;
+    {
+      arena->color[i] = 0;
+      arena->arena[i] = 0;
+      i++;
+    }
 }
 
 int		is_id_possible(t_champ *champs, int id)
