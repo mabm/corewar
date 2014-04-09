@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Tue Apr  8 11:57:41 2014 Nicolas Ades
-** Last update Wed Apr  9 15:00:20 2014 Geoffrey Merran
+** Last update Wed Apr  9 17:57:18 2014 Geoffrey Merran
 */
 
 #include "vm_arena.h"
@@ -53,8 +53,7 @@ int		is_winner(t_proc *proc, t_champ *champ, t_cycles *cycles)
       while (tmp != NULL)
 	{
 	  if (tmp->alive == 0)
-	    my_printf("mort\n");
-	  /* suppr l'elem tmp */
+	    del_proc(tmp);
 	  tmp_ch = champ;
 	  while (tmp_ch != NULL)
 	    {
@@ -65,7 +64,7 @@ int		is_winner(t_proc *proc, t_champ *champ, t_cycles *cycles)
 	  tmp = tmp->next;
 	}
       if (one_winner(proc, champ))
-	return (1);
+      	return (1);
       cycles->cycle_to_die -= CYCLE_DELTA;
     }
   return (0);
@@ -89,6 +88,7 @@ void		launch_battle(t_arena *arena, t_cycles *cycles, t_champ *champs)
       cycles->current_cycle++;
       winner = is_winner(proc, champs, cycles);
     }
+  who_win(champs);
   TTF_CloseFont(win.police);
   TTF_Quit();
   SDL_Quit();

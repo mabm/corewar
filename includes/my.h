@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 **
 ** Started on  Thu Oct 10 12:00:24 2013 Geoffrey Merran
-** Last update Tue Apr  8 16:08:36 2014 Geoffrey Merran
+** Last update Wed Apr  9 16:06:55 2014 Geoffrey Merran
 */
 
 #ifndef MY_
@@ -62,5 +62,6 @@ int			my_strlen_tabs(char **);
 char			*my_strcut(char *str, int start, int end);
 char			*my_strfusion(char *dest, char *src);
 void			my_puterr(char *err);
+char			*int_to_str(int	nb);
 
 #endif /* MY_ */
