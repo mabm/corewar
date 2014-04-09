@@ -5,17 +5,21 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 14:31:16 2014 Geoffrey Merran
-** Last update Tue Apr  8 23:30:49 2014 Geoffrey Merran
+** Last update Wed Apr  9 15:05:33 2014 Geoffrey Merran
 */
 
 #include "vm_instruction.h"
 
 int		lfork(t_proc *proc, t_arena *arena)
 {
+  (void) proc;
+  (void) arena;
   return (1);
 }
 
 int		aff(t_proc *proc, t_arena *arena)
 {
+  (void) proc;
+  (void) arena;
   return (1);
 }

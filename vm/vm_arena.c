@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Tue Apr  8 11:57:41 2014 Nicolas Ades
-** Last update Wed Apr  9 00:54:09 2014 Geoffrey Merran
+** Last update Wed Apr  9 15:00:20 2014 Geoffrey Merran
 */
 
 #include "vm_arena.h"
@@ -71,40 +71,26 @@ int		is_winner(t_proc *proc, t_champ *champ, t_cycles *cycles)
   return (0);
 }
 
-/* void	aff_arena(unsigned char *c_arena) */
-/* { */
-/*   int	i; */
-
-/*   i = 0; */
-/*   while (i < MEM_SIZE) */
-/*     { */
-/*       printf("%d ", c_arena[i]); */
-/*       if (((i + 1) % 32) == 0) */
-/* 	printf("\n"); */
-/*       i++; */
-/*     } */
-/* } */
-
 void		launch_battle(t_arena *arena, t_cycles *cycles, t_champ *champs)
 {
   t_proc	*proc;
-  SDL_Surface	*screen;
+  t_win		win;
   int		winner;
   inst		*instruction;
 
   winner = 0;
   init_proc(&proc, champs);
   instruction = get_instr();
-  init_window(&screen);
+  init_window(&win);
   while (cycles->current_cycle != (cycles->cycle_max + 1) && !winner)
     {
       execute_procs(&proc, arena, instruction);
-      aff_arena(screen, arena, proc);
-      /* my_printf("Current Cycle : %d | Cycle to die : %d\n", */
-      /* 		cycles->current_cycle, cycles->cycle_to_die); */
+      aff_window(&win, arena, proc, cycles);
       cycles->current_cycle++;
       winner = is_winner(proc, champs, cycles);
     }
+  TTF_CloseFont(win.police);
+  TTF_Quit();
   SDL_Quit();
   free(instruction);
 }
