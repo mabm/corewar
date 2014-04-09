@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Mar 25 16:39:29 2014 Geoffrey Merran
-** Last update Tue Apr  8 23:32:54 2014 Geoffrey Merran
+** Last update Wed Apr  9 15:32:14 2014 Nicolas Ades
 */
 
 #include "main_vm.h"
@@ -33,7 +33,6 @@ void		init_all(int ac, char **av)
 
 int	main(int ac, char **av)
 {
-  xtgetent(NULL, "xterm");
   if (ac > 1)
     init_all(ac, av);
   else

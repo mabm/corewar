@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Tue Apr  1 11:50:43 2014 Nicolas Ades
-** Last update Tue Apr  8 23:24:36 2014 Geoffrey Merran
+** Last update Wed Apr  9 15:31:31 2014 Nicolas Ades
 */
 
 #ifndef VM_ARENA_
@@ -14,7 +14,6 @@
 # include "vm_proc.h"
 # include "vm_instruction.h"
 # include "sdl_xfunction.h"
-# include "term_fct.h"
 # include "aff.h"
 # include "my_printf.h"
 
