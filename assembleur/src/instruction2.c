@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:21:46 2014 Jeremy Mediavilla
-** Last update Wed Apr  9 14:03:28 2014 Jeremy Mediavilla
+** Last update Wed Apr  9 14:39:40 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -81,6 +81,7 @@ void		zjmp_instruction(t_system *sys)
 
 void		ldi_instruction(t_system *sys)
 {
+  printf("ENTRE DANS LDI\n");
   sys->ins.c = 0x0a;
   write(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 3;

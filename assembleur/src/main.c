@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Mon Apr  7 16:25:11 2014 Jeremy Mediavilla
+** Last update Wed Apr  9 14:42:52 2014 Joris Bertomeu
 */
 
 #include "gnl.h"
@@ -64,6 +64,7 @@ int		check_instruction(t_system *sys)
   j = 0;
   while (j < 16)
     {
+      printf("Test si %s == %s sur %d char\n", &sys->ins.str[sys->ins.i], tab[j], strlen(tab[j]));
       if (strncmp(&sys->ins.str[sys->ins.i], tab[j], strlen(tab[j])) == 0)
 	{
 	  (*which_instruction[j])(sys);

@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:33:49 2014 Jeremy Mediavilla
-** Last update Wed Apr  9 00:26:59 2014 Joris Bertomeu
+** Last update Wed Apr  9 14:35:50 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -104,6 +104,7 @@ void		write_to_file(char *str, int fd, int line)
 	values[sys.ins.cmptr] = tmp;
       sys.ins.i++;
     }
+  printf("C ========== %x\n", sys.ins.c_save);
   check_inst_error(values, &sys);
   if (sys.ins.ret_chck == 1)
     write(fd, &sys.ins.c, 1);
