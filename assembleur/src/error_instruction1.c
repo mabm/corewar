@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Mon Apr  7 15:26:21 2014 Jeremy Mediavilla
-** Last update Wed Apr  9 14:19:33 2014 Jeremy Mediavilla
+** Last update Wed Apr  9 15:22:13 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -44,7 +44,6 @@ void		and_check_err(t_system *sys, int *values)
 void		ld_check_err(t_system *sys, int *values)
 {
   (void)sys;
-  printf("[%d][%d][%d]\n", values[0], values[1], values[2]);
   if (values[2] != 0 || values[1] == 0 || values[0] == 0)
     {
       printf("Error on \"ld\" instruction : wrong number of params\n");

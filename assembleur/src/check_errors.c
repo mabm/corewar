@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Mon Apr  7 15:16:14 2014 Jeremy Mediavilla
-** Last update Wed Apr  9 14:33:35 2014 Joris Bertomeu
+** Last update Wed Apr  9 15:21:41 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -39,7 +39,6 @@ void		check_inst_error(int *values, t_system *sys)
     {
       if ((sys->ins.c_save - 1) == tab[j])
 	{
-	  printf("\t\t\t\tC = %x | tab[j] = %x\n", sys->ins.c_save, tab[j]);
 	  (*which_check[j + 1])(sys, values);
 	  j = 16;
 	}
