@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:07:56 2014 Jeremy Mediavilla
-** Last update Wed Apr  9 17:56:59 2014 Jeremy Mediavilla
+** Last update Wed Apr  9 23:03:03 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -71,6 +71,7 @@ void		init(int ac, char **argv)
   system->f_n = 0;
   system->wm = 0;
   system->cl = 0;
+  system->col = 0;
   system->ins.c = 0;
   system->ins.i = 0;
   system->ins.ibase = 0;

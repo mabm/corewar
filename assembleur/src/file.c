@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:33:49 2014 Jeremy Mediavilla
-** Last update Wed Apr  9 17:59:39 2014 Jeremy Mediavilla
+** Last update Wed Apr  9 23:26:34 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -71,24 +71,24 @@ int		indirect_condition(t_system *sys)
 
 void		write_to_file(char *str, int fd, int line, t_system *sys)
 {
-  /* t_system	sys; */
+  /* t_system	*sys; */
   int		*values;
   int		tmp;
 
+  /* sys = malloc(sizeof(*sys)); */
   values = malloc(3 * sizeof(int));
   values[0] = 0;
   values[1] = 0;
   values[2] = 0;
   sys->ins.fd = fd;
   sys->ins.str = str;
-  /* sys.cl = 0; */
-  /* sys.ins.fd = fd; */
-  /* sys.ins.str = str; */
-  /* sys.ins.c = 0; */
-  /* sys.ins.i = 0; */
-  /* sys.ins.ibase = 0; */
-  /* sys.ins.ret_chck = 0; */
-  /* sys.ins.cmptr = 0; */
+  sys->ins.fd = fd;
+  sys->ins.str = str;
+  sys->ins.c = 0;
+  sys->ins.i = 0;
+  sys->ins.ibase = 0;
+  sys->ins.ret_chck = 0;
+  sys->ins.cmptr = 0;
   while (str[sys->ins.i])
     {
       if (sys->ins.ret_chck == 0)
@@ -110,5 +110,5 @@ void		write_to_file(char *str, int fd, int line, t_system *sys)
   check_inst_error(values, sys);
   if (sys->ins.ret_chck == 1)
     write(fd, &sys->ins.c, 1);
-  write_data(sys->ins.ibase, str, fd, line);
+  write_data(sys->ins.ibase, str, fd, line, sys);
 }

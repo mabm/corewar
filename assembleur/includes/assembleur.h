@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:03:51 2014 Jeremy Mediavilla
-** Last update Wed Apr  9 17:56:07 2014 Jeremy Mediavilla
+** Last update Thu Apr 10 00:29:59 2014 Joris Bertomeu
 ** Last update Wed Apr  2 17:26:42 2014 Jeremy Mediavilla
 */
 
@@ -25,6 +25,15 @@ struct s_labels
 {
   int	offset;
   char	*name;
+};
+
+
+typedef struct s_olabels t_olabels;
+struct s_olabels
+{
+  int	offset;
+  char	*name;
+  int	line;
 };
 
 #include <stdio.h>
@@ -61,8 +70,11 @@ struct s_system
   int		f_n;
   int		wm;
   t_labels	labels[128];
+  t_olabels	olabels[128];
   t_instruction	ins;
   int		cl;
+  int		col;
+  int		start_line;
 };
 
 typedef union u_conv t_conv;
@@ -119,8 +131,8 @@ void		aff_instruction(t_system *);
 void		dir_data_condition(int, t_conv *, int);
 void		write_reg_data(char *, int *, t_conv *, int);
 void		write_undir_data(char *, int *, t_conv *, int);
-void		write_dir_data(char *, int *, t_conv *, int);
-void		write_data(int, char *, int, int);
+void		write_dir_data(char *, int *, t_conv *, int, t_system *);
+void		write_data(int, char *, int, int, t_system *);
 
 /* fonctions dans file.c */
 int		register_condition(t_system *);
