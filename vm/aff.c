@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 19:31:35 2014 Geoffrey Merran
-** Last update Wed Apr  9 19:12:04 2014 Geoffrey Merran
+** Last update Wed Apr  9 22:48:09 2014 Geoffrey Merran
 */
 
 #include "aff.h"
@@ -68,30 +68,12 @@ void		reset_pos(t_win *win)
 void		aff_window(t_win *win, t_arena *arena,
 			   t_fighter *fighters, t_cycles *cycles)
 {
-  SDL_Surface	*text;
-  SDL_Rect	pos;
-  char		*t;
-
   reset_pos(win);
-  pos.x = 227;
-  pos.y = 30;
-  t = int_to_str(cycles->current_cycle);
-  text = TTF_RenderText_Solid(win->police, t, win->color);
-  SDL_BlitSurface(text, NULL, win->screen, &pos);
-  pos.x = 917;
-  pos.y = 30;
-  t = int_to_str(cycles->cycle_to_die);
-  text = TTF_RenderText_Solid(win->police, t, win->color);
-  SDL_BlitSurface(text, NULL, win->screen, &pos);
-  pos.x = 180;
-  pos.y = 60;
-  t = int_to_str(get_nb_proc(fighters->procs));
-  text = TTF_RenderText_Solid(win->police, t, win->color);
-  SDL_BlitSurface(text, NULL, win->screen, &pos);
+  aff_nb_sdl(227, 30, cycles->current_cycle, win);
+  aff_nb_sdl(917, 30, cycles->cycle_to_die, win);
+  aff_nb_sdl(180, 60, get_nb_proc(fighters->procs), win);
   aff_arena(win, arena, fighters);
-  free(t);
   SDL_Flip(win->screen);
-  SDL_FreeSurface(text);
 }
 
 void		aff_arena(t_win *win, t_arena *arena, t_fighter *fighters)

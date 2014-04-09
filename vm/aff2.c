@@ -5,29 +5,16 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Apr  9 18:30:36 2014 Geoffrey Merran
-** Last update Wed Apr  9 19:01:37 2014 Geoffrey Merran
+** Last update Wed Apr  9 23:08:48 2014 Geoffrey Merran
 */
 
 #include "aff.h"
 
 void		init_sdl_header(t_win *win)
 {
-  SDL_Surface	*text;
-  SDL_Rect	pos;
-
-  pos.x = 26;
-  pos.y = 30;
-  text = TTF_RenderText_Solid(win->police, "Current Cycle : ", win->color);
-  SDL_BlitSurface(text, NULL, win->screen, &pos);
-  pos.x = 750;
-  pos.y = 30;
-  text = TTF_RenderText_Solid(win->police, "Cycle to die : ", win->color);
-  SDL_BlitSurface(text, NULL, win->screen, &pos);
-  pos.x = 26;
-  pos.y = 60;
-  text = TTF_RenderText_Solid(win->police, "Processus : ", win->color);
-  SDL_BlitSurface(text, NULL, win->screen, &pos);
-  SDL_FreeSurface(text);
+  aff_text_sdl(26, 30, "Current Cycle : ", win);
+  aff_text_sdl(750, 30, "Cycle to die : ", win);
+  aff_text_sdl(26, 60, "Processus : ", win);
 }
 
 void		init_color(t_win *win, t_champ *champ)
@@ -46,5 +33,48 @@ void		init_color(t_win *win, t_champ *champ)
     {
       tmp->color = color[c++];
       tmp = tmp->next;
+    }
+}
+
+void		aff_nb_sdl(int x, int y, int nb, t_win *win)
+{
+  SDL_Surface	*text;
+  SDL_Rect	pos;
+  char		*t;
+
+  pos.x = x;
+  pos.y = y;
+  t = int_to_str(nb);
+  text = TTF_RenderText_Solid(win->police, t, win->color);
+  SDL_BlitSurface(text, NULL, win->screen, &pos);
+  SDL_FreeSurface(text);
+  free(t);
+}
+
+void		aff_text_sdl(int x, int y, char *str, t_win *win)
+{
+  SDL_Surface	*text;
+  SDL_Rect	pos;
+
+  pos.x = x;
+  pos.y = y;
+  text = TTF_RenderText_Solid(win->police, str, win->color);
+  SDL_BlitSurface(text, NULL, win->screen, &pos);
+  SDL_FreeSurface(text);
+}
+
+void		aff_champions(t_win *win, t_champ *champs)
+{
+  t_champ	*tmp;
+  int		y;
+
+  y = 30;
+  tmp = champs;
+  while (tmp)
+    {
+      aff_color_champ(420, y - 3, win, tmp);
+      aff_text_sdl(450, y, champs->header.prog_name, win);
+      tmp = tmp->next;
+      y = y + 30;
     }
 }

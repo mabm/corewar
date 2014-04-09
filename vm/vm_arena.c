@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Tue Apr  8 11:57:41 2014 Nicolas Ades
-** Last update Wed Apr  9 19:35:08 2014 Geoffrey Merran
+** Last update Wed Apr  9 22:55:01 2014 Geoffrey Merran
 */
 
 #include "vm_arena.h"
@@ -83,6 +83,7 @@ void		launch_battle(t_arena *arena, t_cycles *cycles, t_champ *champs)
   instruction = get_instr();
   init_window(&win);
   init_color(&win, fighters.champs);
+  aff_champions(&win, fighters.champs);
   while (cycles->current_cycle != (cycles->cycle_max + 1) && !winner)
     {
       execute_procs(&fighters.procs, arena, instruction);
@@ -91,8 +92,5 @@ void		launch_battle(t_arena *arena, t_cycles *cycles, t_champ *champs)
       winner = is_winner(fighters.procs, fighters.champs, cycles);
     }
   who_win(champs);
-  TTF_CloseFont(win.police);
-  TTF_Quit();
-  SDL_Quit();
-  free(instruction);
+  free_battle(instruction, &win, &fighters.procs);
 }
