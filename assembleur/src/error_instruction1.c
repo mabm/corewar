@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Mon Apr  7 15:26:21 2014 Jeremy Mediavilla
-** Last update Wed Apr  9 15:22:13 2014 Jeremy Mediavilla
+** Last update Wed Apr  9 17:06:35 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -14,11 +14,6 @@
 void		sti_check_err(t_system *sys, int *values)
 {
   (void)sys;
-  if (values[0] != 1)
-    {
-      printf("Error on \"sti\" instruction : first param is not a register\n");
-      exit(0);
-    }
   if (values[2] == 0)
     {
       printf("Error on \"sti\" instruction : wrong number of params\n");
@@ -31,7 +26,7 @@ void		and_check_err(t_system *sys, int *values)
   (void)sys;
   if (values[2] == 0)
     {
-      printf("Error on \"and\" instruction : wrong numbe of param\n");
+      printf("Error on \"and\" instruction : wrong number of param\n");
       exit(0);
     }
   if (values[2] != 1)
