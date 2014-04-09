@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:07:56 2014 Jeremy Mediavilla
-** Last update Mon Apr  7 16:10:12 2014 Jeremy Mediavilla
+** Last update Wed Apr  9 17:19:19 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -70,6 +70,7 @@ void		init(int ac, char **argv)
   system->f_c = 0;
   system->f_n = 0;
   system->wm = 0;
+  system->cl = 0;
   while (i < ac)
     {
       system->comment = 0;
