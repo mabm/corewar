@@ -5,12 +5,14 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Mar 26 12:00:22 2014 Geoffrey Merran
-** Last update Wed Apr  9 18:40:01 2014 Geoffrey Merran
+** Last update Thu Apr 10 01:25:14 2014 Geoffrey Merran
 */
 
 #ifndef VM_COREWAR_
 # define VM_COREWAR_
 # define MAGIC_NUMBER 413
+# define TYPE_P 0
+# define VALUE_P 1
 # include <SDL/SDL.h>
 # include "op.h"
 

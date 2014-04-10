@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 12:46:20 2014 Geoffrey Merran
-** Last update Tue Apr  8 23:28:59 2014 Geoffrey Merran
+** Last update Thu Apr 10 01:18:35 2014 Geoffrey Merran
 */
 
 #ifndef VM_INSTRUCTION_
@@ -13,7 +13,7 @@
 # include <stdlib.h>
 # include "vm_corewar.h"
 # include "vm_arena.h"
-# include "op.h"
+# include "vm_getparams.h"
 # include "my.h"
 
 inst	*get_instr();

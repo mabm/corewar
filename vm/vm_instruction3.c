@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 14:29:40 2014 Geoffrey Merran
-** Last update Wed Apr  9 19:32:57 2014 Geoffrey Merran
+** Last update Thu Apr 10 01:52:53 2014 Geoffrey Merran
 */
 
 #include "vm_instruction.h"
@@ -19,7 +19,9 @@ int		ldi(t_proc *proc, t_arena *arena)
 
 int		sti(t_proc *proc, t_arena *arena)
 {
-  (void) arena;
+  char		**params;
+
+  params = get_params(op_tab[11].nbr_args, arena, increase_pc(proc->pc, 1));
   proc->cycle_dodo = op_tab[11].nbr_cycles;
   return (1);
 }
