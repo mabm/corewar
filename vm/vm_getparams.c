@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Thu Apr 10 01:13:59 2014 Geoffrey Merran
-** Last update Thu Apr 10 02:51:22 2014 Geoffrey Merran
+** Last update Fri Apr 11 01:34:10 2014 Geoffrey Merran
 */
 
 #include "vm_getparams.h"
@@ -31,37 +31,71 @@ void	get_codage(unsigned char code, char **params, int nb_args)
     }
 }
 
+char	*get_value_reg(int *address, t_arena *arena)
+{
+  char	*reg;
+
+  reg = my_xmalloc(sizeof(char));
+  reg[0] = arena->arena[*address];
+  *address = increase_pc(*address, 1);
+  return (reg);
+}
+
+char	*get_value_index(int *address, t_arena *arena)
+{
+  int	i;
+  char	*index;
+
+  index = my_xmalloc(4 * sizeof(char));
+  i = 0;
+  while (i < 4)
+    {
+      index[i] = arena->arena[*address];
+      *address = increase_pc(*address, 1);
+      i++;
+    }
+  return (index);
+}
+
+void	free_params(char **params, int nb_args)
+{
+  int	i;
+
+  i = 0;
+  while (i < (nb_args + 1))
+    free(params[i++]);
+  free(params);
+}
+
 char	**get_params(int nb_args, t_arena *arena, int address)
 {
   char	**params;
   int	i;
 
-  i = 0;
-  params = my_xmalloc(2 * sizeof(char *));
+  params = my_xmalloc((1 + nb_args) * sizeof(char *));
   params[TYPE_P] = my_xmalloc(nb_args * sizeof(char));
-  params[VALUE_P] = my_xmalloc(nb_args * sizeof(char));
   get_codage(arena->arena[address], params, nb_args);
-  /* commentaire pour moi du lendemain :
-
-     - t'as recuperer dans params[0] : les types de paramatres
-     - il faut que tu modifies le malloc pour malloc d'autant de nb_args en +
-     - dans params[+ que 0] tu stock les valeurs des parametres
-
-     - du coup le but c'est que tu renvoies un char ** qui permet de :
-
-     params[0][0] = Type premier parametre
-     params[1][...] = valeurs sur 1 à 4 octet (4 char)
-
-     params[0][1] = Type deuxieme parametre
-     params[2][...] = valeurs sur 1 à 4 octet (4 char)
-
-     ...
-
-     Bonne chance moi du futur !
-		- moi du passé
-   */
-  printf("nbr arg : %d\n", nb_args);
+  address = increase_pc(address, 1);
+  i = 0;
   while (i < nb_args)
-    printf("value : %d\n", params[TYPE_P][i++]);
+    {
+      if (params[TYPE_P][i] == A_REG)
+	params[i + 1] = get_value_reg(&address, arena);
+      else if (params[TYPE_P][i] == A_DIR || params[TYPE_P][i] == A_IND)
+	params[i + 1] = get_value_index(&address, arena);
+      else
+	params[i + 1] = NULL;
+      i++;
+    }
+  i = 0;
+  while (i < nb_args)
+    {
+      if (params[TYPE_P][i] == A_REG)
+	printf("Type : %d Valeur : %d\n", params[TYPE_P][i], params[i][0]);
+      else if (params[TYPE_P][i] == A_DIR || params[TYPE_P][i] == A_IND)
+	printf("Type : %d Valeur : %d\n", params[TYPE_P][i], oct_to_int(params[i + 1]));
+      i++;
+    }
   return (params);
 }
+

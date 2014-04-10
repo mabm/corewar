@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 12:45:16 2014 Geoffrey Merran
-** Last update Thu Apr 10 01:22:19 2014 Geoffrey Merran
+** Last update Fri Apr 11 01:12:15 2014 Geoffrey Merran
 */
 
 #include "vm_instruction.h"
@@ -51,7 +51,7 @@ int		live(t_proc *proc, t_arena *arena)
       j++;
     }
   proc->alive = conv.integer;
-  my_printf("Live : %d\n", conv.integer);
+  my_printf("Live : %d at %d\n", conv.integer, proc->pc);
   proc->cycle_dodo = op_tab[0].nbr_cycles;
   return (4);
 }
@@ -61,6 +61,7 @@ int		ld(t_proc *proc, t_arena *arena)
   char		**params;
 
   params = get_params(op_tab[1].nbr_args, arena, increase_pc(proc->pc, 1));
+  free_params(params, op_tab[1].nbr_args);
   proc->cycle_dodo = op_tab[1].nbr_cycles;
   return (1);
 }
@@ -74,7 +75,22 @@ int		st(t_proc *proc, t_arena *arena)
 
 int		add(t_proc *proc, t_arena *arena)
 {
-  (void) arena;
+  char		**params;
+  int		jump;
+  int		r1;
+  int		r2;
+
+  params = get_params(op_tab[3].nbr_args, arena, increase_pc(proc->pc, 1));
+  if (!is_valid_reg(params[TYPE_P][0], params[1][0]) ||
+      !is_valid_reg(params[TYPE_P][1], params[2][0]) ||
+      !is_valid_reg(params[TYPE_P][2], params[3][0]))
+    return (err_instr(params, op_tab[3].nbr_args));
+  r1 = proc->reg[params[1][0] - 1];
+  r2 = proc->reg[params[2][0] - 1];
+  proc->reg[params[3][0] - 1] = r1 + r2;
+  free_params(params, op_tab[3].nbr_args);
+  jump = 2 + get_nb_jump(params[TYPE_P], op_tab[3].nbr_args);
+  proc->carry = 1;
   proc->cycle_dodo = op_tab[3].nbr_cycles;
-  return (1);
+  return (jump);
 }
