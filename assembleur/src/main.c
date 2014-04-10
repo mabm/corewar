@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Wed Apr  9 17:32:38 2014 Joris Bertomeu
+** Last update Wed Apr  9 22:38:09 2014 Joris Bertomeu
 */
 
 #include "gnl.h"
@@ -45,7 +45,7 @@ void		create_header(int fd, t_system *sys, int fg)
 	  write(fd, &c, 1);
 	  j++;
 	}
-      printf(">> Comment wrote ( %d/%i octets, Total %d octets )\n", i,
+      printf(">> Comment wrote ( %d/%d octets, Total %d octets )\n", i,
 	     COMMENT_LENGTH, (int) lseek(fd, 0, SEEK_CUR));
     }
 }
@@ -59,10 +59,15 @@ void	new_label(t_system *sys)
   i = 0;
   flag = 0;
   nl = malloc(128 * sizeof(char));
-  while (sys->ins.str[i] != ':' && sys->ins.str[i])
+  while (sys->ins.str[i] != ':' && sys->ins.str[i] != ' ' && sys->ins.str[i])
     {
       nl[i] = sys->ins.str[i];
       i++;
+    }
+  if (sys->ins.str[i] == ':')
+    {
+      sys->ins.i = i + 2;
+      flag = 2;
     }
   nl[i] = '\0';
   i = 0;
@@ -72,18 +77,13 @@ void	new_label(t_system *sys)
 	flag = 1;
       i++;
     }
-  if (flag != 1)
+  if (flag == 2)
     {
       sys->labels[sys->cl].offset = lseek(sys->ins.fd, 0, SEEK_CUR);
       sys->labels[sys->cl].name = malloc(128 * sizeof(char));
       strcpy(sys->labels[sys->cl++].name, nl);
-      printf(">> Nouveau label détecté : %s | Pos : %d\n", nl,
+      printf(">> Label declaration detected : %s | Pos : %d\n", nl,
 	     sys->labels[sys->cl - 1].offset);
-    }
-  else
-    {
-      printf("Error : Same label's name found\n");
-      exit(0);
     }
 }
 
@@ -112,20 +112,18 @@ int		check_instruction(t_system *sys)
   which_instruction[13] = &lldi_instruction;
   which_instruction[14] = &lfork_instruction;
   which_instruction[15] = &aff_instruction;
+  new_label(sys);
   j = 0;
   while (j < 16)
     {
       if (strncmp(&sys->ins.str[sys->ins.i], tab[j],
-		  get_inst_len(sys->ins.str)) == 0)
+		  get_inst_len(&sys->ins.str[sys->ins.i])) == 0)
 	{
 	  (*which_instruction[j])(sys);
 	  j = 16;
-	  flag = 1;
 	}
       j++;
     }
-  if (flag != 1)
-    new_label(sys);
   return (sys->ins.ret_chck);
 }
 
