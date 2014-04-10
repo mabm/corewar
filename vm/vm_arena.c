@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Tue Apr  8 11:57:41 2014 Nicolas Ades
-** Last update Wed Apr  9 22:55:01 2014 Geoffrey Merran
+** Last update Thu Apr 10 02:07:11 2014 Geoffrey Merran
 */
 
 #include "vm_arena.h"
@@ -18,7 +18,7 @@ int	increase_pc(int pc, int i)
 
 void	execute_instru(t_proc *proc, t_arena *arena, inst *instruction)
 {
-  if (arena->arena[proc->pc] > 0 && arena->arena[proc->pc] <= 1)
+  if (arena->arena[proc->pc] > 0 && arena->arena[proc->pc] <= 16)
     {
       proc->pc = increase_pc(proc->pc,
 			     instruction[arena->arena[proc->pc] - 1](proc, arena));

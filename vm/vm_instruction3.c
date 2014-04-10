@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 14:29:40 2014 Geoffrey Merran
-** Last update Thu Apr 10 01:52:53 2014 Geoffrey Merran
+** Last update Thu Apr 10 02:17:30 2014 Geoffrey Merran
 */
 
 #include "vm_instruction.h"
@@ -13,7 +13,7 @@
 int		ldi(t_proc *proc, t_arena *arena)
 {
   (void) arena;
-  proc->cycle_dodo = op_tab[10].nbr_cycles;
+  proc->cycle_dodo = op_tab[9].nbr_cycles;
   return (1);
 }
 
@@ -21,28 +21,28 @@ int		sti(t_proc *proc, t_arena *arena)
 {
   char		**params;
 
-  params = get_params(op_tab[11].nbr_args, arena, increase_pc(proc->pc, 1));
-  proc->cycle_dodo = op_tab[11].nbr_cycles;
+  params = get_params(op_tab[10].nbr_args, arena, increase_pc(proc->pc, 1));
+  proc->cycle_dodo = op_tab[10].nbr_cycles;
   return (1);
 }
 
 int		vm_fork(t_proc *proc, t_arena *arena)
 {
   (void) arena;
-  proc->cycle_dodo = op_tab[12].nbr_cycles;
+  proc->cycle_dodo = op_tab[11].nbr_cycles;
   return (1);
 }
 
 int		lld(t_proc *proc, t_arena *arena)
 {
   (void) arena;
-  proc->cycle_dodo = op_tab[13].nbr_cycles;
+  proc->cycle_dodo = op_tab[12].nbr_cycles;
   return (1);
 }
 
 int		lldi(t_proc *proc, t_arena *arena)
 {
   (void) arena;
-  proc->cycle_dodo = op_tab[14].nbr_cycles;
+  proc->cycle_dodo = op_tab[13].nbr_cycles;
   return (1);
 }
