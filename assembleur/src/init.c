@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:07:56 2014 Jeremy Mediavilla
-** Last update Wed Apr  9 23:03:03 2014 Joris Bertomeu
+** Last update Fri Apr 11 16:37:19 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -77,10 +77,12 @@ void		init(int ac, char **argv)
   system->ins.ibase = 0;
   system->ins.ret_chck = 0;
   system->ins.cmptr = 0;
+  system->name_file = malloc(256 * sizeof(*system->name));
   while (i < ac)
     {
       system->comment = 0;
       system->name = 0;
+      strcpy(system->name_file, argv[i]);
       tread_file(argv[i], system);
       aff_info(system, argv[i++]);
     }

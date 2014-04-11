@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:39:27 2014 Jeremy Mediavilla
-** Last update Thu Apr 10 00:40:49 2014 Joris Bertomeu
+** Last update Fri Apr 11 16:36:55 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -66,18 +66,36 @@ void	second_pass(int fd, t_system *sys)
   do_labels(fd, sys);
 }
 
+char	*parse_name_file(t_system *sys)
+{
+  int	i;
+  char	*tmp;
+
+  tmp = malloc(256 * sizeof(*tmp));
+  i = 0;
+  while (sys->name_file[i] != '.' && sys->name_file[i])
+    {
+      tmp[i] = sys->name_file[i];
+      i++;
+    }
+ return (tmp);
+}
+
 void		tread_file(char *path, t_system *sys)
 {
   int		fd;
   char		*buff;
   int		fd2;
   int		line;
+  char		*name;
 
   buff = malloc(4096 * sizeof(*buff));
   memset(buff, 0, 4096);
   line = 0;
+  name = malloc(256 * sizeof(*name));
+  name = parse_name_file(sys);
   fd = open(path, O_RDONLY);
-  fd2 = open("champion.cor",
+  fd2 = open(name,
 	    O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU | S_IRWXG | S_IRWXO);
   if (fd != -1 && fd2 != -1)
     {
