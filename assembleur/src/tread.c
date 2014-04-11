@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:39:27 2014 Jeremy Mediavilla
-** Last update Fri Apr 11 16:36:55 2014 Joris Bertomeu
+** Last update Fri Apr 11 20:42:39 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -27,7 +27,6 @@ void	do_labels(int fd, t_system *sys)
   t_conv	conv;
 
   i = 0;
-  printf("CL = %d COL = %d\n", sys->cl, sys->col);
   while (i < sys->cl)
     {
       j = 0;
@@ -35,14 +34,14 @@ void	do_labels(int fd, t_system *sys)
 	{
 	  if (strcmp(sys->olabels[j].name, sys->labels[i].name) == 0)
 	    {
-	    printf("Ecriture de %d à l'offset %d\n", sys->labels[i].offset,
-		   sys->olabels[j].offset);
-	    conv.value = sys->labels[i].offset - sys->olabels[j].offset;
-	    lseek(fd, sys->olabels[j].offset, SEEK_SET);
-	    write(fd, &conv.octets[3], 1);
-	    write(fd, &conv.octets[2], 1);
-	    write(fd, &conv.octets[1], 1);
-	    write(fd, &conv.octets[0], 1);
+	      conv.value = sys->labels[i].offset - sys->olabels[j].line;
+	      printf("Ecriture de %d à l'offset %d a la ligne %d\n", conv.value,
+		     sys->olabels[j].offset, sys->olabels[j].line);
+	      lseek(fd, sys->olabels[j].offset, SEEK_SET);
+	      write(fd, &conv.octets[3], 1);
+	      write(fd, &conv.octets[2], 1);
+	      write(fd, &conv.octets[1], 1);
+	      write(fd, &conv.octets[0], 1);
 	    }
 	  j++;
 	}
@@ -78,7 +77,8 @@ char	*parse_name_file(t_system *sys)
       tmp[i] = sys->name_file[i];
       i++;
     }
- return (tmp);
+  strcat(tmp, ".cor");
+  return (tmp);
 }
 
 void		tread_file(char *path, t_system *sys)
@@ -102,6 +102,7 @@ void		tread_file(char *path, t_system *sys)
       write_magic(fd2);
       while ((buff = get_next_line(fd)) != NULL)
 	{
+	  printf("Nouvelle ligne, offset : %d\n", lseek(fd2, 0, SEEK_CUR));
 	  sys->start_line = lseek(fd2, 0, SEEK_CUR);
 	  tread_line(buff, sys, fd2, line++);
 	}

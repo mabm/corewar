@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:33:49 2014 Jeremy Mediavilla
-** Last update Wed Apr  9 23:26:34 2014 Joris Bertomeu
+** Last update Fri Apr 11 20:23:38 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -93,7 +93,7 @@ void		write_to_file(char *str, int fd, int line, t_system *sys)
     {
       if (sys->ins.ret_chck == 0)
 	{
-	  sys->ins.ret_chck = check_instruction(sys);
+	  check_instruction(sys);
 	  sys->ins.c_save = sys->ins.c;
 	  sys->ins.c = 0;
 	}

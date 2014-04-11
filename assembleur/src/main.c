@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Wed Apr  9 22:38:09 2014 Joris Bertomeu
+** Last update Fri Apr 11 20:20:27 2014 Joris Bertomeu
 */
 
 #include "gnl.h"
@@ -124,7 +124,7 @@ int		check_instruction(t_system *sys)
 	}
       j++;
     }
-  return (sys->ins.ret_chck);
+  return (1);
 }
 
 void		check_ext(int ac, char **argv)
