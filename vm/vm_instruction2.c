@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 14:27:51 2014 Geoffrey Merran
-** Last update Fri Apr 11 01:36:13 2014 Geoffrey Merran
+** Last update Fri Apr 11 22:04:41 2014 Geoffrey Merran
 */
 
 #include "vm_instruction.h"
@@ -25,8 +25,8 @@ int		sub(t_proc *proc, t_arena *arena)
   r1 = proc->reg[params[1][0] - 1];
   r2 = proc->reg[params[2][0] - 1];
   proc->reg[params[3][0] - 1] = r1 - r2;
-  free_params(params, op_tab[4].nbr_args);
   jump = 2 + get_nb_jump(params[TYPE_P], op_tab[4].nbr_args);
+  free_params(params, op_tab[4].nbr_args);
   proc->carry = 1;
   proc->cycle_dodo = op_tab[4].nbr_cycles;
   return (jump);
@@ -45,9 +45,9 @@ int		and(t_proc *proc, t_arena *arena)
   r1 = get_val(params[TYPE_P][0], params[1], arena, proc->reg);
   r2 = get_val(params[TYPE_P][1], params[2], arena, proc->reg);
   proc->reg[params[3][0] - 1] = r1 & r2;
-  my_printf("and %d in %d\n", r1 + r2, (params[3][0] - 1));
-  free_params(params, op_tab[5].nbr_args);
+  my_printf("and %d in r%d\n", r1 & r2, params[3][0]);
   jump = 2 + get_nb_jump(params[TYPE_P], op_tab[5].nbr_args);
+  free_params(params, op_tab[5].nbr_args);
   proc->carry = 1;
   proc->cycle_dodo = op_tab[5].nbr_cycles;
   return (jump);
@@ -66,8 +66,8 @@ int		or(t_proc *proc, t_arena *arena)
   r1 = get_val(params[TYPE_P][0], params[1], arena, proc->reg);
   r2 = get_val(params[TYPE_P][1], params[2], arena, proc->reg);
   proc->reg[params[3][0] - 1] = r1 | r2;
-  free_params(params, op_tab[6].nbr_args);
   jump = 2 + get_nb_jump(params[TYPE_P], op_tab[6].nbr_args);
+  free_params(params, op_tab[6].nbr_args);
   proc->carry = 1;
   proc->cycle_dodo = op_tab[6].nbr_cycles;
   return (jump);
@@ -86,8 +86,8 @@ int		xor(t_proc *proc, t_arena *arena)
   r1 = get_val(params[TYPE_P][0], params[1], arena, proc->reg);
   r2 = get_val(params[TYPE_P][1], params[2], arena, proc->reg);
   proc->reg[params[3][0] - 1] = r1 ^ r2;
-  free_params(params, op_tab[7].nbr_args);
   jump = 2 + get_nb_jump(params[TYPE_P], op_tab[7].nbr_args);
+  free_params(params, op_tab[7].nbr_args);
   proc->carry = 1;
   proc->cycle_dodo = op_tab[7].nbr_cycles;
   return (jump);
@@ -95,8 +95,25 @@ int		xor(t_proc *proc, t_arena *arena)
 
 int		zjmp(t_proc *proc, t_arena *arena)
 {
-  (void) arena;
+  int		i;
+  int		j;
+  t_conv	conv;
+
+  if (proc->carry == 0)
+    {
+      proc->cycle_dodo = op_tab[8].nbr_cycles;
+      return (5);
+    }
+  i = increase_pc(proc->pc, 1);
+  j = 0;
+  while (j < 4)
+    {
+      conv.octet[3 - j] = arena->arena[i];
+      i = increase_pc(i, 1);
+      j++;
+    }
+  proc->pc = (proc->pc + (conv.integer % IDX_MOD)) % MEM_SIZE;
   proc->cycle_dodo = op_tab[8].nbr_cycles;
-  return (1);
+  return (0);
 }
 

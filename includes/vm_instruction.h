@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 12:46:20 2014 Geoffrey Merran
-** Last update Thu Apr 10 01:18:35 2014 Geoffrey Merran
+** Last update Fri Apr 11 20:41:05 2014 Geoffrey Merran
 */
 
 #ifndef VM_INSTRUCTION_
@@ -17,7 +17,7 @@
 # include "my.h"
 
 inst	*get_instr();
-int	live(t_proc *, t_arena *);
+int	live(t_proc *, t_arena *, t_champ **);
 int	ld(t_proc *, t_arena *);
 int	st(t_proc *, t_arena *);
 int	add(t_proc *, t_arena *);

@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Mon Apr  7 13:26:57 2014 Geoffrey Merran
-** Last update Wed Apr  9 19:04:51 2014 Geoffrey Merran
+** Last update Fri Apr 11 21:52:41 2014 Geoffrey Merran
 */
 
 #include "vm_proc.h"
@@ -32,7 +32,7 @@ void		add_proc(t_proc **proc, t_champ *champ)
   *proc = tmp;
 }
 
-void		del_proc(t_proc *proc)
+t_proc		*del_proc(t_proc *proc, t_proc **start)
 {
   t_proc	*tmp;
   t_proc	*next;
@@ -48,8 +48,11 @@ void		del_proc(t_proc *proc)
 	prev->next = next;
     }
   tmp = proc;
+  if (tmp == *start)
+    *start = next;
   proc = next;
   free(tmp);
+  return (proc);
 }
 
 int		get_nb_proc(t_proc *proc)

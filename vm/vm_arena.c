@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Tue Apr  8 11:57:41 2014 Nicolas Ades
-** Last update Fri Apr 11 00:42:17 2014 Geoffrey Merran
+** Last update Fri Apr 11 21:51:06 2014 Geoffrey Merran
 */
 
 #include "vm_arena.h"
@@ -16,9 +16,12 @@ int	increase_pc(int pc, int i)
   return (pc);
 }
 
-void	execute_instru(t_proc *proc, t_arena *arena, inst *instruction)
+void	execute_instru(t_proc *proc, t_arena *arena, inst *instruction,
+		       t_champ **champs)
 {
-  if (arena->arena[proc->pc] > 0 && arena->arena[proc->pc] <= 16)
+  if (arena->arena[proc->pc] == 1)
+    proc->pc = increase_pc(proc->pc, live(proc, arena, champs));
+  else if (arena->arena[proc->pc] > 1 && arena->arena[proc->pc] <= 16)
     {
       proc->pc = increase_pc(proc->pc,
 			     instruction[arena->arena[proc->pc] - 1](proc, arena));
@@ -27,43 +30,36 @@ void	execute_instru(t_proc *proc, t_arena *arena, inst *instruction)
     proc->pc = increase_pc(proc->pc, 1);
 }
 
-void		execute_procs(t_proc **proc, t_arena *arena, inst *instruction)
+void		execute_procs(t_fighter *fighters, t_arena *arena, inst *instruction)
 {
   t_proc	*tmp;
 
-  tmp = *proc;
+  tmp = fighters->procs;
   while (tmp)
     {
       if (tmp->cycle_dodo > 0)
 	tmp->cycle_dodo--;
       else
-	execute_instru(tmp, arena, instruction);
+	execute_instru(tmp, arena, instruction, &fighters->champs);
       tmp = tmp->next;
     }
 }
 
-int		is_winner(t_proc *proc, t_champ *champ, t_cycles *cycles)
+int		is_winner(t_proc **proc, t_champ *champ, t_cycles *cycles)
 {
   t_proc	*tmp;
-  t_champ	*tmp_ch;
 
   if ((cycles->current_cycle % cycles->cycle_to_die) == 0)
     {
-      tmp = proc;
+      tmp = *proc;
       while (tmp != NULL)
 	{
 	  if (tmp->alive == 0)
-	    del_proc(tmp);
-	  tmp_ch = champ;
-	  while (tmp_ch != NULL)
-	    {
-	      if (tmp->alive == tmp_ch->id)
-		tmp_ch->live++;
-	      tmp_ch = tmp_ch->next;
-	    }
-	  tmp = tmp->next;
+	    tmp = del_proc(tmp, proc);
+	  if (tmp != NULL)
+	    tmp = tmp->next;
 	}
-      if (one_winner(proc, champ))
+      if (one_winner(*proc, champ))
       	return (1);
       cycles->cycle_to_die -= CYCLE_DELTA;
     }
@@ -87,10 +83,10 @@ void		launch_battle(t_arena *arena, t_cycles *cycles, t_champ *champs)
   my_printf("\n==BATTLE==\n\n");
   while (cycles->current_cycle != (cycles->cycle_max + 1) && !winner)
     {
-      execute_procs(&fighters.procs, arena, instruction);
+      execute_procs(&fighters, arena, instruction);
       aff_window(&win, arena, &fighters, cycles);
       cycles->current_cycle++;
-      winner = is_winner(fighters.procs, fighters.champs, cycles);
+      winner = is_winner(&fighters.procs, fighters.champs, cycles);
     }
   who_win(champs);
   free_battle(instruction, &win, &fighters.procs);

@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Mar 26 12:00:22 2014 Geoffrey Merran
-** Last update Thu Apr 10 17:25:11 2014 Geoffrey Merran
+** Last update Fri Apr 11 20:38:37 2014 Geoffrey Merran
 */
 
 #ifndef VM_COREWAR_

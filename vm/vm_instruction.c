@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 12:45:16 2014 Geoffrey Merran
-** Last update Fri Apr 11 01:12:15 2014 Geoffrey Merran
+** Last update Fri Apr 11 20:45:07 2014 Geoffrey Merran
 */
 
 #include "vm_instruction.h"
@@ -15,7 +15,7 @@ inst	*get_instr()
   inst	*instruction;
 
   instruction = my_xmalloc(17 * sizeof(*instruction));
-  instruction[0] = live;
+  instruction[0] = NULL;
   instruction[1] = ld;
   instruction[2] = st;
   instruction[3] = add;
@@ -35,11 +35,12 @@ inst	*get_instr()
   return (instruction);
 }
 
-int		live(t_proc *proc, t_arena *arena)
+int		live(t_proc *proc, t_arena *arena, t_champ **champ)
 {
   int		i;
   int		j;
   t_conv	conv;
+  t_champ	*tmp;
 
   proc->pc = increase_pc(proc->pc, 1);
   i = proc->pc;
@@ -51,6 +52,13 @@ int		live(t_proc *proc, t_arena *arena)
       j++;
     }
   proc->alive = conv.integer;
+  tmp = *champ;
+  while (tmp != NULL)
+    {
+      if (proc->alive == tmp->id)
+	tmp->live++;
+      tmp = tmp->next;
+    }
   my_printf("Live : %d at %d\n", conv.integer, proc->pc);
   proc->cycle_dodo = op_tab[0].nbr_cycles;
   return (4);
