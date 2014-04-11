@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:18:04 2014 Jeremy Mediavilla
-** Last update Wed Apr  9 14:02:58 2014 Jeremy Mediavilla
+** Last update Fri Apr 11 20:25:55 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -16,7 +16,7 @@ void		live_instruction(t_system *sys)
   sys->ins.c = 0x01;
   write(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 4;
-  sys->ins.ret_chck = 1;
+  sys->ins.ret_chck = -1;
   printf(">> Instruction : live (1 Octet)\n");
   if (sys->ins.str[sys->ins.i] == ':')
     {
