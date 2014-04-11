@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 12:45:16 2014 Geoffrey Merran
-** Last update Fri Apr 11 20:45:07 2014 Geoffrey Merran
+** Last update Fri Apr 11 23:31:16 2014 Geoffrey Merran
 */
 
 #include "vm_instruction.h"
@@ -40,7 +40,6 @@ int		live(t_proc *proc, t_arena *arena, t_champ **champ)
   int		i;
   int		j;
   t_conv	conv;
-  t_champ	*tmp;
 
   proc->pc = increase_pc(proc->pc, 1);
   i = proc->pc;
@@ -52,14 +51,8 @@ int		live(t_proc *proc, t_arena *arena, t_champ **champ)
       j++;
     }
   proc->alive = conv.integer;
-  tmp = *champ;
-  while (tmp != NULL)
-    {
-      if (proc->alive == tmp->id)
-	tmp->live++;
-      tmp = tmp->next;
-    }
-  my_printf("Live : %d at %d\n", conv.integer, proc->pc);
+  live_champ(proc, champ);
+  arena->nbr_live++;
   proc->cycle_dodo = op_tab[0].nbr_cycles;
   return (4);
 }
@@ -67,11 +60,29 @@ int		live(t_proc *proc, t_arena *arena, t_champ **champ)
 int		ld(t_proc *proc, t_arena *arena)
 {
   char		**params;
+  int		addr;
+  int		j;
+  int		jump;
+  t_conv	conv;
 
   params = get_params(op_tab[1].nbr_args, arena, increase_pc(proc->pc, 1));
+  if (!is_valid_reg(params[TYPE_P][1], params[2][0]))
+    return (err_instr(params, op_tab[1].nbr_args));
+  addr = get_val(params[TYPE_P][0], params[1], arena, proc);
+  addr = ((addr % IDX_MOD) + proc->pc) % MEM_SIZE;
+  j = 0;
+  while (j < 4)
+    {
+      conv.octet[3 - j] = arena->arena[addr];
+      addr = increase_pc(addr, 1);
+      j++;
+    }
+  proc->reg[params[2][0] - 1] = conv.integer;
+  jump = 2 + get_nb_jump(params[TYPE_P], op_tab[1].nbr_args);
   free_params(params, op_tab[1].nbr_args);
+  proc->carry = 1;
   proc->cycle_dodo = op_tab[1].nbr_cycles;
-  return (1);
+  return (jump);
 }
 
 int		st(t_proc *proc, t_arena *arena)
@@ -96,8 +107,8 @@ int		add(t_proc *proc, t_arena *arena)
   r1 = proc->reg[params[1][0] - 1];
   r2 = proc->reg[params[2][0] - 1];
   proc->reg[params[3][0] - 1] = r1 + r2;
-  free_params(params, op_tab[3].nbr_args);
   jump = 2 + get_nb_jump(params[TYPE_P], op_tab[3].nbr_args);
+  free_params(params, op_tab[3].nbr_args);
   proc->carry = 1;
   proc->cycle_dodo = op_tab[3].nbr_cycles;
   return (jump);

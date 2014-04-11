@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 12:46:20 2014 Geoffrey Merran
-** Last update Fri Apr 11 20:41:05 2014 Geoffrey Merran
+** Last update Fri Apr 11 22:33:05 2014 Geoffrey Merran
 */
 
 #ifndef VM_INSTRUCTION_
@@ -33,5 +33,6 @@ int	lld(t_proc *, t_arena *);
 int	lldi(t_proc *, t_arena *);
 int	lfork(t_proc *, t_arena *);
 int	aff(t_proc *, t_arena *);
+void   	live_champ(t_proc *proc, t_champ **champ);
 
 #endif /* VM_INSTRUCTION */

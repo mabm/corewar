@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 14:27:51 2014 Geoffrey Merran
-** Last update Fri Apr 11 22:04:41 2014 Geoffrey Merran
+** Last update Fri Apr 11 23:19:41 2014 Geoffrey Merran
 */
 
 #include "vm_instruction.h"
@@ -21,7 +21,7 @@ int		sub(t_proc *proc, t_arena *arena)
   if (!is_valid_reg(params[TYPE_P][0], params[1][0]) ||
       !is_valid_reg(params[TYPE_P][1], params[2][0]) ||
       !is_valid_reg(params[TYPE_P][2], params[3][0]))
-    return (err_instr(params, op_tab[5].nbr_args));
+    return (err_instr(params, op_tab[4].nbr_args));
   r1 = proc->reg[params[1][0] - 1];
   r2 = proc->reg[params[2][0] - 1];
   proc->reg[params[3][0] - 1] = r1 - r2;
@@ -42,10 +42,9 @@ int		and(t_proc *proc, t_arena *arena)
   params = get_params(op_tab[5].nbr_args, arena, increase_pc(proc->pc, 1));
   if (!is_valid_reg(params[TYPE_P][2], params[3][0]))
     return (err_instr(params, op_tab[5].nbr_args));
-  r1 = get_val(params[TYPE_P][0], params[1], arena, proc->reg);
-  r2 = get_val(params[TYPE_P][1], params[2], arena, proc->reg);
+  r1 = get_val(params[TYPE_P][0], params[1], arena, proc);
+  r2 = get_val(params[TYPE_P][1], params[2], arena, proc);
   proc->reg[params[3][0] - 1] = r1 & r2;
-  my_printf("and %d in r%d\n", r1 & r2, params[3][0]);
   jump = 2 + get_nb_jump(params[TYPE_P], op_tab[5].nbr_args);
   free_params(params, op_tab[5].nbr_args);
   proc->carry = 1;
@@ -63,8 +62,8 @@ int		or(t_proc *proc, t_arena *arena)
   params = get_params(op_tab[6].nbr_args, arena, increase_pc(proc->pc, 1));
   if (!is_valid_reg(params[TYPE_P][2], params[3][0]))
     return (err_instr(params, op_tab[6].nbr_args));
-  r1 = get_val(params[TYPE_P][0], params[1], arena, proc->reg);
-  r2 = get_val(params[TYPE_P][1], params[2], arena, proc->reg);
+  r1 = get_val(params[TYPE_P][0], params[1], arena, proc);
+  r2 = get_val(params[TYPE_P][1], params[2], arena, proc);
   proc->reg[params[3][0] - 1] = r1 | r2;
   jump = 2 + get_nb_jump(params[TYPE_P], op_tab[6].nbr_args);
   free_params(params, op_tab[6].nbr_args);
@@ -83,8 +82,8 @@ int		xor(t_proc *proc, t_arena *arena)
   params = get_params(op_tab[7].nbr_args, arena, increase_pc(proc->pc, 1));
   if (!is_valid_reg(params[TYPE_P][2], params[3][0]))
     return (err_instr(params, op_tab[7].nbr_args));
-  r1 = get_val(params[TYPE_P][0], params[1], arena, proc->reg);
-  r2 = get_val(params[TYPE_P][1], params[2], arena, proc->reg);
+  r1 = get_val(params[TYPE_P][0], params[1], arena, proc);
+  r2 = get_val(params[TYPE_P][1], params[2], arena, proc);
   proc->reg[params[3][0] - 1] = r1 ^ r2;
   jump = 2 + get_nb_jump(params[TYPE_P], op_tab[7].nbr_args);
   free_params(params, op_tab[7].nbr_args);

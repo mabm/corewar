@@ -5,14 +5,13 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Fri Mar 28 16:00:42 2014 Geoffrey Merran
-** Last update Wed Apr  9 17:16:45 2014 Geoffrey Merran
+** Last update Fri Apr 11 22:44:02 2014 Geoffrey Merran
 */
 
 #include "vm_init.h"
 
 void	init_cycle(t_cycles *cycles)
 {
-  cycles->nbr_live = 0;
   cycles->cycle_to_die = CYCLE_TO_DIE;
   cycles->current_cycle = 1;
   cycles->cycle_max = -1;
@@ -24,6 +23,7 @@ void	init_arena(t_arena *arena)
 
   arena->arena = my_xmalloc(MEM_SIZE * sizeof(char));
   arena->color = my_xmalloc(MEM_SIZE * sizeof(char));
+  arena->nbr_live = 0;
   i = 0;
   while (i < MEM_SIZE)
     {

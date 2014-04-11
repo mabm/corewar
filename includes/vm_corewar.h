@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Mar 26 12:00:22 2014 Geoffrey Merran
-** Last update Fri Apr 11 20:38:37 2014 Geoffrey Merran
+** Last update Fri Apr 11 22:43:35 2014 Geoffrey Merran
 */
 
 #ifndef VM_COREWAR_
@@ -22,6 +22,7 @@ typedef struct	s_arena
 {
   unsigned char *arena;
   unsigned char *color;
+  int		nbr_live;
 }		t_arena;
 
 typedef struct		s_champ
@@ -38,7 +39,6 @@ typedef struct		s_champ
 
 typedef	struct	s_cycles
 {
-  int		nbr_live;
   int		cycle_to_die;
   int		current_cycle;
   int		cycle_max;

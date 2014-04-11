@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Thu Apr 10 22:17:28 2014 Geoffrey Merran
-** Last update Fri Apr 11 00:26:19 2014 Geoffrey Merran
+** Last update Fri Apr 11 23:05:47 2014 Geoffrey Merran
 */
 
 #include "vm_getparams.h"
@@ -39,7 +39,7 @@ int		oct_to_int(char *octet)
   return (val.integer);
 }
 
-int		get_val(char type, char *values, t_arena *arena, int reg[])
+int		get_val(char type, char *values, t_arena *arena, t_proc *proc)
 {
   t_conv	val;
   char		*ind_val;
@@ -48,7 +48,7 @@ int		get_val(char type, char *values, t_arena *arena, int reg[])
   if (type == A_REG)
     {
       if (is_valid_reg(type, values[0]))
-	val.integer = reg[values[0] - 1];
+	val.integer = proc->reg[values[0] - 1];
       else
 	val.integer = 0;
     }
@@ -57,7 +57,7 @@ int		get_val(char type, char *values, t_arena *arena, int reg[])
       val.integer = oct_to_int(values);
       if (type == A_IND)
 	{
-	  addr = val.integer;
+	  addr = (proc->pc + (val.integer % IDX_MOD)) % MEM_SIZE;
 	  ind_val = get_value_index(&addr, arena);
 	  val.integer = oct_to_int(ind_val);
 	}

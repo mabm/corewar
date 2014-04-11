@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Thu Apr 10 01:13:59 2014 Geoffrey Merran
-** Last update Fri Apr 11 01:34:10 2014 Geoffrey Merran
+** Last update Fri Apr 11 23:20:09 2014 Geoffrey Merran
 */
 
 #include "vm_getparams.h"
@@ -85,15 +85,6 @@ char	**get_params(int nb_args, t_arena *arena, int address)
 	params[i + 1] = get_value_index(&address, arena);
       else
 	params[i + 1] = NULL;
-      i++;
-    }
-  i = 0;
-  while (i < nb_args)
-    {
-      if (params[TYPE_P][i] == A_REG)
-	printf("Type : %d Valeur : %d\n", params[TYPE_P][i], params[i][0]);
-      else if (params[TYPE_P][i] == A_DIR || params[TYPE_P][i] == A_IND)
-	printf("Type : %d Valeur : %d\n", params[TYPE_P][i], oct_to_int(params[i + 1]));
       i++;
     }
   return (params);

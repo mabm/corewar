@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Tue Apr  8 11:57:41 2014 Nicolas Ades
-** Last update Fri Apr 11 21:51:06 2014 Geoffrey Merran
+** Last update Fri Apr 11 22:53:41 2014 Geoffrey Merran
 */
 
 #include "vm_arena.h"
@@ -45,7 +45,8 @@ void		execute_procs(t_fighter *fighters, t_arena *arena, inst *instruction)
     }
 }
 
-int		is_winner(t_proc **proc, t_champ *champ, t_cycles *cycles)
+int		is_winner(t_proc **proc, t_champ *champ, t_cycles *cycles,
+			  t_arena *arena)
 {
   t_proc	*tmp;
 
@@ -62,6 +63,11 @@ int		is_winner(t_proc **proc, t_champ *champ, t_cycles *cycles)
       if (one_winner(*proc, champ))
       	return (1);
       cycles->cycle_to_die -= CYCLE_DELTA;
+    }
+  if (arena->nbr_live == NBR_LIVE)
+    {
+      cycles->cycle_to_die -= CYCLE_DELTA;
+      arena->nbr_live = 0;
     }
   return (0);
 }
@@ -81,12 +87,13 @@ void		launch_battle(t_arena *arena, t_cycles *cycles, t_champ *champs)
   init_color(&win, fighters.champs);
   aff_champions(&win, fighters.champs);
   my_printf("\n==BATTLE==\n\n");
-  while (cycles->current_cycle != (cycles->cycle_max + 1) && !winner)
+  while (cycles->current_cycle != (cycles->cycle_max + 1) && !winner
+	 && cycles->cycle_to_die > 0)
     {
       execute_procs(&fighters, arena, instruction);
       aff_window(&win, arena, &fighters, cycles);
       cycles->current_cycle++;
-      winner = is_winner(&fighters.procs, fighters.champs, cycles);
+      winner = is_winner(&fighters.procs, fighters.champs, cycles, arena);
     }
   who_win(champs);
   free_battle(instruction, &win, &fighters.procs);
