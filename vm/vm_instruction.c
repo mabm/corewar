@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 12:45:16 2014 Geoffrey Merran
-** Last update Fri Apr 11 23:31:16 2014 Geoffrey Merran
+** Last update Sat Apr 12 01:30:37 2014 Geoffrey Merran
 */
 
 #include "vm_instruction.h"
@@ -87,9 +87,28 @@ int		ld(t_proc *proc, t_arena *arena)
 
 int		st(t_proc *proc, t_arena *arena)
 {
-  (void) arena;
+  char		**params;
+  int		jump;
+  int		addr;
+  t_conv	val;
+
+  params = get_params(op_tab[2].nbr_args, arena, increase_pc(proc->pc, 1));
+  if (!is_valid_reg(params[TYPE_P][0], params[1][0]))
+    return (err_instr(params, op_tab[2].nbr_args));
+  val.integer = proc->reg[params[1][0] - 1];
+  if (params[TYPE_P][1] == A_REG &&
+      is_valid_reg(params[TYPE_P][1], params[2][0]))
+    proc->reg[params[2][0] - 1] = val.integer;
+  else if (params[TYPE_P][1] == A_IND)
+    {
+      addr = get_val(params[TYPE_P][1], params[2], arena, proc);
+      addr = (proc->pc + (addr % IDX_MOD)) % MEM_SIZE;
+      write_vm(arena, addr, val, proc->id);
+    }
+  jump = 2 + get_nb_jump(params[TYPE_P], op_tab[2].nbr_args);
+  free_params(params, op_tab[2].nbr_args);
   proc->cycle_dodo = op_tab[2].nbr_cycles;
-  return (1);
+  return (jump);
 }
 
 int		add(t_proc *proc, t_arena *arena)

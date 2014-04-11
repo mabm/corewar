@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Apr  9 18:30:36 2014 Geoffrey Merran
-** Last update Wed Apr  9 23:08:48 2014 Geoffrey Merran
+** Last update Sat Apr 12 01:41:05 2014 Geoffrey Merran
 */
 
 #include "aff.h"
@@ -73,7 +73,9 @@ void		aff_champions(t_win *win, t_champ *champs)
   while (tmp)
     {
       aff_color_champ(420, y - 3, win, tmp);
-      aff_text_sdl(450, y, champs->header.prog_name, win);
+      aff_text_sdl(450, y, tmp->header.prog_name, win);
+      if (tmp->id < 10 && tmp->id >= 0)
+	aff_nb_sdl(423, y, tmp->id, win);
       tmp = tmp->next;
       y = y + 30;
     }

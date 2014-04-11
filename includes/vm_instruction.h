@@ -5,13 +5,14 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 12:46:20 2014 Geoffrey Merran
-** Last update Fri Apr 11 22:33:05 2014 Geoffrey Merran
+** Last update Sat Apr 12 00:56:09 2014 Geoffrey Merran
 */
 
 #ifndef VM_INSTRUCTION_
 # define VM_INSTRUCTION_
 # include <stdlib.h>
 # include "vm_corewar.h"
+# include "vm_proc.h"
 # include "vm_arena.h"
 # include "vm_getparams.h"
 # include "my.h"

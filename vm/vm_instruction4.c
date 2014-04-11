@@ -5,16 +5,30 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 14:31:16 2014 Geoffrey Merran
-** Last update Fri Apr 11 23:18:22 2014 Geoffrey Merran
+** Last update Sat Apr 12 01:04:14 2014 Geoffrey Merran
 */
 
 #include "vm_instruction.h"
 
 int		lfork(t_proc *proc, t_arena *arena)
 {
-  (void) arena;
+  t_conv	val;
+  int		i;
+  int		j;
+  int		addr;
+
+  i = increase_pc(proc->pc, 1);
+  j = 0;
+  while (j < 4)
+    {
+      val.octet[3 - j] = arena->arena[i];
+      i = increase_pc(i, 1);
+      j++;
+    }
+  addr = (proc->pc + val.integer) % MEM_SIZE;
+  add_proc_vm(proc, addr);
   proc->cycle_dodo = op_tab[14].nbr_cycles;
-  return (1);
+  return (5);
 }
 
 int		aff(t_proc *proc, t_arena *arena)

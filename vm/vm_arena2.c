@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Thu Apr  3 14:19:48 2014 Nicolas Ades
-** Last update Wed Apr  9 18:01:05 2014 Geoffrey Merran
+** Last update Sat Apr 12 01:38:10 2014 Geoffrey Merran
 */
 
 #include "vm_arena.h"
@@ -32,15 +32,18 @@ int		one_winner(t_proc *proc, t_champ *champ)
   while (tmp_ch != NULL)
     {
       if (tmp_ch->live > 0)
-	{
-	  nb_alive++;
-	  tmp_ch->live = 0;
-	}
+	nb_alive++;
       tmp_ch = tmp_ch->next;
     }
   reset_pc(proc);
   if (nb_alive < 2)
     return (1);
+  tmp_ch = champ;
+  while (tmp_ch != NULL)
+    {
+      tmp_ch->live = 0;
+      tmp_ch = tmp_ch->next;
+    }
   return (0);
 }
 

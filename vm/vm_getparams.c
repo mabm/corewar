@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Thu Apr 10 01:13:59 2014 Geoffrey Merran
-** Last update Fri Apr 11 23:20:09 2014 Geoffrey Merran
+** Last update Sat Apr 12 01:31:59 2014 Geoffrey Merran
 */
 
 #include "vm_getparams.h"
@@ -84,7 +84,10 @@ char	**get_params(int nb_args, t_arena *arena, int address)
       else if (params[TYPE_P][i] == A_DIR || params[TYPE_P][i] == A_IND)
 	params[i + 1] = get_value_index(&address, arena);
       else
-	params[i + 1] = NULL;
+	{
+	  params[i + 1] = my_xmalloc(sizeof(char));
+	  params[i + 1][0] = 0;
+	}
       i++;
     }
   return (params);

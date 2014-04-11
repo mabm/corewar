@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Mon Apr  7 13:26:57 2014 Geoffrey Merran
-** Last update Fri Apr 11 21:52:41 2014 Geoffrey Merran
+** Last update Sat Apr 12 01:03:15 2014 Geoffrey Merran
 */
 
 #include "vm_proc.h"
@@ -81,4 +81,24 @@ void		init_proc(t_proc **proc, t_champ *champ)
       add_proc(proc, tmp);
       tmp = tmp->next;
     }
+}
+
+void		add_proc_vm(t_proc *proc, int addr)
+{
+  t_proc	*tmp;
+  int		i;
+
+  tmp = my_xmalloc(sizeof(*tmp));
+  tmp->id = proc->id;
+  tmp->pc = addr;
+  tmp->carry = proc->carry;
+  tmp->alive = 0;
+  tmp->cycle_dodo = op_tab[11].nbr_cycles;
+  i = -1;
+  while (++i < REG_NUMBER)
+    tmp->reg[i] = proc->reg[i];
+  tmp->next = proc->next;
+  proc->next->prev = tmp;
+  tmp->prev = proc;
+  proc->next = tmp;
 }
