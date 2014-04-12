@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:29:01 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 17:02:23 2014 Jeremy Mediavilla
+** Last update Sat Apr 12 17:18:33 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -85,7 +85,7 @@ void		write_dir_data(char *str, int *i, t_conv *conv, t_system *sys)
       my_memset(tmp, 0, 64);
       while (str[j] != ',' && str[j])
 	tmp[sys->kf++] = str[j++];
-      conv->value = atoi(&tmp[1]);
+      conv->value = my_getnbr(&tmp[1]);
       my_printf(">> Direct : %s -> %d (4 Octets)\n", tmp, conv->octets[0]);
       if (str[*i + 1] != ':')
 	dir_data_condition(sys->ins.fd, conv, 0);
