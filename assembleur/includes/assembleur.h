@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:03:51 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 14:12:40 2014 Joris Bertomeu
+** Last update Sat Apr 12 16:18:46 2014 Jeremy Mediavilla
 */
 
 #ifndef COREWAR_H

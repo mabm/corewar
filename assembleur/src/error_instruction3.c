@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Mon Apr  7 15:28:42 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 15:14:24 2014 Joris Bertomeu
+** Last update Sat Apr 12 16:02:49 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -14,14 +14,13 @@
 void		ldi_check_err(t_system *sys, int *values)
 {
   (void)sys;
-  (void)values;
-  if (values[0] != 2 || values[0] != 3)
+  if (values[0] != 2 && values[0] != 3)
     {
       my_printf("Error on \"ldi\" instruction : \
 first param must be an index\n");
       exit(0);
     }
-  if (values[1] != 2 || values[1] != 3)
+  if (values[1] != 2 && values[1] != 3)
     {
       my_printf("Error on \"ldi\" instruction : \
 second param must be an index\n");
