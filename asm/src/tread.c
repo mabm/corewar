@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:39:27 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 18:38:49 2014 Jeremy Mediavilla
+** Last update Sat Apr 12 20:43:48 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -39,14 +39,19 @@ char	*parse_name_file(t_system *sys)
 {
   int	i;
   char	*tmp;
+  int	j;
 
+  j = 0;
   tmp = xmalloc(256 * sizeof(*tmp));
   tmp = my_memset(tmp, '\0', 256);
-  i = 0;
-  while (sys->name_file[i] != '.' && sys->name_file[i])
+  i = my_strlen(sys->name_file);
+  while (i >= 0 && sys->name_file[i] != '.')
+    i--;
+  printf("i = %d char = %c\n", i, sys->name_file[i]);
+  while (j < i)
     {
-      tmp[i] = sys->name_file[i];
-      i++;
+      tmp[j] = sys->name_file[j];
+      j++;
     }
   my_strcat(tmp, ".cor");
   return (tmp);
@@ -65,6 +70,7 @@ void		tread_file(char *path, t_system *sys)
   line = 0;
   name = xmalloc(256 * sizeof(*name));
   name = parse_name_file(sys);
+  printf("Ecriture dans %s\n", name);
   fd = xopen(path, O_RDONLY);
   fd2 = open(name,
 	    O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU | S_IRWXG | S_IRWXO);
