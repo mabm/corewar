@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sat Apr 12 14:09:23 2014 Joris Bertomeu
-** Last update Sat Apr 12 18:38:29 2014 Jeremy Mediavilla
+** Last update Sat Apr 12 19:38:30 2014 Joris Bertomeu
 */
 
 #include "gnl.h"
@@ -90,7 +90,7 @@ void	check_ext(int ac, char **argv)
   while (i < ac)
     {
       if (my_strncmp(&argv[i][my_strlen(argv[i]) - 2], ".s", 2) != 0)
-	aff_error("*.s Only !\n");
+	aff_warn("Warning : It's preferable to give *.s\n");
       i++;
     }
 }

@@ -1,11 +1,11 @@
 /*
-** write.c for  in /home/mediav_j/corewar/assembleur/src
+** xwrite.c for  in /home/mediav_j/corewar/assembleur/src
 ** 
 ** Made by Jeremy Mediavilla
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:29:01 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 18:33:17 2014 Jeremy Mediavilla
+** Last update Sat Apr 12 19:45:30 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -15,13 +15,13 @@ void		dir_data_condition(int fd, t_conv *conv, int flag)
 {
   if (flag == 1)
     conv->value = 0;
-  write(fd, &conv->octets[3], 1);
-  write(fd, &conv->octets[2], 1);
-  write(fd, &conv->octets[1], 1);
-  write(fd, &conv->octets[0], 1);
+  xwrite(fd, &conv->octets[3], 1);
+  xwrite(fd, &conv->octets[2], 1);
+  xwrite(fd, &conv->octets[1], 1);
+  xwrite(fd, &conv->octets[0], 1);
 }
 
-void		write_reg_data(char *str, int *i, t_conv *conv, int fd)
+void		xwrite_reg_data(char *str, int *i, t_conv *conv, int fd)
 {
   int		j;
   int		k;
@@ -42,21 +42,19 @@ void		write_reg_data(char *str, int *i, t_conv *conv, int fd)
       conv->value = my_getnbr(tmp);
       my_printf(">> Registre : %s -> %d (%d) (1 Octet)\n", tmp,
 	     conv->octets[0], conv->value);
-      write(fd, &conv->octets[0], 1);
+      xwrite(fd, &conv->octets[0], 1);
       *i = j;
     }
 }
 
-void		write_undir_data(char *str, int *i, t_conv *conv, int fd)
+void		xwrite_undir_data(char *str, int *i, t_conv *conv, int fd)
 {
   char		tmp[64];
   int		j;
   int		k;
   int		neg;
 
-  neg = 1;
-  j = *i;
-  k = 0;
+  init_dataf(&neg, &j, &k, i);
   if (('0' <= str[*i] && str[*i] <= '9') ||
       ('0' <= str[*i + 1] && str[*i + 1] <= '9' && str[*i] == '-'))
     {
@@ -78,14 +76,13 @@ void		write_undir_data(char *str, int *i, t_conv *conv, int fd)
     }
 }
 
-void		write_dir_data(char *str, int *i, t_conv *conv, t_system *sys)
+void		xwrite_dir_data(char *str, int *i, t_conv *conv, t_system *sys)
 {
   char		tmp[64];
   int		j;
   int		neg;
 
-  neg = 1;
-  sys->kf = 0;
+  aff_dird(&neg, sys);
   if (str[*i] == '%' && str[*i + 1] != ':')
     {
       j = *i;
@@ -108,7 +105,7 @@ void		write_dir_data(char *str, int *i, t_conv *conv, t_system *sys)
     j = param_pt(str, sys, conv, i);
 }
 
-void		write_data(int ibase, char *str, int line, t_system *sys)
+void		xwrite_data(int ibase, char *str, int line, t_system *sys)
 {
   int		i;
   t_conv	*conv;
@@ -118,9 +115,9 @@ void		write_data(int ibase, char *str, int line, t_system *sys)
   i = ibase;
   while (str[i])
     {
-      write_reg_data(str, &i, conv, sys->ins.fd);
-      write_dir_data(str, &i, conv, sys);
-      write_undir_data(str, &i, conv, sys->ins.fd);
+      xwrite_reg_data(str, &i, conv, sys->ins.fd);
+      xwrite_dir_data(str, &i, conv, sys);
+      xwrite_undir_data(str, &i, conv, sys->ins.fd);
       if (str[i] != '\0')
 	i++;
     }

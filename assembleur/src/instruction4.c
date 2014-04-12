@@ -14,7 +14,7 @@
 void		aff_instruction(t_system *sys)
 {
   sys->ins.c = 0x10;
-  write(sys->ins.fd, &sys->ins.c, 1);
+  xwrite(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 3;
   sys->ins.ret_chck = 1;
   my_printf(">> Instruction : aff (1 Octet)\n");

@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:03:51 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 18:27:56 2014 Jeremy Mediavilla
+** Last update Sat Apr 12 19:45:50 2014 Joris Bertomeu
 */
 
 #ifndef COREWAR_H
@@ -82,6 +82,7 @@ char		*init_tab_char();
 void		init_cmd_asm(t_system *);
 void		init(int, char **);
 void		header_init1(int *, t_system *, int, int *);
+void		init_dataf(int *, int *, int *, int *);
 
 /* fonctions dans pars.c */
 void		parse_name(char *, int, t_system *);
@@ -93,6 +94,8 @@ void		parse_list_asm(t_system *);
 void		affbin(unsigned);
 void		aff_error(char *);
 void		aff_info(t_system *, char *);
+void		aff_warn(char *);
+void		aff_dird(int *, t_system *);
 
 /* fonctions dans instruction1.c */
 void		live_instruction(t_system *);
@@ -120,19 +123,19 @@ void		aff_instruction(t_system *);
 
 /* fonctions dans data.c */
 void		dir_data_condition(int, t_conv *, int);
-void		write_reg_data(char *, int *, t_conv *, int);
-void		write_undir_data(char *, int *, t_conv *, int);
-void		write_dir_data(char *, int *, t_conv *, t_system *);
-void		write_data(int, char *, int, t_system *);
+void		xwrite_reg_data(char *, int *, t_conv *, int);
+void		xwrite_undir_data(char *, int *, t_conv *, int);
+void		xwrite_dir_data(char *, int *, t_conv *, t_system *);
+void		xwrite_data(int, char *, int, t_system *);
 
 /* fonctions dans file.c */
 int		register_condition(t_system *);
 int		direct_condition(t_system *);
 int		indirect_condition(t_system *);
-void		write_to_file(char *, int, int, t_system *);
+void		xwrite_to_file(char *, int, int, t_system *);
 
 /* fonction dans magic.c */
-void		write_magic(int);
+void		xwrite_magic(int);
 void		do_labels(int, t_system *);
 void		check_all(t_system *, int , char *, int *);
 int		param_pt(char *, t_system *, t_conv *, int *);
@@ -185,5 +188,6 @@ void		aff_check_err(t_system *, int *);
 /* fonctions dans xfunctions.c */
 void		*xmalloc(size_t);
 int		xopen(const char *, int);
+ssize_t		xwrite(int, const void *, size_t);
 
 #endif /* COREWAR_H */
