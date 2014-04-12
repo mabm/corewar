@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:33:49 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 18:34:30 2014 Jeremy Mediavilla
+** Last update Sat Apr 12 20:13:08 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -102,4 +102,5 @@ void		xwrite_to_file(char *str, int fd, int line, t_system *sys)
   if (sys->ins.ret_chck == 1)
     xwrite(fd, &sys->ins.c, 1);
   xwrite_data(sys->ins.ibase, str, line, sys);
+  free(values);
 }

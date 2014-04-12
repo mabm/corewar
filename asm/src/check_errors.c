@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Mon Apr  7 15:16:14 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 13:57:59 2014 Joris Bertomeu
+** Last update Sat Apr 12 20:35:53 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -49,4 +49,5 @@ void		check_inst_error(int *values, t_system *sys)
 	}
       j++;
     }
+  free(tab);
 }

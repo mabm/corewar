@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:39:27 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 20:43:48 2014 Joris Bertomeu
+** Last update Sat Apr 12 20:47:04 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -68,7 +68,6 @@ void		tread_file(char *path, t_system *sys)
   buff = xmalloc(4096 * sizeof(*buff));
   my_memset(buff, 0, 4096);
   line = 0;
-  name = xmalloc(256 * sizeof(*name));
   name = parse_name_file(sys);
   printf("Ecriture dans %s\n", name);
   fd = xopen(path, O_RDONLY);
@@ -85,6 +84,7 @@ void		tread_file(char *path, t_system *sys)
     }
   second_pass(fd2, sys);
   free(buff);
+  free(name);
 }
 
 void	tread_line_cnf_asm(t_system *system, char *buff, int line)

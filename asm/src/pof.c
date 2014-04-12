@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sat Apr 12 14:09:23 2014 Joris Bertomeu
-** Last update Sat Apr 12 19:38:30 2014 Joris Bertomeu
+** Last update Sat Apr 12 20:37:21 2014 Jeremy Mediavilla
 */
 
 #include "gnl.h"
@@ -37,6 +37,7 @@ void	new_label(t_system *sys)
     }
   if (flag == 2)
     label_detect(sys, nl);
+  free(nl);
 }
 
 void	init_pof(void (*which_instruction[16])(t_system *sys))
@@ -79,6 +80,7 @@ int	check_instruction(t_system *sys)
 	}
       j++;
     }
+  free(tab);
   return (1);
 }
 
