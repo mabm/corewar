@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:07:56 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 19:41:52 2014 Joris Bertomeu
+** Last update Sat Apr 12 22:04:38 2014 Geoffrey Merran
 */
 
 #include "assembleur.h"
@@ -16,12 +16,12 @@ char		**init_tab()
   char		**tab;
 
   tab = xmalloc(17 * sizeof(char *));
-  tab[0] = "sti";
+  tab[0] = "st";
   tab[1] = "and";
   tab[2] = "ld";
   tab[3] = "live";
   tab[4] = "zjmp";
-  tab[5] = "st";
+  tab[5] = "sti";
   tab[6] = "add";
   tab[7] = "sub";
   tab[8] = "or";

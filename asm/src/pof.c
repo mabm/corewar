@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sat Apr 12 14:09:23 2014 Joris Bertomeu
-** Last update Sat Apr 12 20:37:21 2014 Jeremy Mediavilla
+** Last update Sat Apr 12 22:05:46 2014 Geoffrey Merran
 */
 
 #include "gnl.h"
@@ -42,12 +42,12 @@ void	new_label(t_system *sys)
 
 void	init_pof(void (*which_instruction[16])(t_system *sys))
 {
-  which_instruction[0] = &sti_instruction;
+  which_instruction[0] = &st_instruction;
   which_instruction[1] = &and_instruction;
   which_instruction[2] = &ld_instruction;
   which_instruction[3] = &live_instruction;
   which_instruction[4] = &zjmp_instruction;
-  which_instruction[5] = &st_instruction;
+  which_instruction[5] = &sti_instruction;
   which_instruction[6] = &add_instruction;
   which_instruction[7] = &sub_instruction;
   which_instruction[8] = &or_instruction;
@@ -72,6 +72,7 @@ int	check_instruction(t_system *sys)
   j = 0;
   while (j < 16)
     {
+      printf("Size : %d\n", get_inst_len(&sys->ins.str[sys->ins.i]));
       if (my_strncmp(&sys->ins.str[sys->ins.i], tab[j],
 		  get_inst_len(&sys->ins.str[sys->ins.i])) == 0)
 	{

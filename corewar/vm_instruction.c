@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 12:45:16 2014 Geoffrey Merran
-** Last update Sat Apr 12 21:01:21 2014 Geoffrey Merran
+** Last update Sat Apr 12 22:11:20 2014 Geoffrey Merran
 */
 
 #include "vm_instruction.h"
@@ -91,6 +91,7 @@ int		st(t_proc *proc, t_arena *arena)
     proc->reg[params[2][0] - 1] = val.integer;
   else if (params[TYPE_P][1] == A_IND)
     {
+      params[TYPE_P][1] = A_DIR;
       addr = get_val(params[TYPE_P][1], params[2], arena, proc);
       addr = my_mod((proc->pc + (addr % IDX_MOD)), MEM_SIZE);
       write_vm(arena, addr, val, proc->id);

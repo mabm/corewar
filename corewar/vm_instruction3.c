@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 14:29:40 2014 Geoffrey Merran
-** Last update Sat Apr 12 21:37:05 2014 Geoffrey Merran
+** Last update Sat Apr 12 23:02:58 2014 Geoffrey Merran
 */
 
 #include "vm_instruction.h"
@@ -85,17 +85,15 @@ int		lld(t_proc *proc, t_arena *arena)
   int		val;
   int		jump;
 
-  printf("ca passe\n");
-  params = get_params(op_tab[11].nbr_args, arena, increase_pc(proc->pc, 1));
+  params = get_params(op_tab[12].nbr_args, arena, increase_pc(proc->pc, 1));
   if (!is_valid_reg(params[TYPE_P][1], params[2][0]))
-    return (err_instr(params, op_tab[11].nbr_args));
+    return (err_instr(params, op_tab[12].nbr_args));
   val = get_val_no_idx(params[TYPE_P][0], params[1], arena, proc);
   proc->reg[params[2][0] - 1] = val;
-  printf("val is %d\n", val);
-  jump = 2 + get_nb_jump(params[TYPE_P], op_tab[11].nbr_args);
-  free_params(params, op_tab[11].nbr_args);
+  jump = 2 + get_nb_jump(params[TYPE_P], op_tab[12].nbr_args);
+  free_params(params, op_tab[12].nbr_args);
   proc->carry = 1;
-  proc->cycle_dodo = op_tab[11].nbr_cycles;
+  proc->cycle_dodo = op_tab[12].nbr_cycles;
   return (jump);
 }
 

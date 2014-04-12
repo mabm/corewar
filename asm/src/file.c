@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:33:49 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 21:44:41 2014 Geoffrey Merran
+** Last update Sat Apr 12 22:45:52 2014 Geoffrey Merran
 */
 
 #include "assembleur.h"
@@ -53,7 +53,8 @@ int		direct_condition(t_system *sys)
 int		indirect_condition(t_system *sys)
 {
   if ('0' <= sys->ins.str[sys->ins.i] && sys->ins.str[sys->ins.i] <= '9' &&
-      sys->ins.str[sys->ins.i - 1] == ' ')
+      (sys->ins.str[sys->ins.i - 1] == ' ' ||
+       sys->ins.str[sys->ins.i - 1] == '-'))
     {
       if (sys->ins.cmptr == 0)
 	sys->ins.c += 0xC0;

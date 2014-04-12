@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Mon Apr  7 15:28:07 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 17:05:24 2014 Jeremy Mediavilla
+** Last update Sat Apr 12 22:41:47 2014 Geoffrey Merran
 */
 
 #include "assembleur.h"
@@ -14,7 +14,13 @@
 void		st_check_err(t_system *sys, int *values)
 {
   (void)sys;
-  if (values[2] != 0 || values[1] == 0 || values[0] == 0)
+  printf(">> %d - %d - %d\n", values[0], values[1], values[2]);
+  if (values[0] != 1 || (values[1] != 1 && values[1] != 3))
+    {
+      my_printf("Error on \"st\" instruction : wrong type of parameters\n");
+      exit(0);
+    }
+  if (values[0] == 0 || values[1] == 0)
     {
       my_printf("Error on \"st\" instruction : wrong number of params\n");
       exit(0);
