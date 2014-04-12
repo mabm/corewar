@@ -1,3 +1,13 @@
+##
+## Makefile for Makefile in /home/merran_g/work/c_elem/corewar/assembleur
+## 
+## Made by Geoffrey Merran
+## Login   <merran_g@epitech.net>
+## 
+## Started on  Sat Apr 12 20:15:17 2014 Geoffrey Merran
+## Last update Sat Apr 12 20:15:28 2014 Geoffrey Merran
+##
+
 CC		=	gcc -Iincludes
 
 CFLAGS		+=	-W -Wextra -Wall -ansi -pedantic -g3
@@ -30,7 +40,7 @@ SRC_LOADING	=	makefile_deco/loading.c
 OBJ		=	$(SRC:.c=.o)
 OBJ_LOADING	=	$(SRC_LOADING:.c=.o)
 
-NOM		=	ASM
+NOM		=	asm
 NAME_LOADING	=	makefile_deco/loading
 
 all:		lib asm

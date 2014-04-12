@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sat Apr 12 14:09:23 2014 Joris Bertomeu
-** Last update Sat Apr 12 14:13:50 2014 Joris Bertomeu
+** Last update Sat Apr 12 20:31:46 2014 Jeremy Mediavilla
 */
 
 #include "gnl.h"
@@ -19,7 +19,7 @@ void	new_label(t_system *sys)
 
   i = 0;
   flag = 0;
-  nl = malloc(128 * sizeof(char));
+  nl = xmalloc(128 * sizeof(char));
   while (sys->ins.str[i] != ':' && sys->ins.str[i] != ' ' && sys->ins.str[i])
     {
       nl[i] = sys->ins.str[i];
@@ -31,12 +31,13 @@ void	new_label(t_system *sys)
   i = 0;
   while (i < sys->cl)
     {
-      if (strcmp(sys->labels[i].name, nl) == 0)
+      if (my_strcmp(sys->labels[i].name, nl) == 0)
 	flag = 1;
       i++;
     }
   if (flag == 2)
     label_detect(sys, nl);
+  free(nl);
 }
 
 void	init_pof(void (*which_instruction[16])(t_system *sys))
@@ -59,11 +60,11 @@ void	init_pof(void (*which_instruction[16])(t_system *sys))
   which_instruction[15] = &aff_instruction;
 }
 
-int		check_instruction(t_system *sys)
+int	check_instruction(t_system *sys)
 {
-  char		**tab;
-  void		(*which_instruction[16])(t_system *sys);
-  int		j;
+  char	**tab;
+  void	(*which_instruction[16])(t_system *sys);
+  int	j;
 
   tab = init_tab();
   init_pof(which_instruction);
@@ -71,7 +72,7 @@ int		check_instruction(t_system *sys)
   j = 0;
   while (j < 16)
     {
-      if (strncmp(&sys->ins.str[sys->ins.i], tab[j],
+      if (my_strncmp(&sys->ins.str[sys->ins.i], tab[j],
 		  get_inst_len(&sys->ins.str[sys->ins.i])) == 0)
 	{
 	  (*which_instruction[j])(sys);
@@ -82,15 +83,15 @@ int		check_instruction(t_system *sys)
   return (1);
 }
 
-void		check_ext(int ac, char **argv)
+void	check_ext(int ac, char **argv)
 {
-  int		i;
+  int	i;
 
   i = 1;
   while (i < ac)
     {
-      if (strncmp(&argv[i][strlen(argv[i]) - 2], ".s", 2) != 0)
-	aff_error("*.s Only !\n");
+      if (my_strncmp(&argv[i][my_strlen(argv[i]) - 2], ".s", 2) != 0)
+	aff_warn("Warning : It's preferable to give *.s\n");
       i++;
     }
 }
