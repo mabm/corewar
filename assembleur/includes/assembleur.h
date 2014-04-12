@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:03:51 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 17:18:37 2014 Jeremy Mediavilla
+** Last update Sat Apr 12 18:27:56 2014 Jeremy Mediavilla
 */
 
 #ifndef COREWAR_H
@@ -181,5 +181,9 @@ void		lfork_check_err(t_system *, int *);
 
 /* fonctions dans error_instruction4.c */
 void		aff_check_err(t_system *, int *);
+
+/* fonctions dans xfunctions.c */
+void		*xmalloc(size_t);
+int		xopen(const char *, int);
 
 #endif /* COREWAR_H */

@@ -23,6 +23,7 @@ SRC		=	src/main.c				\
 			src/error_instruction3.c		\
 			src/error_instruction4.c		\
 			src/pof.c				\
+			src/xfunctions.c			\
 
 SRC_LOADING	=	makefile_deco/loading.c
 
