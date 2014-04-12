@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 14:31:16 2014 Geoffrey Merran
-** Last update Sat Apr 12 01:04:14 2014 Geoffrey Merran
+** Last update Sat Apr 12 18:32:12 2014 Geoffrey Merran
 */
 
 #include "vm_instruction.h"
@@ -25,7 +25,9 @@ int		lfork(t_proc *proc, t_arena *arena)
       i = increase_pc(i, 1);
       j++;
     }
+  printf("val : %d\n", val.integer);
   addr = (proc->pc + val.integer) % MEM_SIZE;
+  printf("start : %d addr to fork : %d\n", proc->pc, addr);
   add_proc_vm(proc, addr);
   proc->cycle_dodo = op_tab[14].nbr_cycles;
   return (5);
