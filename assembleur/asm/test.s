@@ -1,3 +1,3 @@
 .name "Test"
 .comment "comment"
-lfork %1500
+lfork %-60
