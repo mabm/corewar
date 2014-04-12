@@ -14,7 +14,7 @@
 void		and_instruction(t_system *sys)
 {
   sys->ins.c = 0x06;
-  write(sys->ins.fd, &sys->ins.c, 1);
+  xwrite(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 3;
   sys->ins.ret_chck = 1;
   my_printf(">> Instruction : and (1 Octet)\n");
@@ -31,7 +31,7 @@ void		and_instruction(t_system *sys)
 void		or_instruction(t_system *sys)
 {
   sys->ins.c = 0x07;
-  write(sys->ins.fd, &sys->ins.c, 1);
+  xwrite(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 2;
   sys->ins.ret_chck = 1;
   my_printf(">> Instruction : or (1 Octet)\n");
@@ -48,7 +48,7 @@ void		or_instruction(t_system *sys)
 void		xor_instruction(t_system *sys)
 {
   sys->ins.c = 0x08;
-  write(sys->ins.fd, &sys->ins.c, 1);
+  xwrite(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 3;
   sys->ins.ret_chck = 1;
   my_printf(">> Instruction : xor (1 Octet)\n");
@@ -65,7 +65,7 @@ void		xor_instruction(t_system *sys)
 void		zjmp_instruction(t_system *sys)
 {
   sys->ins.c = 0x09;
-  write(sys->ins.fd, &sys->ins.c, 1);
+  xwrite(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 4;
   sys->ins.ret_chck = -1;
   my_printf(">> Instruction : zjmp (1 Octet)\n");
@@ -82,7 +82,7 @@ void		zjmp_instruction(t_system *sys)
 void		ldi_instruction(t_system *sys)
 {
   sys->ins.c = 0x0a;
-  write(sys->ins.fd, &sys->ins.c, 1);
+  xwrite(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 3;
   sys->ins.ret_chck = 1;
   my_printf(">> Instruction : ldi (1 Octet)\n");

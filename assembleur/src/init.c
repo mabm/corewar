@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:07:56 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 19:12:46 2014 Jeremy Mediavilla
+** Last update Sat Apr 12 19:41:52 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -72,12 +72,12 @@ void		header_init1(int *j, t_system *sys, int fd, int *i)
   c = 0x0;
   sys->f_n = 1;
   *j = (int) lseek(fd, 0, SEEK_CUR);
-  write(fd, sys->name, my_strlen(sys->name));
+  xwrite(fd, sys->name, my_strlen(sys->name));
   *i = (int) lseek(fd, 0, SEEK_CUR) - *j;
   *j = 0;
   while (*j < PROG_NAME_LENGTH - *i)
     {
-      write(fd, &c, 1);
+      xwrite(fd, &c, 1);
       (*j)++;
     }
   my_printf(">> Name wrote ( %d/%i octets, Total %d octets )\n", *i,
@@ -107,4 +107,11 @@ char		*init_tab_char()
   tab[15] = 0x10;
   tab[16] = '\0';
   return (tab);
+}
+
+void	init_dataf(int *neg, int *j, int *k, int *i)
+{
+  *neg = 1;
+  *j = *i;
+  *k = 0;
 }

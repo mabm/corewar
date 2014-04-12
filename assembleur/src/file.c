@@ -85,7 +85,7 @@ void	init_struct_wtf(t_system *sys, char *str, int fd, int *values)
   sys->ins.cmptr = 0;
 }
 
-void		write_to_file(char *str, int fd, int line, t_system *sys)
+void		xwrite_to_file(char *str, int fd, int line, t_system *sys)
 {
   int		*values;
   int		tmp;
@@ -100,6 +100,6 @@ void		write_to_file(char *str, int fd, int line, t_system *sys)
     }
   check_inst_error(values, sys);
   if (sys->ins.ret_chck == 1)
-    write(fd, &sys->ins.c, 1);
-  write_data(sys->ins.ibase, str, line, sys);
+    xwrite(fd, &sys->ins.c, 1);
+  xwrite_data(sys->ins.ibase, str, line, sys);
 }

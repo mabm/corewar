@@ -17,7 +17,7 @@ void	tread_line(char *buff, t_system *system, int fd, int line)
 
   ret = parse_line_cn(buff, system, fd);
   if (ret == 0)
-    write_to_file(buff, fd, line, system);
+    xwrite_to_file(buff, fd, line, system);
 }
 
 void		second_pass(int fd, t_system *sys)
@@ -28,10 +28,10 @@ void		second_pass(int fd, t_system *sys)
   size = lseek(fd, 0, SEEK_END) - (4 + 4 + 2048 + 128);
   conv.value = size;
   lseek(fd, 4, SEEK_SET);
-  write(fd, &conv.octets[3], 1);
-  write(fd, &conv.octets[2], 1);
-  write(fd, &conv.octets[1], 1);
-  write(fd, &conv.octets[0], 1);
+  xwrite(fd, &conv.octets[3], 1);
+  xwrite(fd, &conv.octets[2], 1);
+  xwrite(fd, &conv.octets[1], 1);
+  xwrite(fd, &conv.octets[0], 1);
   do_labels(fd, sys);
 }
 
@@ -70,7 +70,7 @@ void		tread_file(char *path, t_system *sys)
 	    O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU | S_IRWXG | S_IRWXO);
   if (fd != -1 && fd2 != -1)
     {
-      write_magic(fd2);
+      xwrite_magic(fd2);
       while ((buff = get_next_line(fd)) != NULL)
 	{
 	  sys->start_line = lseek(fd2, 0, SEEK_CUR);

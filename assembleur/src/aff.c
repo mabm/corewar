@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:14:22 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 15:16:16 2014 Joris Bertomeu
+** Last update Sat Apr 12 19:45:19 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -17,6 +17,11 @@ void		aff_error(char *msg)
   exit (0);
 }
 
+void		aff_warn(char *msg)
+{
+  my_printf(msg);
+}
+
 void		aff_info(t_system *system, char *name)
 {
   if (system->name == 0 || system->comment == 0)
@@ -25,4 +30,10 @@ void		aff_info(t_system *system, char *name)
   my_printf("Nom du Chamion : %s\n", system->name);
   my_printf("Commentaire du Champion : %s\n", system->comment);
   my_printf("\n--------------\n");
+}
+
+void		aff_dird(int *neg, t_system *sys)
+{
+  *neg = 1;
+  sys->kf = 0;
 }

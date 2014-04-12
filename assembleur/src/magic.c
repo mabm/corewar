@@ -11,7 +11,7 @@
 #include "assembleur.h"
 #include "gnl.h"
 
-void		write_magic(int fd)
+void		xwrite_magic(int fd)
 {
   char		c[4];
   t_conv	conv;
@@ -20,10 +20,10 @@ void		write_magic(int fd)
   c[1] = 'a';
   c[2] = 'b';
   c[3] = 'm';
-  write(fd, &c, 4);
+  xwrite(fd, &c, 4);
   my_printf(">> Passphrase Wrote : **** ( 4 Octets )\n\n");
   conv.value = 0;
-  write(fd, &conv.octets, 4);
+  xwrite(fd, &conv.octets, 4);
 }
 
 void		do_labels(int fd, t_system *sys)
@@ -42,10 +42,10 @@ void		do_labels(int fd, t_system *sys)
 	    {
 	      conv.value = sys->labels[i].offset - sys->olabels[j].line;
 	      lseek(fd, sys->olabels[j].offset, SEEK_SET);
-	      write(fd, &conv.octets[3], 1);
-	      write(fd, &conv.octets[2], 1);
-	      write(fd, &conv.octets[1], 1);
-	      write(fd, &conv.octets[0], 1);
+	      xwrite(fd, &conv.octets[3], 1);
+	      xwrite(fd, &conv.octets[2], 1);
+	      xwrite(fd, &conv.octets[1], 1);
+	      xwrite(fd, &conv.octets[0], 1);
 	    }
 	  j++;
 	}

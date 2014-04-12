@@ -14,7 +14,7 @@
 void		sti_instruction (t_system *sys)
 {
   sys->ins.c = 0x0b;
-  write(sys->ins.fd, &sys->ins.c, 1);
+  xwrite(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 3;
   sys->ins.ret_chck = 1;
   my_printf(">> Instruction : sti (1 Octet)\n");
@@ -31,7 +31,7 @@ void		sti_instruction (t_system *sys)
 void		fork_instruction(t_system *sys)
 {
   sys->ins.c = 0x0c;
-  write(sys->ins.fd, &sys->ins.c, 1);
+  xwrite(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 4;
   sys->ins.ret_chck = -1;
   my_printf(">> Instruction : fork (1 Octet)\n");
@@ -48,7 +48,7 @@ void		fork_instruction(t_system *sys)
 void		lfork_instruction(t_system *sys)
 {
   sys->ins.c = 0x0f;
-  write(sys->ins.fd, &sys->ins.c, 1);
+  xwrite(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 5;
   sys->ins.ret_chck = -1;
   my_printf(">> Instruction : lfork (1 Octet)\n");
@@ -65,7 +65,7 @@ void		lfork_instruction(t_system *sys)
 void		lld_instruction(t_system *sys)
 {
   sys->ins.c = 0x0d;
-  write(sys->ins.fd, &sys->ins.c, 1);
+  xwrite(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 3;
   sys->ins.ret_chck = 1;
   my_printf(">> Instruction : lld (1 Octet)\n");
@@ -82,7 +82,7 @@ void		lld_instruction(t_system *sys)
 void		lldi_instruction(t_system *sys)
 {
   sys->ins.c = 0x0e;
-  write(sys->ins.fd, &sys->ins.c, 1);
+  xwrite(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 4;
   sys->ins.ret_chck = 1;
   my_printf(">> Instruction : lldi (1 Octet)\n");

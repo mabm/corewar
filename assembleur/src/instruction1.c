@@ -14,7 +14,7 @@
 void		live_instruction(t_system *sys)
 {
   sys->ins.c = 0x01;
-  write(sys->ins.fd, &sys->ins.c, 1);
+  xwrite(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 4;
   sys->ins.ret_chck = -1;
   my_printf(">> Instruction : live (1 Octet)\n");
@@ -31,7 +31,7 @@ void		live_instruction(t_system *sys)
 void		ld_instruction(t_system *sys)
 {
   sys->ins.c = 0x02;
-  write(sys->ins.fd, &sys->ins.c, 1);
+  xwrite(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 2;
   sys->ins.ret_chck = 1;
   my_printf(">> Instruction : ld (1 Octet)\n");
@@ -48,7 +48,7 @@ void		ld_instruction(t_system *sys)
 void		st_instruction (t_system *sys)
 {
   sys->ins.c = 0x03;
-  write(sys->ins.fd, &sys->ins.c, 1);
+  xwrite(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 2;
   sys->ins.ret_chck = 1;
   my_printf(">> Instruction : st (1 Octet)\n");
@@ -65,7 +65,7 @@ void		st_instruction (t_system *sys)
 void		add_instruction(t_system *sys)
 {
   sys->ins.c = 0x04;
-  write(sys->ins.fd, &sys->ins.c, 1);
+  xwrite(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 3;
   sys->ins.ret_chck = 1;
   my_printf(">> Instruction : add (1 Octet)\n");
@@ -82,7 +82,7 @@ void		add_instruction(t_system *sys)
 void		sub_instruction(t_system *sys)
 {
   sys->ins.c = 0x05;
-  write(sys->ins.fd, &sys->ins.c, 1);
+  xwrite(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 3;
   sys->ins.ret_chck = 1;
   my_printf(">> Instruction : sub (1 Octet)\n");

@@ -37,12 +37,12 @@ void		create_header(int fd, t_system *sys, int fg)
     {
       sys->f_c = 1;
       j = (int) lseek(fd, 0, SEEK_CUR);
-      write(fd, sys->comment, my_strlen(sys->comment));
+      xwrite(fd, sys->comment, my_strlen(sys->comment));
       i = (int) lseek(fd, 0, SEEK_CUR) - j;
       j = 0;
       while (j < COMMENT_LENGTH - i)
 	{
-	  write(fd, &c, 1);
+	  xwrite(fd, &c, 1);
 	  j++;
 	}
       my_printf(">> Comment wrote ( %d/%d octets, Total %d octets )\n", i,

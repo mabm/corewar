@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Sat Apr 12 18:19:19 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 19:26:21 2014 Jeremy Mediavilla
+** Last update Sat Apr 12 19:36:45 2014 Joris Bertomeu
 */
 
 #include "gnl.h"
@@ -44,4 +44,5 @@ ssize_t		xwrite(int fd, const void *buf, size_t count)
       my_putstr("Write error\n");
       exit(0);
     }
+  return (tmp);
 }
