@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Sat Apr 12 18:19:19 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 18:31:26 2014 Jeremy Mediavilla
+** Last update Sat Apr 12 19:26:21 2014 Jeremy Mediavilla
 */
 
 #include "gnl.h"
@@ -33,4 +33,15 @@ int		xopen(const char *pathname, int flags)
       exit(0);
     }
   return (fd);
+}
+
+ssize_t		xwrite(int fd, const void *buf, size_t count)
+{
+  ssize_t	tmp;
+
+  if ((tmp = write(fd, buf, count)) == -1)
+    {
+      my_putstr("Write error\n");
+      exit(0);
+    }
 }
