@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:29:01 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 19:45:30 2014 Joris Bertomeu
+** Last update Sat Apr 12 20:12:11 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -122,4 +122,5 @@ void		xwrite_data(int ibase, char *str, int line, t_system *sys)
 	i++;
     }
   my_printf("\n>> Line %d\n\n", line + 2);
+  free(conv);
 }

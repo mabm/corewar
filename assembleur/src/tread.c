@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:39:27 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 18:38:49 2014 Jeremy Mediavilla
+** Last update Sat Apr 12 20:16:32 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -79,6 +79,7 @@ void		tread_file(char *path, t_system *sys)
     }
   second_pass(fd2, sys);
   free(buff);
+  free(name);
 }
 
 void	tread_line_cnf_asm(t_system *system, char *buff, int line)
