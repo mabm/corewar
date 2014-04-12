@@ -5,15 +5,15 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:35:59 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 13:58:18 2014 Joris Bertomeu
+** Last update Sat Apr 12 15:10:50 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
 #include "gnl.h"
 
-void	write_magic(int fd)
+void		write_magic(int fd)
 {
-  char	c[4];
+  char		c[4];
   t_conv	conv;
 
   c[0] = 'm';
@@ -21,12 +21,12 @@ void	write_magic(int fd)
   c[2] = 'b';
   c[3] = 'm';
   write(fd, &c, 4);
-  printf(">> Passphrase Wrote : **** ( 4 Octets )\n\n");
+  my_printf(">> Passphrase Wrote : **** ( 4 Octets )\n\n");
   conv.value = 0;
   write(fd, &conv.octets, 4);
 }
 
-void	do_labels(int fd, t_system *sys)
+void		do_labels(int fd, t_system *sys)
 {
   int		i;
   int		j;
@@ -38,7 +38,7 @@ void	do_labels(int fd, t_system *sys)
       j = 0;
       while (j < sys->col)
 	{
-	  if (strcmp(sys->olabels[j].name, sys->labels[i].name) == 0)
+	  if (my_strcmp(sys->olabels[j].name, sys->labels[i].name) == 0)
 	    {
 	      conv.value = sys->labels[i].offset - sys->olabels[j].line;
 	      lseek(fd, sys->olabels[j].offset, SEEK_SET);
@@ -77,15 +77,15 @@ int	param_pt(char *str, t_system *sys, t_conv *conv, int *i)
   int	j;
 
   j = *i + 2;
-  memset(tmp, 0, 64);
+  my_memset(tmp, 0, 64);
   while (str[j] != ',' && str[j])
     tmp[(sys->kf)++] = str[j++];
   tmp[sys->kf] = '\0';
   sys->olabels[sys->col].offset = lseek(sys->ins.fd, 0, SEEK_CUR);
   sys->olabels[sys->col].line = sys->start_line;
-  sys->olabels[sys->col].name = malloc(strlen(tmp) * sizeof(char));
-  strcpy(sys->olabels[sys->col++].name, tmp);
-  printf(">> Direct : %s -> %x (4 Octets) (Label Call)\n",
+  sys->olabels[sys->col].name = malloc(my_strlen(tmp) * sizeof(char));
+  my_strcpy(sys->olabels[sys->col++].name, tmp);
+  my_printf(">> Direct : %s -> %d (4 Octets) (Label Call)\n",
 	 tmp, conv->octets[0]);
   dir_data_condition(sys->ins.fd, conv, 1);
   while (str[*i] != ',' && str[*i] != '\0')

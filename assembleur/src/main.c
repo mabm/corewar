@@ -37,7 +37,7 @@ void		create_header(int fd, t_system *sys, int fg)
     {
       sys->f_c = 1;
       j = (int) lseek(fd, 0, SEEK_CUR);
-      write(fd, sys->comment, strlen(sys->comment));
+      write(fd, sys->comment, my_strlen(sys->comment));
       i = (int) lseek(fd, 0, SEEK_CUR) - j;
       j = 0;
       while (j < COMMENT_LENGTH - i)
@@ -45,7 +45,7 @@ void		create_header(int fd, t_system *sys, int fg)
 	  write(fd, &c, 1);
 	  j++;
 	}
-      printf(">> Comment wrote ( %d/%d octets, Total %d octets )\n", i,
+      my_printf(">> Comment wrote ( %d/%d octets, Total %d octets )\n", i,
 	     COMMENT_LENGTH, (int) lseek(fd, 0, SEEK_CUR));
     }
 }
@@ -54,8 +54,8 @@ void	label_detect(t_system *sys, char *nl)
 {
   sys->labels[sys->cl].offset = lseek(sys->ins.fd, 0, SEEK_CUR);
   sys->labels[sys->cl].name = malloc(128 * sizeof(char));
-  strcpy(sys->labels[sys->cl++].name, nl);
-  printf(">> Label declaration detected : %s | Pos : %d\n", nl,
+  my_strcpy(sys->labels[sys->cl++].name, nl);
+  my_printf(">> Label declaration detected : %s | Pos : %d\n", nl,
 	 sys->labels[sys->cl - 1].offset);
 }
 
@@ -69,7 +69,7 @@ int	main(int ac, char *argv[])
 {
   if (ac < 2)
     {
-      printf("Usage : %s <INPUT_FILE.s>\n", argv[0]);
+      my_printf("Usage : %s <INPUT_FILE.s>\n", argv[0]);
       return (-1);
     }
   else

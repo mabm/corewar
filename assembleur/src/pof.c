@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sat Apr 12 14:09:23 2014 Joris Bertomeu
-** Last update Sat Apr 12 14:37:57 2014 Joris Bertomeu
+** Last update Sat Apr 12 15:10:13 2014 Joris Bertomeu
 */
 
 #include "gnl.h"
@@ -31,7 +31,7 @@ void	new_label(t_system *sys)
   i = 0;
   while (i < sys->cl)
     {
-      if (strcmp(sys->labels[i].name, nl) == 0)
+      if (my_strcmp(sys->labels[i].name, nl) == 0)
 	flag = 1;
       i++;
     }
@@ -59,11 +59,11 @@ void	init_pof(void (*which_instruction[16])(t_system *sys))
   which_instruction[15] = &aff_instruction;
 }
 
-int		check_instruction(t_system *sys)
+int	check_instruction(t_system *sys)
 {
-  char		**tab;
-  void		(*which_instruction[16])(t_system *sys);
-  int		j;
+  char	**tab;
+  void	(*which_instruction[16])(t_system *sys);
+  int	j;
 
   tab = init_tab();
   init_pof(which_instruction);
@@ -82,14 +82,14 @@ int		check_instruction(t_system *sys)
   return (1);
 }
 
-void		check_ext(int ac, char **argv)
+void	check_ext(int ac, char **argv)
 {
-  int		i;
+  int	i;
 
   i = 1;
   while (i < ac)
     {
-      if (my_strncmp(&argv[i][strlen(argv[i]) - 2], ".s", 2) != 0)
+      if (my_strncmp(&argv[i][my_strlen(argv[i]) - 2], ".s", 2) != 0)
 	aff_error("*.s Only !\n");
       i++;
     }

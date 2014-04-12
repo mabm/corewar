@@ -32,7 +32,7 @@ void		write_reg_data(char *str, int *i, t_conv *conv, int fd)
   if (str[*i] == 'r' && '0' <= str[*i + 1] &&
       str[*i + 1] <= '9')
     {
-      memset(tmp, 0, 64);
+      my_memset(tmp, 0, 64);
       while (str[j] != ',' && str[j])
 	{
 	  if (str[j] >= '0' && str[j] <= '9')
@@ -40,7 +40,7 @@ void		write_reg_data(char *str, int *i, t_conv *conv, int fd)
 	  j++;
 	}
       conv->value = my_getnbr(tmp);
-      printf(">> Registre : %s -> %x (%d) (1 Octet)\n", tmp,
+      my_printf(">> Registre : %s -> %d (%d) (1 Octet)\n", tmp,
 	     conv->octets[0], conv->value);
       write(fd, &conv->octets[0], 1);
       *i = j;
@@ -57,7 +57,7 @@ void		write_undir_data(char *str, int *i, t_conv *conv, int fd)
   k = 0;
   if ('0' <= str[*i] && str[*i] <= '9')
     {
-      memset(tmp, 0, 64);
+      my_memset(tmp, 0, 64);
       while (str[j] != ',' && str[j])
 	{
 	  if (str[j] && '0' <= str[j] && str[j] <= '9')
@@ -65,7 +65,7 @@ void		write_undir_data(char *str, int *i, t_conv *conv, int fd)
 	  j++;
 	}
       conv->value = my_getnbr(tmp);
-      printf(">> Indirect : %s -> %x (%d) (4 Octets)\n", tmp,
+      my_printf(">> Indirect : %s -> %d (%d) (4 Octets)\n", tmp,
 	     conv->octets[0], conv->value);
       dir_data_condition(fd, conv, 0);
       while (str[*i] != ',' && str[*i])
@@ -82,11 +82,11 @@ void		write_dir_data(char *str, int *i, t_conv *conv, int fd, t_system *sys)
   if (str[*i] == '%' && str[*i + 1] != ':')
     {
       j = *i;
-      memset(tmp, 0, 64);
+      my_memset(tmp, 0, 64);
       while (str[j] != ',' && str[j])
 	tmp[sys->kf++] = str[j++];
       conv->value = atoi(&tmp[1]);
-      printf(">> Direct : %s -> %x (4 Octets)\n", tmp, conv->octets[0]);
+      my_printf(">> Direct : %s -> %d (4 Octets)\n", tmp, conv->octets[0]);
       if (str[*i + 1] != ':')
 	dir_data_condition(fd, conv, 0);
       else
@@ -113,5 +113,5 @@ void		write_data(int ibase, char *str, int fd, int line, t_system *sys)
       if (str[i] != '\0')
 	i++;
     }
-  printf("\n>> Line %d\n\n", line + 2);
+  my_printf("\n>> Line %d\n\n", line + 2);
 }

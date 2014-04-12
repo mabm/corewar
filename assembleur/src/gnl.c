@@ -1,9 +1,15 @@
-#include <unistd.h>
-#include <stdlib.h>
+/*
+** gnl.c for GNL in /home/jobertomeu/Work/corewar/assembleur
+** 
+** Made by Joris Bertomeu
+** Login   <jobertomeu@epitech.net>
+** 
+** Started on  Sat Apr 12 15:07:49 2014 Joris Bertomeu
+** Last update Sat Apr 12 15:08:23 2014 Joris Bertomeu
+*/
+
 #include "gnl.h"
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
+#include "assembleur.h"
 
 static void	*xmalloc(int sz)
 {
@@ -50,7 +56,7 @@ char		*get_next_line(const int fd)
 
   var.i = 0;
   var.buffer = xmalloc(BUF_READ + 1);
-  memset(var.buffer, '\0', (BUF_READ + 1));
+  my_memset(var.buffer, '\0', (BUF_READ + 1));
   while (var.i < BUF_READ)
     {
       if (save == 0)

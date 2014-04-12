@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Mon Apr  7 15:29:25 2014 Jeremy Mediavilla
-** Last update Mon Apr  7 17:21:51 2014 Jeremy Mediavilla
+** Last update Sat Apr 12 15:12:07 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -16,12 +16,13 @@ void		aff_check_err(t_system *sys, int *values)
   (void)sys;
   if (values[1] != 0)
     {
-      printf("Error on \"aff\" instruction : too many params\n");
+      my_printf("Error on \"aff\" instruction : too many params\n");
       exit(0);
     }
   if (values[0] != 1)
     {
-      printf("Error on \"aff\" instruction : first param must be a register\\n");
+      my_printf("Error on \"aff\" instruction : \
+first param must be a register\\n");
       exit(0);
     }
 }

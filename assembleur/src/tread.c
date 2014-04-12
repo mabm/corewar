@@ -5,22 +5,22 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:39:27 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 14:36:53 2014 Joris Bertomeu
+** Last update Sat Apr 12 15:09:47 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
 #include "gnl.h"
 
-void		tread_line(char *buff, t_system *system, int fd, int line)
+void	tread_line(char *buff, t_system *system, int fd, int line)
 {
-  int		ret;
+  int	ret;
 
   ret = parse_line_cn(buff, system, fd);
   if (ret == 0)
     write_to_file(buff, fd, line, system);
 }
 
-void	second_pass(int fd, t_system *sys)
+void		second_pass(int fd, t_system *sys)
 {
   t_conv	conv;
   unsigned int	size;
@@ -80,10 +80,10 @@ void		tread_file(char *path, t_system *sys)
   free(buff);
 }
 
-void		tread_line_cnf_asm(t_system *system, char *buff, int line)
+void	tread_line_cnf_asm(t_system *system, char *buff, int line)
 {
-  int		i;
-  int		j;
+  int	i;
+  int	j;
 
   j = 0;
   i = 0;

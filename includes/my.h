@@ -5,11 +5,12 @@
 ** Login   <merran_g@epitech.net>
 **
 ** Started on  Thu Oct 10 12:00:24 2013 Geoffrey Merran
-** Last update Wed Apr  9 16:06:55 2014 Geoffrey Merran
+** Last update Sat Apr 12 14:55:32 2014 Joris Bertomeu
 */
 
 #ifndef MY_
 # define MY_
+# include "my_printf.h"
 
 void			my_putchar(char c);
 int			my_put_nbr(int nb);

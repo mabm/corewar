@@ -17,11 +17,11 @@ void		and_instruction(t_system *sys)
   write(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 3;
   sys->ins.ret_chck = 1;
-  printf(">> Instruction : and (1 Octet)\n");
+  my_printf(">> Instruction : and (1 Octet)\n");
   if (sys->ins.str[sys->ins.i] == ':')
     {
       sys->ins.ret_chck = -1;
-      printf(">> Label : %s\n", &sys->ins.str[(sys->ins.i) - 4]);
+      my_printf(">> Label : %s\n", &sys->ins.str[(sys->ins.i) - 4]);
       while (sys->ins.str[sys->ins.i] && sys->ins.str[sys->ins.i] != '%')
   	(sys->ins.i)++;
     }
@@ -34,11 +34,11 @@ void		or_instruction(t_system *sys)
   write(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 2;
   sys->ins.ret_chck = 1;
-  printf(">> Instruction : or (1 Octet)\n");
+  my_printf(">> Instruction : or (1 Octet)\n");
   if (sys->ins.str[sys->ins.i] == ':')
     {
       sys->ins.ret_chck = -1;
-      printf(">> Label : %s\n", &sys->ins.str[(sys->ins.i) - 4]);
+      my_printf(">> Label : %s\n", &sys->ins.str[(sys->ins.i) - 4]);
       while (sys->ins.str[sys->ins.i] && sys->ins.str[sys->ins.i] != '%')
   	(sys->ins.i)++;
     }
@@ -51,11 +51,11 @@ void		xor_instruction(t_system *sys)
   write(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 3;
   sys->ins.ret_chck = 1;
-  printf(">> Instruction : xor (1 Octet)\n");
+  my_printf(">> Instruction : xor (1 Octet)\n");
   if (sys->ins.str[sys->ins.i] == ':')
     {
       sys->ins.ret_chck = -1;
-      printf(">> Label : %s\n", &sys->ins.str[(sys->ins.i) - 4]);
+      my_printf(">> Label : %s\n", &sys->ins.str[(sys->ins.i) - 4]);
       while (sys->ins.str[sys->ins.i] && sys->ins.str[sys->ins.i] != '%')
   	(sys->ins.i)++;
     }
@@ -68,11 +68,11 @@ void		zjmp_instruction(t_system *sys)
   write(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 4;
   sys->ins.ret_chck = -1;
-  printf(">> Instruction : zjmp (1 Octet)\n");
+  my_printf(">> Instruction : zjmp (1 Octet)\n");
   if (sys->ins.str[sys->ins.i] == ':')
     {
       sys->ins.ret_chck = -1;
-      printf(">> Label : %s\n", &sys->ins.str[(sys->ins.i) - 4]);
+      my_printf(">> Label : %s\n", &sys->ins.str[(sys->ins.i) - 4]);
       while (sys->ins.str[sys->ins.i] && sys->ins.str[sys->ins.i] != '%')
   	(sys->ins.i)++;
     }
@@ -85,11 +85,11 @@ void		ldi_instruction(t_system *sys)
   write(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 3;
   sys->ins.ret_chck = 1;
-  printf(">> Instruction : ldi (1 Octet)\n");
+  my_printf(">> Instruction : ldi (1 Octet)\n");
   if (sys->ins.str[sys->ins.i] == ':')
     {
       sys->ins.ret_chck = -1;
-      printf(">> Label : %s\n", &sys->ins.str[(sys->ins.i) - 4]);
+      my_printf(">> Label : %s\n", &sys->ins.str[(sys->ins.i) - 4]);
       while (sys->ins.str[sys->ins.i] && sys->ins.str[sys->ins.i] != '%')
   	(sys->ins.i)++;
     }

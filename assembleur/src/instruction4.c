@@ -17,11 +17,11 @@ void		aff_instruction(t_system *sys)
   write(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 3;
   sys->ins.ret_chck = 1;
-  printf(">> Instruction : aff (1 Octet)\n");
+  my_printf(">> Instruction : aff (1 Octet)\n");
   if (sys->ins.str[sys->ins.i] == ':')
     {
       sys->ins.ret_chck = -1;
-      printf(">> Label : %s\n", &sys->ins.str[(sys->ins.i) - 4]);
+      my_printf(">> Label : %s\n", &sys->ins.str[(sys->ins.i) - 4]);
       while (sys->ins.str[sys->ins.i] && sys->ins.str[sys->ins.i] != '%')
   	(sys->ins.i)++;
     }
