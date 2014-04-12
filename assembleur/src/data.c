@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:29:01 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 15:46:52 2014 Jeremy Mediavilla
+** Last update Sat Apr 12 16:46:31 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -104,6 +104,7 @@ void		write_data(int ibase, char *str, int fd, int line, t_system *sys)
   t_conv	*conv;
 
   conv = malloc(sizeof(*conv));
+  my_memset(conv->octets, '\0', 4);
   i = ibase;
   while (str[i])
     {
