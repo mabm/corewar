@@ -5,20 +5,11 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sat Apr 12 15:07:49 2014 Joris Bertomeu
-** Last update Sat Apr 12 15:08:23 2014 Joris Bertomeu
+** Last update Sat Apr 12 18:22:43 2014 Jeremy Mediavilla
 */
 
 #include "gnl.h"
 #include "assembleur.h"
-
-static void	*xmalloc(int sz)
-{
-  void		*p;
-
-  if (!(p = malloc(sz)))
-    exit(0);
-  return (p);
-}
 
 static int    stock_buffer(t_var *var, char *tmp, int *save)
 {

@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:35:59 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 16:42:30 2014 Jeremy Mediavilla
+** Last update Sat Apr 12 18:36:44 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -83,7 +83,7 @@ int	param_pt(char *str, t_system *sys, t_conv *conv, int *i)
   tmp[sys->kf] = '\0';
   sys->olabels[sys->col].offset = lseek(sys->ins.fd, 0, SEEK_CUR);
   sys->olabels[sys->col].line = sys->start_line;
-  sys->olabels[sys->col].name = malloc((my_strlen(tmp) + 1) * sizeof(char));
+  sys->olabels[sys->col].name = xmalloc((my_strlen(tmp) + 1) * sizeof(char));
   my_memset(sys->olabels[sys->col].name, '\0', my_strlen(tmp));
   my_strcpy(sys->olabels[sys->col++].name, tmp);
   my_printf(">> Direct : %s -> %d (4 Octets) (Label Call)\n",

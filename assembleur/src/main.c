@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Sat Apr 12 14:09:55 2014 Joris Bertomeu
+** Last update Sat Apr 12 18:37:34 2014 Jeremy Mediavilla
 */
 
 #include "gnl.h"
@@ -53,7 +53,7 @@ void		create_header(int fd, t_system *sys, int fg)
 void	label_detect(t_system *sys, char *nl)
 {
   sys->labels[sys->cl].offset = lseek(sys->ins.fd, 0, SEEK_CUR);
-  sys->labels[sys->cl].name = malloc(128 * sizeof(char));
+  sys->labels[sys->cl].name = xmalloc(128 * sizeof(char));
   my_strcpy(sys->labels[sys->cl++].name, nl);
   my_printf(">> Label declaration detected : %s | Pos : %d\n", nl,
 	 sys->labels[sys->cl - 1].offset);

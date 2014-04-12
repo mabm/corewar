@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sat Apr 12 14:09:23 2014 Joris Bertomeu
-** Last update Sat Apr 12 15:10:13 2014 Joris Bertomeu
+** Last update Sat Apr 12 18:38:29 2014 Jeremy Mediavilla
 */
 
 #include "gnl.h"
@@ -19,7 +19,7 @@ void	new_label(t_system *sys)
 
   i = 0;
   flag = 0;
-  nl = malloc(128 * sizeof(char));
+  nl = xmalloc(128 * sizeof(char));
   while (sys->ins.str[i] != ':' && sys->ins.str[i] != ' ' && sys->ins.str[i])
     {
       nl[i] = sys->ins.str[i];

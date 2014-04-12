@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:07:56 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 15:09:08 2014 Joris Bertomeu
+** Last update Sat Apr 12 18:35:40 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -15,7 +15,7 @@ char		**init_tab()
 {
   char		**tab;
 
-  tab = malloc(17 * sizeof(char *));
+  tab = xmalloc(17 * sizeof(char *));
   tab[0] = "sti";
   tab[1] = "and";
   tab[2] = "ld";
@@ -42,7 +42,7 @@ void		init(int ac, char **argv)
   t_system	*system;
 
   i = 1;
-  system = malloc(sizeof(*system));
+  system = xmalloc(sizeof(*system));
   check_ext(ac, argv);
   system->f_c = 0;
   system->f_n = 0;
@@ -54,7 +54,7 @@ void		init(int ac, char **argv)
   system->ins.ibase = 0;
   system->ins.ret_chck = 0;
   system->ins.cmptr = 0;
-  system->name_file = malloc(256 * sizeof(*system->name));
+  system->name_file = xmalloc(256 * sizeof(*system->name));
   while (i < ac)
     {
       system->comment = 0;
@@ -88,7 +88,7 @@ char		*init_tab_char()
 {
   char		*tab;
 
-  tab = malloc(17 * sizeof(char));
+  tab = xmalloc(17 * sizeof(char));
   tab[0] = 0x1;
   tab[1] = 0x2;
   tab[2] = 0x3;

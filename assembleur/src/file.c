@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:33:49 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 17:18:29 2014 Jeremy Mediavilla
+** Last update Sat Apr 12 18:34:30 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -91,7 +91,7 @@ void		write_to_file(char *str, int fd, int line, t_system *sys)
   int		tmp;
 
   tmp = 0;
-  values = malloc(3 * sizeof(int));
+  values = xmalloc(3 * sizeof(int));
   init_struct_wtf(sys, str, fd, values);
   while (str[sys->ins.i])
     {
