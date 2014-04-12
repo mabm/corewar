@@ -5,12 +5,13 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Mar 25 17:19:00 2014 Geoffrey Merran
-** Last update Tue Apr  8 19:27:26 2014 Geoffrey Merran
+** Last update Sat Apr 12 18:05:22 2014 Geoffrey Merran
 */
 
 #ifndef MAIN_VM_
 # define MAIN_VM_
-# define VM_USAGE "Usage : ./corewar [-dump nbr_cycle] [[-n prog_number] [-a load_address ] prog_name]\n"
+# define VM_USAGE "Usage : ./corewar [-dump nbr_cycle]"
+# define VM_USAGE2 " [[-n prog_number] [-a load_address ] prog_name]\n"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>

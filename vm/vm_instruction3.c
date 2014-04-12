@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 14:29:40 2014 Geoffrey Merran
-** Last update Sat Apr 12 01:26:43 2014 Geoffrey Merran
+** Last update Sat Apr 12 18:04:38 2014 Geoffrey Merran
 */
 
 #include "vm_instruction.h"
@@ -52,8 +52,6 @@ int		sti(t_proc *proc, t_arena *arena)
   addr += get_val(params[TYPE_P][2], params[3], arena, proc);
   write_vm(arena, (((addr % IDX_MOD) + proc->pc) % MEM_SIZE), reg, proc->id);
   jump = 2 + get_nb_jump(params[TYPE_P], op_tab[10].nbr_args);
-  my_printf("store index %d at %d\n", reg.integer,
-	    (((addr % IDX_MOD) + proc->pc) % MEM_SIZE));
   free_params(params, op_tab[10].nbr_args);
   proc->cycle_dodo = op_tab[10].nbr_cycles;
   return (jump);

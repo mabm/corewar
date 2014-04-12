@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Mon Apr  7 13:26:57 2014 Geoffrey Merran
-** Last update Sat Apr 12 01:03:15 2014 Geoffrey Merran
+** Last update Sat Apr 12 17:47:47 2014 Geoffrey Merran
 */
 
 #include "vm_proc.h"
@@ -98,7 +98,8 @@ void		add_proc_vm(t_proc *proc, int addr)
   while (++i < REG_NUMBER)
     tmp->reg[i] = proc->reg[i];
   tmp->next = proc->next;
-  proc->next->prev = tmp;
+  if (proc->next != NULL)
+    proc->next->prev = tmp;
   tmp->prev = proc;
   proc->next = tmp;
 }

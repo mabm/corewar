@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Wed Apr  9 15:44:53 2014 Nicolas Ades
-** Last update Wed Apr  9 15:44:56 2014 Nicolas Ades
+** Last update Sat Apr 12 18:06:11 2014 Geoffrey Merran
 */
 
 #include "main_vm.h"
@@ -36,6 +36,6 @@ int	main(int ac, char **av)
   if (ac > 1)
     init_all(ac, av);
   else
-    my_printf(VM_USAGE);
+    my_printf("%s%s", VM_USAGE, VM_USAGE2);
   return (EXIT_SUCCESS);
 }
