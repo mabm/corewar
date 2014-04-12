@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:29:01 2014 Jeremy Mediavilla
-** Last update Thu Apr 10 00:29:26 2014 Joris Bertomeu
+** Last update Sat Apr 12 12:42:33 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -73,19 +73,40 @@ void		write_undir_data(char *str, int *i, t_conv *conv, int fd)
     }
 }
 
+int	param_pt(char *str, t_system *sys, t_conv *conv, int *i)
+{
+  char	tmp[64];
+  int	j;
+
+  j = *i + 2;
+  memset(tmp, 0, 64);
+  while (str[j] != ',' && str[j])
+    tmp[(sys->kf)++] = str[j++];
+  tmp[sys->kf] = '\0';
+  sys->olabels[sys->col].offset = lseek(sys->ins.fd, 0, SEEK_CUR);
+  sys->olabels[sys->col].line = sys->start_line;
+  sys->olabels[sys->col].name = malloc(strlen(tmp) * sizeof(char));
+  strcpy(sys->olabels[sys->col++].name, tmp);
+  printf(">> Direct : %s -> %x (4 Octets) (Label Call)\n",
+	 tmp, conv->octets[0]);
+  dir_data_condition(sys->ins.fd, conv, 1);
+  while (str[*i] != ',' && str[*i] != '\0')
+    (*i)++;
+  return (*i + 2);
+}
+
 void		write_dir_data(char *str, int *i, t_conv *conv, int fd, t_system *sys)
 {
   char		tmp[64];
   int		j;
-  int		k;
 
-  k = 0;
+  sys->kf = 0;
   if (str[*i] == '%' && str[*i + 1] != ':')
     {
       j = *i;
       memset(tmp, 0, 64);
       while (str[j] != ',' && str[j])
-	tmp[k++] = str[j++];
+	tmp[sys->kf++] = str[j++];
       conv->value = atoi(&tmp[1]);
       printf(">> Direct : %s -> %x (4 Octets)\n", tmp, conv->octets[0]);
       if (str[*i + 1] != ':')
@@ -96,33 +117,7 @@ void		write_dir_data(char *str, int *i, t_conv *conv, int fd, t_system *sys)
 	(*i)++;
     }
   if (str[*i] == '%' && str[*i + 1] == ':')
-    {
-      j = *i + 2;
-      memset(tmp, 0, 64);
-      while (str[j] != ',' && str[j])
-	tmp[k++] = str[j++];
-      tmp[k] = '\0';
-      sys->olabels[sys->col].offset = lseek(sys->ins.fd, 0, SEEK_CUR);
-      sys->olabels[sys->col].line = sys->start_line;
-      sys->olabels[sys->col].name = malloc(strlen(tmp) * sizeof(char));
-      strcpy(sys->olabels[sys->col++].name, tmp);
-      /* i = 0; */
-      /* while (i < sys->cl) */
-      /* 	{ */
-      /* 	  if (strcmp(sys->labels[i].name, tmp) == 0) */
-      /* 	    flag = 1; */
-      /* 	  i++; */
-      /* 	} */
-      /* conv->value = atoi(&tmp[1]); */
-      printf(">> Direct : %s -> %x (4 Octets) (Label Call)\n",
-	     tmp, conv->octets[0]);
-      /* if (str[*i + 1] != ':') */
-      /* 	dir_data_condition(fd, conv, 0); */
-      /* else */
-      dir_data_condition(fd, conv, 1);
-      while (str[*i] != ',' && str[*i] != '\0')
-	(*i)++;
-    }
+    j = param_pt(str, sys, conv, i);
 }
 
 void		write_data(int ibase, char *str, int fd, int line, t_system *sys)

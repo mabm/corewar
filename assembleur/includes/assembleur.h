@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:03:51 2014 Jeremy Mediavilla
-** Last update Fri Apr 11 16:32:47 2014 Joris Bertomeu
+** Last update Sat Apr 12 12:41:03 2014 Joris Bertomeu
 ** Last update Wed Apr  2 17:26:42 2014 Jeremy Mediavilla
 */
 
@@ -67,6 +67,7 @@ struct s_system
   char		*comment;
   int		nb_comment;
   int		nb_name;
+  int		kf;
   int		f_c;
   int		f_n;
   int		wm;

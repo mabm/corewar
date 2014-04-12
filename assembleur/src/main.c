@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Fri Apr 11 20:20:27 2014 Joris Bertomeu
+** Last update Sat Apr 12 11:20:15 2014 Joris Bertomeu
 */
 
 #include "gnl.h"
@@ -50,6 +50,21 @@ void		create_header(int fd, t_system *sys, int fg)
     }
 }
 
+void	label_detect(t_system *sys, char *nl)
+{
+  sys->labels[sys->cl].offset = lseek(sys->ins.fd, 0, SEEK_CUR);
+  sys->labels[sys->cl].name = malloc(128 * sizeof(char));
+  strcpy(sys->labels[sys->cl++].name, nl);
+  printf(">> Label declaration detected : %s | Pos : %d\n", nl,
+	 sys->labels[sys->cl - 1].offset);
+}
+
+int	point_two(t_system *sys, int i)
+{
+  sys->ins.i = i + 2;
+  return (2);
+}
+
 void	new_label(t_system *sys)
 {
   int	i;
@@ -65,10 +80,7 @@ void	new_label(t_system *sys)
       i++;
     }
   if (sys->ins.str[i] == ':')
-    {
-      sys->ins.i = i + 2;
-      flag = 2;
-    }
+    flag = point_two(sys, i);
   nl[i] = '\0';
   i = 0;
   while (i < sys->cl)
@@ -78,24 +90,11 @@ void	new_label(t_system *sys)
       i++;
     }
   if (flag == 2)
-    {
-      sys->labels[sys->cl].offset = lseek(sys->ins.fd, 0, SEEK_CUR);
-      sys->labels[sys->cl].name = malloc(128 * sizeof(char));
-      strcpy(sys->labels[sys->cl++].name, nl);
-      printf(">> Label declaration detected : %s | Pos : %d\n", nl,
-	     sys->labels[sys->cl - 1].offset);
-    }
+    label_detect(sys, nl);
 }
 
-int		check_instruction(t_system *sys)
+void	init_pof(void (*which_instruction[16])(t_system *sys), t_system *sys)
 {
-  char		**tab;
-  void		(*which_instruction[16])(t_system *sys);
-  int		j;
-  int		flag;
-
-  flag = 0;
-  tab = init_tab();
   which_instruction[0] = &sti_instruction;
   which_instruction[1] = &and_instruction;
   which_instruction[2] = &ld_instruction;
@@ -112,6 +111,18 @@ int		check_instruction(t_system *sys)
   which_instruction[13] = &lldi_instruction;
   which_instruction[14] = &lfork_instruction;
   which_instruction[15] = &aff_instruction;
+}
+
+int		check_instruction(t_system *sys)
+{
+  char		**tab;
+  void		(*which_instruction[16])(t_system *sys);
+  int		j;
+  int		flag;
+
+  flag = 0;
+  tab = init_tab();
+  init_pof(which_instruction, sys);
   new_label(sys);
   j = 0;
   while (j < 16)
