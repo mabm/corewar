@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:23:20 2014 Jeremy Mediavilla
-** Last update Wed Apr  9 14:04:15 2014 Jeremy Mediavilla
+** Last update Sat Apr 12 19:11:00 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -33,7 +33,7 @@ void		fork_instruction(t_system *sys)
   sys->ins.c = 0x0c;
   write(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 4;
-  sys->ins.ret_chck = 1;
+  sys->ins.ret_chck = -1;
   my_printf(">> Instruction : fork (1 Octet)\n");
   if (sys->ins.str[sys->ins.i] == ':')
     {
@@ -50,7 +50,7 @@ void		lfork_instruction(t_system *sys)
   sys->ins.c = 0x0f;
   write(sys->ins.fd, &sys->ins.c, 1);
   sys->ins.i += 5;
-  sys->ins.ret_chck = 1;
+  sys->ins.ret_chck = -1;
   my_printf(">> Instruction : lfork (1 Octet)\n");
   if (sys->ins.str[sys->ins.i] == ':')
     {
