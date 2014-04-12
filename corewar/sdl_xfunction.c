@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 17:31:44 2014 Geoffrey Merran
-** Last update Wed Apr  9 14:40:13 2014 Geoffrey Merran
+** Last update Sat Apr 12 20:34:38 2014 Geoffrey Merran
 */
 
 #include "sdl_xfunction.h"
@@ -29,4 +29,14 @@ SDL_Surface	*xSDL_SetVideoMode(int width, int height, int bpp, Uint32 flags)
   if ((screen = SDL_SetVideoMode(width, height, bpp, flags)) == NULL)
     my_error("SDL error : Setvideomode fail\n");
   return (screen);
+}
+
+TTF_Font	*xTTF_OpenFont(char *path, int size)
+{
+  TTF_Font	*police;
+
+  police = TTF_OpenFont(path, size);
+  if (police == NULL)
+    my_error("SDL TTf error : couldn't load font");
+  return (police);
 }
