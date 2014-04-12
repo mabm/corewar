@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sat Apr 12 14:09:23 2014 Joris Bertomeu
-** Last update Sat Apr 12 20:31:46 2014 Jeremy Mediavilla
+** Last update Sat Apr 12 20:37:21 2014 Jeremy Mediavilla
 */
 
 #include "gnl.h"
@@ -80,6 +80,7 @@ int	check_instruction(t_system *sys)
 	}
       j++;
     }
+  free(tab);
   return (1);
 }
 
