@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 14:31:16 2014 Geoffrey Merran
-** Last update Sat Apr 12 20:43:15 2014 Geoffrey Merran
+** Last update Sat Apr 12 20:55:38 2014 Geoffrey Merran
 */
 
 #include "vm_instruction.h"
@@ -40,7 +40,6 @@ int		aff(t_proc *proc, t_arena *arena)
   if (!is_valid_reg(params[TYPE_P][0], params[1][0]))
     return (err_instr(params, op_tab[15].nbr_args));
   reg = proc->reg[params[1][0] - 1];
-  printf("reg %d reg mod %d\n", reg, my_mod(reg, 256));
   my_printf("%c\n", my_mod(reg, 256));
   free_params(params, op_tab[15].nbr_args);
   proc->cycle_dodo = op_tab[15].nbr_cycles;

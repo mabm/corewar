@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 17:31:44 2014 Geoffrey Merran
-** Last update Sat Apr 12 20:34:38 2014 Geoffrey Merran
+** Last update Sat Apr 12 21:10:16 2014 Geoffrey Merran
 */
 
 #include "sdl_xfunction.h"
@@ -37,6 +37,6 @@ TTF_Font	*xTTF_OpenFont(char *path, int size)
 
   police = TTF_OpenFont(path, size);
   if (police == NULL)
-    my_error("SDL TTf error : couldn't load font");
+    my_error("SDL TTf error : couldn't load font\n");
   return (police);
 }

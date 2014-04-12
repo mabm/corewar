@@ -1,4 +1,3 @@
 .name "Test"
 .comment "comment"
-ld %78, r2
-aff r2
+and %45, -89, r8

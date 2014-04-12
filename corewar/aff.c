@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 19:31:35 2014 Geoffrey Merran
-** Last update Sat Apr 12 20:26:22 2014 Geoffrey Merran
+** Last update Sat Apr 12 21:19:37 2014 Geoffrey Merran
 */
 
 #include "aff.h"
@@ -16,7 +16,7 @@ void	init_window(t_win *win)
   xTTF_Init();
   win->screen = xSDL_SetVideoMode(SIZE_X, SIZE_Y, 32, SDL_HWSURFACE);
   SDL_WM_SetCaption("Corewar 2014", NULL);
-  win->police = xTTF_OpenFont("police/imagine_font.ttf", 20);
+  win->police = xTTF_OpenFont("/tmp/imagine_font.ttf", 20);
   win->color.r = 255;
   win->color.g = 255;
   win->color.b = 255;

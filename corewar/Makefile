@@ -5,7 +5,7 @@
 ## Login   <merran_g@epitech.net>
 ## 
 ## Started on  Mon Oct 21 13:28:05 2013 Geoffrey Merran
-## Last update Fri Apr 11 00:19:01 2014 Geoffrey Merran
+## Last update Sat Apr 12 21:20:53 2014 Geoffrey Merran
 ##
 
 RM	= rm -f
@@ -16,6 +16,8 @@ CFLAGS	+= -Wextra -Wall -W -pedantic -g3 -ansi -I$(I_PATH)
 I_PATH	= ../includes/
 
 NAME	= corewar
+
+FONT	= imagine_font.ttf
 
 OBJ	= $(SRC:.c=.o)
 
@@ -43,6 +45,7 @@ SRC	= main.c  \
 all:		libs $(NAME)
 
 $(NAME):	$(OBJ)
+	cp police/$(FONT) /tmp/
 	$(CC) -o $(NAME) $(OBJ) -lmy -L$(LIB) -lSDL -lSDL_ttf
 
 libs:
