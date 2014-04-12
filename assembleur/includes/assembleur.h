@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:03:51 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 16:18:46 2014 Jeremy Mediavilla
+** Last update Sat Apr 12 17:02:33 2014 Jeremy Mediavilla
 */
 
 #ifndef COREWAR_H
@@ -122,8 +122,8 @@ void		aff_instruction(t_system *);
 void		dir_data_condition(int, t_conv *, int);
 void		write_reg_data(char *, int *, t_conv *, int);
 void		write_undir_data(char *, int *, t_conv *, int);
-void		write_dir_data(char *, int *, t_conv *, int, t_system *);
-void		write_data(int, char *, int, int, t_system *);
+void		write_dir_data(char *, int *, t_conv *, t_system *);
+void		write_data(int, char *, int, t_system *);
 
 /* fonctions dans file.c */
 int		register_condition(t_system *);

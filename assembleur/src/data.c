@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:29:01 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 16:46:31 2014 Jeremy Mediavilla
+** Last update Sat Apr 12 17:02:23 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -73,7 +73,7 @@ void		write_undir_data(char *str, int *i, t_conv *conv, int fd)
     }
 }
 
-void		write_dir_data(char *str, int *i, t_conv *conv, int fd, t_system *sys)
+void		write_dir_data(char *str, int *i, t_conv *conv, t_system *sys)
 {
   char		tmp[64];
   int		j;
@@ -88,9 +88,9 @@ void		write_dir_data(char *str, int *i, t_conv *conv, int fd, t_system *sys)
       conv->value = atoi(&tmp[1]);
       my_printf(">> Direct : %s -> %d (4 Octets)\n", tmp, conv->octets[0]);
       if (str[*i + 1] != ':')
-	dir_data_condition(fd, conv, 0);
+	dir_data_condition(sys->ins.fd, conv, 0);
       else
-	dir_data_condition(fd, conv, 0);
+	dir_data_condition(sys->ins.fd, conv, 0);
       while (str[*i] != ',' && str[*i] != '\0')
 	(*i)++;
     }
@@ -98,7 +98,7 @@ void		write_dir_data(char *str, int *i, t_conv *conv, int fd, t_system *sys)
     j = param_pt(str, sys, conv, i);
 }
 
-void		write_data(int ibase, char *str, int fd, int line, t_system *sys)
+void		write_data(int ibase, char *str, int line, t_system *sys)
 {
   int		i;
   t_conv	*conv;
@@ -108,9 +108,9 @@ void		write_data(int ibase, char *str, int fd, int line, t_system *sys)
   i = ibase;
   while (str[i])
     {
-      write_reg_data(str, &i, conv, fd);
-      write_dir_data(str, &i, conv, fd, sys);
-      write_undir_data(str, &i, conv, fd);
+      write_reg_data(str, &i, conv, sys->ins.fd);
+      write_dir_data(str, &i, conv, sys);
+      write_undir_data(str, &i, conv, sys->ins.fd);
       if (str[i] != '\0')
 	i++;
     }

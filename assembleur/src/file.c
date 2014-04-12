@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:33:49 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 14:07:23 2014 Joris Bertomeu
+** Last update Sat Apr 12 17:02:59 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -101,5 +101,5 @@ void		write_to_file(char *str, int fd, int line, t_system *sys)
   check_inst_error(values, sys);
   if (sys->ins.ret_chck == 1)
     write(fd, &sys->ins.c, 1);
-  write_data(sys->ins.ibase, str, fd, line, sys);
+  write_data(sys->ins.ibase, str, line, sys);
 }

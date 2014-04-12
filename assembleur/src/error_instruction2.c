@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Mon Apr  7 15:28:07 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 15:14:36 2014 Joris Bertomeu
+** Last update Sat Apr 12 17:05:24 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -31,7 +31,8 @@ void		add_check_err(t_system *sys, int *values)
     }
   if (values[0] != 1 || values[1] != 1 || values[2] != 1)
     {
-      my_printf("Error on \"add\" instruction : all params must be register\n");
+      my_printf("Error on \"add\" instruction : \
+all params must be register\n");
       exit(0);
     }
 }
@@ -46,7 +47,8 @@ void		sub_check_err(t_system *sys, int *values)
     }
   if (values[0] != 1 || values[1] != 1 || values[2] != 1)
     {
-      my_printf("Error on \"sub\" instruction : all params must be register\n");
+      my_printf("Error on \"sub\" instruction : \
+all params must be register\n");
       exit(0);
     }
 }
@@ -61,7 +63,8 @@ void		or_check_err(t_system *sys, int *values)
     }
     if (values[2] != 1)
     {
-      my_printf("Error on \"or\" instruction : last param is not a register\n");
+      my_printf("Error on \"or\" instruction : \
+last param is not a register\n");
       exit(0);
     }
 }
