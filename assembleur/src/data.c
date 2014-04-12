@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:29:01 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 17:18:33 2014 Jeremy Mediavilla
+** Last update Sat Apr 12 18:07:10 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -52,19 +52,24 @@ void		write_undir_data(char *str, int *i, t_conv *conv, int fd)
   char		tmp[64];
   int		j;
   int		k;
+  int		neg;
 
+  neg = 1;
   j = *i;
   k = 0;
-  if ('0' <= str[*i] && str[*i] <= '9')
+  if (('0' <= str[*i] && str[*i] <= '9') ||
+      ('0' <= str[*i + 1] && str[*i + 1] <= '9' && str[*i] == '-'))
     {
       my_memset(tmp, 0, 64);
       while (str[j] != ',' && str[j])
 	{
+	  if (str[j] == '-')
+	    neg = -1;
 	  if (str[j] && '0' <= str[j] && str[j] <= '9')
 	    tmp[k++] = str[j];
 	  j++;
 	}
-      conv->value = my_getnbr(tmp);
+      conv->value = my_getnbr(tmp) * neg;
       my_printf(">> Indirect : %s -> %d (%d) (4 Octets)\n", tmp,
 	     conv->octets[0], conv->value);
       dir_data_condition(fd, conv, 0);
@@ -77,20 +82,25 @@ void		write_dir_data(char *str, int *i, t_conv *conv, t_system *sys)
 {
   char		tmp[64];
   int		j;
+  int		neg;
 
+  neg = 1;
   sys->kf = 0;
   if (str[*i] == '%' && str[*i + 1] != ':')
     {
       j = *i;
       my_memset(tmp, 0, 64);
       while (str[j] != ',' && str[j])
-	tmp[sys->kf++] = str[j++];
-      conv->value = my_getnbr(&tmp[1]);
-      my_printf(">> Direct : %s -> %d (4 Octets)\n", tmp, conv->octets[0]);
-      if (str[*i + 1] != ':')
-	dir_data_condition(sys->ins.fd, conv, 0);
-      else
-	dir_data_condition(sys->ins.fd, conv, 0);
+	{
+	  if ('0' <= str[j] && str[j] <= '9')
+	    tmp[sys->kf++] = str[j];
+	  else if (str[j] == '-')
+	    neg = -1;
+	  j++;
+	}
+      conv->value = my_getnbr(tmp) * neg;
+      my_printf(">> Direct : %s -> %d (4 Octets)\n", tmp, conv->value);
+      dir_data_condition(sys->ins.fd, conv, 0);
       while (str[*i] != ',' && str[*i] != '\0')
 	(*i)++;
     }
