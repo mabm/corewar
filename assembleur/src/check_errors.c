@@ -5,19 +5,14 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Mon Apr  7 15:16:14 2014 Jeremy Mediavilla
-** Last update Wed Apr  9 15:21:41 2014 Jeremy Mediavilla
+** Last update Sat Apr 12 13:57:59 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
 #include "gnl.h"
 
-void		check_inst_error(int *values, t_system *sys)
+void	init_pofe(void (*which_check[16])(t_system *sys, int *values))
 {
-  void		(*which_check[16])(t_system *sys, int *values);
-  char		*tab;
-  int		j;
-
-  tab = init_tab_char();
   which_check[0] = &live_check_err;
   which_check[1] = &ld_check_err;
   which_check[2] = &st_check_err;
@@ -34,6 +29,16 @@ void		check_inst_error(int *values, t_system *sys)
   which_check[13] = &lldi_check_err;
   which_check[14] = &lfork_check_err;
   which_check[15] = &aff_check_err;
+}
+
+void		check_inst_error(int *values, t_system *sys)
+{
+  void		(*which_check[16])(t_system *sys, int *values);
+  char		*tab;
+  int		j;
+
+  tab = init_tab_char();
+  init_pofe(which_check);
   j = 0;
   while (j < 16)
     {

@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:33:49 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 11:27:37 2014 Joris Bertomeu
+** Last update Sat Apr 12 14:07:23 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -85,34 +85,17 @@ void	init_struct_wtf(t_system *sys, char *str, int fd, int *values)
   sys->ins.cmptr = 0;
 }
 
-int	check_all(t_system *sys, int tmp, char *str, int *values)
-{
-  if (sys->ins.ret_chck == 0)
-    {
-      check_instruction(sys);
-      sys->ins.c_save = sys->ins.c;
-      sys->ins.c = 0;
-    }
-  if (str[sys->ins.i] == ',')
-    sys->ins.cmptr++;
-  if ((tmp = register_condition(sys)) != 0)
-    values[sys->ins.cmptr] = tmp;
-  if ((tmp = direct_condition(sys)) != 0)
-    values[sys->ins.cmptr] = tmp;
-  if ((tmp = indirect_condition(sys)) != 0)
-    values[sys->ins.cmptr] = tmp;
-}
-
 void		write_to_file(char *str, int fd, int line, t_system *sys)
 {
   int		*values;
   int		tmp;
 
+  tmp = 0;
   values = malloc(3 * sizeof(int));
   init_struct_wtf(sys, str, fd, values);
   while (str[sys->ins.i])
     {
-      tmp = check_all(sys, tmp, str, values);
+      check_all(sys, tmp, str, values);
       sys->ins.i++;
     }
   check_inst_error(values, sys);

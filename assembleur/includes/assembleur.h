@@ -5,8 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:03:51 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 12:41:03 2014 Joris Bertomeu
-** Last update Wed Apr  2 17:26:42 2014 Jeremy Mediavilla
+** Last update Sat Apr 12 14:12:40 2014 Joris Bertomeu
 */
 
 #ifndef COREWAR_H
@@ -15,10 +14,10 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
-# include <string.h>
-# include <byteswap.h>
-# include <sys/stat.h>
 # include <sys/types.h>
+# include <sys/stat.h>
+# include "../../libmy/my.h"
+# include "op.h"
 
 typedef struct s_labels t_labels;
 struct s_labels
@@ -35,16 +34,6 @@ struct s_olabels
   char	*name;
   int	line;
 };
-
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <string.h>
-#include <byteswap.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include "op.h"
 
 typedef struct	s_instruction
 {
@@ -144,6 +133,9 @@ void		write_to_file(char *, int, int, t_system *);
 
 /* fonction dans magic.c */
 void		write_magic(int);
+void		do_labels(int, t_system *);
+void		check_all(t_system *, int , char *, int *);
+int		param_pt(char *, t_system *, t_conv *, int *);
 
 /* fonctions dans tread.c */
 void		tread_line(char *, t_system *, int, int);
@@ -155,9 +147,16 @@ void		check_inst_error(int*, t_system *);
 
 /* fonctions dans main.c */
 void		create_header(int, t_system *, int);
+int		get_inst_len(char *);
+void		create_header(int, t_system *, int);
+void		label_detect(t_system *, char *);
+int		point_two(t_system *, int);
+
+/* fonction dans pof.c */
+void		new_label(t_system *);
+void		init_pof(void (*which_instruction[16])(t_system *sys));
 int		check_instruction(t_system *);
 void		check_ext(int, char **);
-int		main(int, char **);
 
 /* fonctions dans error_instruction1.c */
 void		sti_check_err(t_system *, int *);

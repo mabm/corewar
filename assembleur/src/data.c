@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:29:01 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 12:42:33 2014 Joris Bertomeu
+** Last update Sat Apr 12 13:50:33 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -71,28 +71,6 @@ void		write_undir_data(char *str, int *i, t_conv *conv, int fd)
       while (str[*i] != ',' && str[*i])
 	*i += 1;
     }
-}
-
-int	param_pt(char *str, t_system *sys, t_conv *conv, int *i)
-{
-  char	tmp[64];
-  int	j;
-
-  j = *i + 2;
-  memset(tmp, 0, 64);
-  while (str[j] != ',' && str[j])
-    tmp[(sys->kf)++] = str[j++];
-  tmp[sys->kf] = '\0';
-  sys->olabels[sys->col].offset = lseek(sys->ins.fd, 0, SEEK_CUR);
-  sys->olabels[sys->col].line = sys->start_line;
-  sys->olabels[sys->col].name = malloc(strlen(tmp) * sizeof(char));
-  strcpy(sys->olabels[sys->col++].name, tmp);
-  printf(">> Direct : %s -> %x (4 Octets) (Label Call)\n",
-	 tmp, conv->octets[0]);
-  dir_data_condition(sys->ins.fd, conv, 1);
-  while (str[*i] != ',' && str[*i] != '\0')
-    (*i)++;
-  return (*i + 2);
 }
 
 void		write_dir_data(char *str, int *i, t_conv *conv, int fd, t_system *sys)
