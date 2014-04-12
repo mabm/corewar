@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Thu Apr 10 22:17:28 2014 Geoffrey Merran
-** Last update Fri Apr 11 23:05:47 2014 Geoffrey Merran
+** Last update Sat Apr 12 19:41:32 2014 Geoffrey Merran
 */
 
 #include "vm_getparams.h"
@@ -57,7 +57,7 @@ int		get_val(char type, char *values, t_arena *arena, t_proc *proc)
       val.integer = oct_to_int(values);
       if (type == A_IND)
 	{
-	  addr = (proc->pc + (val.integer % IDX_MOD)) % MEM_SIZE;
+	  addr = my_mod((proc->pc + (val.integer % IDX_MOD)), MEM_SIZE);
 	  ind_val = get_value_index(&addr, arena);
 	  val.integer = oct_to_int(ind_val);
 	}
@@ -72,8 +72,8 @@ void	write_vm(t_arena *arena, int addr, t_conv reg, int id)
   i = 0;
   while (i < 4)
     {
-      arena->arena[(addr + i) % MEM_SIZE] = reg.octet[3 - i];
-      arena->color[(addr + i) % MEM_SIZE] = id;
+      arena->arena[my_mod((addr + i), MEM_SIZE)] = reg.octet[3 - i];
+      arena->color[my_mod((addr + i), MEM_SIZE)] = id;
       i++;
     }
 }

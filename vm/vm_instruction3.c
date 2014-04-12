@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 14:29:40 2014 Geoffrey Merran
-** Last update Sat Apr 12 18:04:38 2014 Geoffrey Merran
+** Last update Sat Apr 12 19:46:28 2014 Geoffrey Merran
 */
 
 #include "vm_instruction.h"
@@ -25,7 +25,7 @@ int		ldi(t_proc *proc, t_arena *arena)
     return (err_instr(params, op_tab[3].nbr_args));
   addr = get_val(params[TYPE_P][0], params[1], arena, proc);
   addr += get_val(params[TYPE_P][1], params[2], arena, proc);
-  addr = ((addr % IDX_MOD) + proc->pc) % MEM_SIZE;
+  addr = my_mod(((addr % IDX_MOD) + proc->pc), MEM_SIZE);
   j = -1;
   while (++j < 4)
     val.octet[3 - j] = arena->arena[(addr + j) % MEM_SIZE];
@@ -50,7 +50,8 @@ int		sti(t_proc *proc, t_arena *arena)
   reg.integer = proc->reg[params[1][0] - 1];
   addr = get_val(params[TYPE_P][1], params[2], arena, proc);
   addr += get_val(params[TYPE_P][2], params[3], arena, proc);
-  write_vm(arena, (((addr % IDX_MOD) + proc->pc) % MEM_SIZE), reg, proc->id);
+  write_vm(arena, my_mod(((addr % IDX_MOD) + proc->pc), MEM_SIZE),
+	   reg, proc->id);
   jump = 2 + get_nb_jump(params[TYPE_P], op_tab[10].nbr_args);
   free_params(params, op_tab[10].nbr_args);
   proc->cycle_dodo = op_tab[10].nbr_cycles;
@@ -72,7 +73,7 @@ int		vm_fork(t_proc *proc, t_arena *arena)
       i = increase_pc(i, 1);
       j++;
     }
-  addr = (proc->pc + (val.integer % IDX_MOD)) % MEM_SIZE;
+  addr = my_mod((proc->pc + (val.integer % IDX_MOD)), MEM_SIZE);
   add_proc_vm(proc, addr);
   proc->cycle_dodo = op_tab[11].nbr_cycles;
   return (5);
@@ -121,7 +122,7 @@ int		lldi(t_proc *proc, t_arena *arena)
     return (err_instr(params, op_tab[13].nbr_args));
   addr = get_val(params[TYPE_P][0], params[1], arena, proc);
   addr += get_val(params[TYPE_P][1], params[2], arena, proc);
-  addr = (addr + proc->pc) % MEM_SIZE;
+  addr = my_mod((addr + proc->pc), MEM_SIZE);
   j = -1;
   while (++j < 4)
     val.octet[3 - j] = arena->arena[(addr + j) % MEM_SIZE];

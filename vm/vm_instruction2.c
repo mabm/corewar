@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 14:27:51 2014 Geoffrey Merran
-** Last update Fri Apr 11 23:19:41 2014 Geoffrey Merran
+** Last update Sat Apr 12 19:42:08 2014 Geoffrey Merran
 */
 
 #include "vm_instruction.h"
@@ -111,7 +111,7 @@ int		zjmp(t_proc *proc, t_arena *arena)
       i = increase_pc(i, 1);
       j++;
     }
-  proc->pc = (proc->pc + (conv.integer % IDX_MOD)) % MEM_SIZE;
+  proc->pc = my_mod((proc->pc + (conv.integer % IDX_MOD)), MEM_SIZE);
   proc->cycle_dodo = op_tab[8].nbr_cycles;
   return (0);
 }

@@ -5,14 +5,14 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Tue Apr  8 11:57:41 2014 Nicolas Ades
-** Last update Fri Apr 11 22:53:41 2014 Geoffrey Merran
+** Last update Sat Apr 12 19:37:35 2014 Geoffrey Merran
 */
 
 #include "vm_arena.h"
 
 int	increase_pc(int pc, int i)
 {
-  pc = (pc + i) % MEM_SIZE;
+  pc = my_mod((pc + i), MEM_SIZE);
   return (pc);
 }
 

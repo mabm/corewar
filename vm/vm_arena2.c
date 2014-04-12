@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Thu Apr  3 14:19:48 2014 Nicolas Ades
-** Last update Sat Apr 12 01:38:10 2014 Geoffrey Merran
+** Last update Sat Apr 12 19:37:48 2014 Geoffrey Merran
 */
 
 #include "vm_arena.h"
@@ -67,3 +67,12 @@ void		who_win(t_champ *champ)
   if (win == 0)
     my_printf("Nobody is alive\n");
 }
+
+int	my_mod(int a, int b)
+{
+  int	r;
+
+  r = a % b;
+  return (r < 0 ? r + b : r);
+}
+
