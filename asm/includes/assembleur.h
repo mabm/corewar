@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:03:51 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 19:45:50 2014 Joris Bertomeu
+** Last update Sun Apr 13 12:56:53 2014 Joris Bertomeu
 */
 
 #ifndef COREWAR_H
@@ -50,7 +50,6 @@ typedef struct	s_instruction
 typedef struct s_system t_system;
 struct s_system
 {
-  char		***cmd_asm;
   char		*name;
   char		*name_file;
   char		*comment;
@@ -66,6 +65,7 @@ struct s_system
   int		cl;
   int		col;
   int		start_line;
+  char		*final_name;
 };
 
 typedef union u_conv t_conv;
@@ -92,7 +92,7 @@ void		parse_list_asm(t_system *);
 
 /* fonctions dans aff.c */
 void		affbin(unsigned);
-void		aff_error(char *);
+void		aff_error(t_system *sys, char *);
 void		aff_info(t_system *, char *);
 void		aff_warn(char *);
 void		aff_dird(int *, t_system *);

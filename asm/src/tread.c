@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:39:27 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 20:47:04 2014 Joris Bertomeu
+** Last update Sun Apr 13 12:57:30 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -47,13 +47,14 @@ char	*parse_name_file(t_system *sys)
   i = my_strlen(sys->name_file);
   while (i >= 0 && sys->name_file[i] != '.')
     i--;
-  printf("i = %d char = %c\n", i, sys->name_file[i]);
   while (j < i)
     {
       tmp[j] = sys->name_file[j];
       j++;
     }
   my_strcat(tmp, ".cor");
+  sys->final_name = xmalloc(my_strlen(tmp) * sizeof(*tmp));
+  my_strcpy(sys->final_name, tmp);
   return (tmp);
 }
 
@@ -69,7 +70,7 @@ void		tread_file(char *path, t_system *sys)
   my_memset(buff, 0, 4096);
   line = 0;
   name = parse_name_file(sys);
-  printf("Ecriture dans %s\n", name);
+  printf(">> Ecriture dans %s\n", name);
   fd = xopen(path, O_RDONLY);
   fd2 = open(name,
 	    O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU | S_IRWXG | S_IRWXO);
@@ -85,24 +86,4 @@ void		tread_file(char *path, t_system *sys)
   second_pass(fd2, sys);
   free(buff);
   free(name);
-}
-
-void	tread_line_cnf_asm(t_system *system, char *buff, int line)
-{
-  int	i;
-  int	j;
-
-  j = 0;
-  i = 0;
-  while (buff[i] != ':')
-    {
-      system->cmd_asm[line][0][i] = buff[i];
-      i++;
-    }
-  i++;
-  while (buff[i] != '\0')
-    {
-      system->cmd_asm[line][1][j++] = buff[i];
-      i++;
-    }
 }
