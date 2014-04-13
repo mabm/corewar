@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 14:31:16 2014 Geoffrey Merran
-** Last update Sat Apr 12 20:55:38 2014 Geoffrey Merran
+** Last update Sun Apr 13 16:30:06 2014 Geoffrey Merran
 */
 
 #include "vm_instruction.h"
@@ -54,7 +54,10 @@ void		live_champ(t_proc *proc, t_champ **champ)
   while (tmp != NULL)
     {
       if (proc->alive == tmp->id)
-	tmp->live++;
+	{
+	  my_printf("Player %s is alive\n", tmp->header.prog_name);
+	  tmp->live = 1;
+	}
       tmp = tmp->next;
     }
 }

@@ -5,13 +5,14 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Apr  9 18:03:23 2014 Geoffrey Merran
-** Last update Sat Apr 12 19:37:10 2014 Geoffrey Merran
+** Last update Sun Apr 13 17:13:22 2014 Geoffrey Merran
 */
 
 #ifndef VM_ARENA_
 # define VM_ARENA_
 # include "vm_corewar.h"
 # include "vm_proc.h"
+# include "vm_getchamp.h"
 # include "vm_instruction.h"
 # include "sdl_xfunction.h"
 # include "aff.h"

@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Thu Apr  3 14:19:48 2014 Nicolas Ades
-** Last update Sat Apr 12 19:37:48 2014 Geoffrey Merran
+** Last update Sun Apr 13 17:12:13 2014 Geoffrey Merran
 */
 
 #include "vm_arena.h"
@@ -53,15 +53,14 @@ void		who_win(t_champ *champ)
   int		win;
 
   tmp = champ;
-  win = 0;
+  win = nb_champ_alive(champ);
   my_printf("\n");
   while (tmp)
     {
-      if (tmp->live != 0)
-	{
-	  my_printf("Player n°%d is alive !\n", tmp->id);
-	  win = 1;
-	}
+      if (tmp->live != 0 && win != 1)
+	my_printf("Player n°%d is alive !\n", tmp->id);
+      if (tmp->live != 0 && win == 1)
+	my_printf("Player n°%d is winner !\n", tmp->id);
       tmp = tmp->next;
     }
   if (win == 0)

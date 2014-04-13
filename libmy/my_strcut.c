@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Dec  3 23:33:27 2013 Geoffrey Merran
-** Last update Tue Dec  3 23:38:27 2013 Geoffrey Merran
+** Last update Sun Apr 13 16:41:59 2014 Geoffrey Merran
 */
 
 #include <stdlib.h>
@@ -17,6 +17,7 @@ char	*my_strcut(char *str, int start, int end)
   int	i;
 
   i = start - 1;
+  res = NULL;
   if (str != NULL && start < end)
     {
       res = my_xmalloc((my_strlen(str) * (end - start + 2)) * sizeof(char));

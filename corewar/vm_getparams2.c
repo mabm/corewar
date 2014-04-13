@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Thu Apr 10 22:17:28 2014 Geoffrey Merran
-** Last update Sat Apr 12 19:41:32 2014 Geoffrey Merran
+** Last update Sun Apr 13 16:38:38 2014 Geoffrey Merran
 */
 
 #include "vm_getparams.h"
@@ -45,6 +45,7 @@ int		get_val(char type, char *values, t_arena *arena, t_proc *proc)
   char		*ind_val;
   int		addr;
 
+  val.integer = 0;
   if (type == A_REG)
     {
       if (is_valid_reg(type, values[0]))

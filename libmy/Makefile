@@ -5,7 +5,7 @@
 ## Login   <merran_g@epitech.net>
 ## 
 ## Started on  Mon Oct 21 09:58:36 2013 Geoffrey Merran
-## Last update Wed Apr  9 16:07:21 2014 Geoffrey Merran
+## Last update Sun Apr 13 16:40:12 2014 Geoffrey Merran
 ##
 
 RM=		rm -f
@@ -14,7 +14,7 @@ LIB=		libmy.a
 
 INCLUDE=	my.h my_printf.h
 
-CFLAGS=		-ansi -pedantic -W -Werror -Wextra -Wall
+CFLAGS=		-ansi -pedantic -W -Werror -Wextra -Wall -O3
 
 SRC=		my_putchar.c \
 		my_putstr.c \
@@ -86,3 +86,5 @@ fclean:		clean
 	$(RM) $(LIB)
 
 re:	fclean all
+
+.PHONY: all clean fclean re
