@@ -1,11 +1,11 @@
 ##
-## Makefile for Makefile in /home/merran_g/work/c_piscine/Piscine-C-Jour_11/do-op
+## Makefile for Makefile in /home/merran_g/work/c_elem/corewar
 ## 
 ## Made by Geoffrey Merran
 ## Login   <merran_g@epitech.net>
 ## 
-## Started on  Mon Oct 21 13:28:05 2013 Geoffrey Merran
-## Last update Sun Apr 13 17:14:55 2014 Geoffrey Merran
+## Started on  Sun Apr 13 17:16:20 2014 Geoffrey Merran
+## Last update Sun Apr 13 17:16:24 2014 Geoffrey Merran
 ##
 
 RM	= rm -f

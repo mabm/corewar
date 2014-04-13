@@ -5,18 +5,19 @@
 ## Login   <merran_g@epitech.net>
 ## 
 ## Started on  Sat Apr 12 20:15:17 2014 Geoffrey Merran
-## Last update Sat Apr 12 20:15:28 2014 Geoffrey Merran
+## Last update Sun Apr 13 15:10:52 2014 Jeremy Mediavilla
 ##
 
 CC		=	gcc -Iincludes
 
-CFLAGS		+=	-W -Wextra -Wall -ansi -pedantic -g3
+CFLAGS		+=	-W -Wextra -Wall -ansi -pedantic
 
 RM		=	rm -f
 
 SRC		=	src/main.c				\
 			src/gnl.c				\
 			src/init.c				\
+			src/init2.c				\
 			src/pars.c				\
 			src/aff.c				\
 			src/instruction1.c			\

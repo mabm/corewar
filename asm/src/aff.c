@@ -5,15 +5,17 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:14:22 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 19:45:19 2014 Joris Bertomeu
+** Last update Sun Apr 13 12:57:58 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
 #include "gnl.h"
 
-void		aff_error(char *msg)
+void		aff_error(t_system *sys, char *msg)
 {
   my_printf(msg);
+  my_printf("Deleting %s ...\n", sys->final_name);
+  remove(sys->final_name);
   exit (0);
 }
 
@@ -25,7 +27,7 @@ void		aff_warn(char *msg)
 void		aff_info(t_system *system, char *name)
 {
   if (system->name == 0 || system->comment == 0)
-    aff_error("One file is corrupt !\n");
+    aff_error(system, "One file is corrupt !\n");
   my_printf("--------------\n\nNom du fichier : %s\n", name);
   my_printf("Nom du Chamion : %s\n", system->name);
   my_printf("Commentaire du Champion : %s\n", system->comment);

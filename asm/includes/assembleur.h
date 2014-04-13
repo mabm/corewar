@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:03:51 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 19:45:50 2014 Joris Bertomeu
+** Last update Sun Apr 13 15:10:02 2014 Jeremy Mediavilla
 */
 
 #ifndef COREWAR_H
@@ -50,10 +50,10 @@ typedef struct	s_instruction
 typedef struct s_system t_system;
 struct s_system
 {
-  char		***cmd_asm;
   char		*name;
   char		*name_file;
   char		*comment;
+  char		*ret_gnl;
   int		nb_comment;
   int		nb_name;
   int		kf;
@@ -66,6 +66,7 @@ struct s_system
   int		cl;
   int		col;
   int		start_line;
+  char		*final_name;
 };
 
 typedef union u_conv t_conv;
@@ -78,11 +79,15 @@ union u_conv
 
 /* fonctions dans init.c */
 char		**init_tab();
-char		*init_tab_char();
 void		init_cmd_asm(t_system *);
+void		init_start(t_system *);
+
+/* fonctions dans init2.c */
+void		free_struct(t_system *);
 void		init(int, char **);
 void		header_init1(int *, t_system *, int, int *);
-void		init_dataf(int *, int *, int *, int *);
+char		*init_tab_char();
+void		init_dataf(int *, int *, int *,int *);
 
 /* fonctions dans pars.c */
 void		parse_name(char *, int, t_system *);
@@ -92,7 +97,7 @@ void		parse_list_asm(t_system *);
 
 /* fonctions dans aff.c */
 void		affbin(unsigned);
-void		aff_error(char *);
+void		aff_error(t_system *sys, char *);
 void		aff_info(t_system *, char *);
 void		aff_warn(char *);
 void		aff_dird(int *, t_system *);

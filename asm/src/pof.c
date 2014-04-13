@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sat Apr 12 14:09:23 2014 Joris Bertomeu
-** Last update Sat Apr 12 22:05:46 2014 Geoffrey Merran
+** Last update Sun Apr 13 12:46:14 2014 Joris Bertomeu
 */
 
 #include "gnl.h"
@@ -29,12 +29,6 @@ void	new_label(t_system *sys)
     flag = point_two(sys, i);
   nl[i] = '\0';
   i = 0;
-  while (i < sys->cl)
-    {
-      if (my_strcmp(sys->labels[i].name, nl) == 0)
-	flag = 1;
-      i++;
-    }
   if (flag == 2)
     label_detect(sys, nl);
   free(nl);
@@ -72,7 +66,6 @@ int	check_instruction(t_system *sys)
   j = 0;
   while (j < 16)
     {
-      printf("Size : %d\n", get_inst_len(&sys->ins.str[sys->ins.i]));
       if (my_strncmp(&sys->ins.str[sys->ins.i], tab[j],
 		  get_inst_len(&sys->ins.str[sys->ins.i])) == 0)
 	{

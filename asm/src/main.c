@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 **
 ** Started on  Mon Mar 24 19:52:03 2014 Joris Bertomeu
-** Last update Sat Apr 12 18:37:34 2014 Jeremy Mediavilla
+** Last update Sun Apr 13 13:02:44 2014 Joris Bertomeu
 */
 
 #include "gnl.h"
@@ -52,6 +52,15 @@ void		create_header(int fd, t_system *sys, int fg)
 
 void	label_detect(t_system *sys, char *nl)
 {
+  int	i;
+
+  i = 0;
+  while (i < sys->cl)
+    {
+      if (my_strcmp(sys->labels[i].name, nl) == 0)
+	aff_error(sys, "Error : Two labels with same name detected\n");
+      i++;
+    }
   sys->labels[sys->cl].offset = lseek(sys->ins.fd, 0, SEEK_CUR);
   sys->labels[sys->cl].name = xmalloc(128 * sizeof(char));
   my_strcpy(sys->labels[sys->cl++].name, nl);

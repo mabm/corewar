@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Mon Apr  7 15:28:07 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 22:41:47 2014 Geoffrey Merran
+** Last update Sun Apr 13 15:15:39 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -13,80 +13,45 @@
 
 void		st_check_err(t_system *sys, int *values)
 {
-  (void)sys;
-  printf(">> %d - %d - %d\n", values[0], values[1], values[2]);
   if (values[0] != 1 || (values[1] != 1 && values[1] != 3))
-    {
-      my_printf("Error on \"st\" instruction : wrong type of parameters\n");
-      exit(0);
-    }
+    aff_error(sys, "Error on \"st\" instruction : \
+wrong type of parameters\n");
   if (values[0] == 0 || values[1] == 0)
-    {
-      my_printf("Error on \"st\" instruction : wrong number of params\n");
-      exit(0);
-    }
+    aff_error(sys, "Error on \"st\" instruction : wrong number of params\n");
 }
 
 void		add_check_err(t_system *sys, int *values)
 {
-  (void)sys;
   if (values[2] == 0)
-    {
-      my_printf("Error on \"add\" instruction : wrong number of params\n");
-      exit(0);
-    }
+    aff_error(sys, "Error on \"add\" instruction : wrong number of params\n");
   if (values[0] != 1 || values[1] != 1 || values[2] != 1)
-    {
-      my_printf("Error on \"add\" instruction : \
+    aff_error(sys, "Error on \"add\" instruction : \
 all params must be register\n");
-      exit(0);
-    }
 }
 
 void		sub_check_err(t_system *sys, int *values)
 {
-  (void)sys;
   if (values[2] == 0)
-    {
-      my_printf("Error on \"sub\" instruction : wrong number of params\n");
-      exit(0);
-    }
+    aff_error(sys, "Error on \"sub\" instruction : wrong number of params\n");
   if (values[0] != 1 || values[1] != 1 || values[2] != 1)
-    {
-      my_printf("Error on \"sub\" instruction : \
+    aff_error(sys, "Error on \"sub\" instruction : \
 all params must be register\n");
-      exit(0);
-    }
 }
 
 void		or_check_err(t_system *sys, int *values)
 {
-  (void)sys;
   if (values[2] == 0)
-    {
-      my_printf("Error on \"or\" instruction : wrong number of param\n");
-      exit(0);
-    }
-    if (values[2] != 1)
-    {
-      my_printf("Error on \"or\" instruction : \
+    aff_error(sys, "Error on \"or\" instruction : wrong number of param\n");
+  if (values[2] != 1)
+    aff_error(sys, "Error on \"or\" instruction : \
 last param is not a register\n");
-      exit(0);
-    }
 }
 
 void		xor_check_err(t_system *sys, int *values)
 {
-  (void)sys;
   if (values[2] == 0)
-    {
-      my_printf("Error on \"xor\" instruction : wrong number of param\n");
-      exit(0);
-    }
-    if (values[2] != 1)
-    {
-      my_printf("Error on \"xor\" instruction : \
+    aff_error(sys, "Error on \"xor\" instruction : wrong number of param\n");
+  if (values[2] != 1)
+    aff_error(sys, "Error on \"xor\" instruction : \
 last param is not a register\n");
-      exit(0);
-    }
 }
