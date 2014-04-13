@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:14:22 2014 Jeremy Mediavilla
-** Last update Sun Apr 13 12:57:58 2014 Joris Bertomeu
+** Last update Sun Apr 13 19:13:04 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -14,8 +14,7 @@
 void		aff_error(t_system *sys, char *msg)
 {
   my_printf(msg);
-  my_printf("Deleting %s ...\n", sys->final_name);
-  remove(sys->final_name);
+  my_printf("%s is corrupted, please, do not use ...\n", sys->final_name);
   exit (0);
 }
 
