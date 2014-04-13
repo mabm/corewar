@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:39:27 2014 Jeremy Mediavilla
-** Last update Sun Apr 13 14:50:09 2014 Joris Bertomeu
+** Last update Sun Apr 13 15:18:04 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -68,7 +68,7 @@ void		tread_file(char *path, t_system *sys)
 
   line = 0;
   name = parse_name_file(sys);
-  printf(">> Ecriture dans %s\n", name);
+  my_printf(">> Ecriture dans %s\n", name);
   fd = xopen(path, O_RDONLY);
   fd2 = open(name,
 	    O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU | S_IRWXG | S_IRWXO);

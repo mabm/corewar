@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Mon Apr  7 15:28:42 2014 Jeremy Mediavilla
-** Last update Sun Apr 13 14:46:24 2014 Joris Bertomeu
+** Last update Sun Apr 13 15:16:07 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -32,7 +32,6 @@ first param is not an index\n");
 
 void		lld_check_err(t_system *sys, int *values)
 {
-  printf(">> %d - %d - %d\n", values[0], values[1], values[2]);
   if (values[2] != 0 || values[1] == 0 || values[0] == 0)
     aff_error(sys, "Error on \"lld\" instruction : wrong number of params\n");
   if (values[1] != 1)

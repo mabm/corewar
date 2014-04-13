@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Mon Apr  7 15:28:07 2014 Jeremy Mediavilla
-** Last update Sun Apr 13 14:48:14 2014 Joris Bertomeu
+** Last update Sun Apr 13 15:15:39 2014 Jeremy Mediavilla
 */
 
 #include "assembleur.h"
@@ -13,7 +13,6 @@
 
 void		st_check_err(t_system *sys, int *values)
 {
-  printf(">> %d - %d - %d\n", values[0], values[1], values[2]);
   if (values[0] != 1 || (values[1] != 1 && values[1] != 3))
     aff_error(sys, "Error on \"st\" instruction : \
 wrong type of parameters\n");
