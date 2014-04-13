@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:39:27 2014 Jeremy Mediavilla
-** Last update Sun Apr 13 12:57:30 2014 Joris Bertomeu
+** Last update Sun Apr 13 14:17:04 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -53,7 +53,7 @@ char	*parse_name_file(t_system *sys)
       j++;
     }
   my_strcat(tmp, ".cor");
-  sys->final_name = xmalloc(my_strlen(tmp) * sizeof(*tmp));
+  sys->final_name = xmalloc(my_strlen(tmp) + 1 * sizeof(*tmp));
   my_strcpy(sys->final_name, tmp);
   return (tmp);
 }
@@ -65,25 +65,23 @@ void		tread_file(char *path, t_system *sys)
   int		fd2;
   int		line;
   char		*name;
+  char		*tmp;
 
-  buff = xmalloc(4096 * sizeof(*buff));
-  my_memset(buff, 0, 4096);
   line = 0;
   name = parse_name_file(sys);
   printf(">> Ecriture dans %s\n", name);
   fd = xopen(path, O_RDONLY);
   fd2 = open(name,
 	    O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU | S_IRWXG | S_IRWXO);
+  free(name);
   if (fd != -1 && fd2 != -1)
     {
       xwrite_magic(fd2);
-      while ((buff = get_next_line(fd)) != NULL)
+      while ((buff = get_next_line(fd, sys)) != NULL)
 	{
 	  sys->start_line = lseek(fd2, 0, SEEK_CUR);
 	  tread_line(buff, sys, fd2, line++);
 	}
     }
   second_pass(fd2, sys);
-  free(buff);
-  free(name);
 }

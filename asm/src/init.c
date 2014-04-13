@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:07:56 2014 Jeremy Mediavilla
-** Last update Sat Apr 12 22:04:38 2014 Geoffrey Merran
+** Last update Sun Apr 13 14:20:18 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -36,14 +36,8 @@ char		**init_tab()
   return (tab);
 }
 
-void		init(int ac, char **argv)
+void	init_start(t_system *system)
 {
-  int		i;
-  t_system	*system;
-
-  i = 1;
-  system = xmalloc(sizeof(*system));
-  check_ext(ac, argv);
   system->f_c = 0;
   system->f_n = 0;
   system->wm = 0;
@@ -55,6 +49,36 @@ void		init(int ac, char **argv)
   system->ins.ret_chck = 0;
   system->ins.cmptr = 0;
   system->name_file = xmalloc(256 * sizeof(*system->name));
+  system->ret_gnl = xmalloc(4096 * sizeof(char));
+}
+
+void	free_struct(t_system *sys)
+{
+  int	i;
+
+  i = 0;
+  free(sys->name);
+  free(sys->name_file);
+  free(sys->comment);
+  free(sys->final_name);
+  free(sys->ins.str);
+  /* free(sys->ret_gnl); */
+  while (i < sys->cl)
+    free(sys->labels[i++].name);
+  i = 0;
+  while (i < sys->col)
+    free(sys->olabels[i++].name);
+}
+
+void		init(int ac, char **argv)
+{
+  int		i;
+  t_system	*system;
+
+  i = 1;
+  system = xmalloc(sizeof(*system));
+  check_ext(ac, argv);
+  init_start(system);
   while (i < ac)
     {
       system->comment = 0;
@@ -63,6 +87,8 @@ void		init(int ac, char **argv)
       tread_file(argv[i], system);
       aff_info(system, argv[i++]);
     }
+  free_struct(system);
+  free(system);
 }
 
 void		header_init1(int *j, t_system *sys, int fd, int *i)
