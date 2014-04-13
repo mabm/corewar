@@ -5,7 +5,7 @@
 ## Login   <merran_g@epitech.net>
 ## 
 ## Started on  Sun Apr 13 17:16:20 2014 Geoffrey Merran
-## Last update Sun Apr 13 17:16:24 2014 Geoffrey Merran
+## Last update Sun Apr 13 18:23:15 2014 Geoffrey Merran
 ##
 
 RM	= rm -f
@@ -18,6 +18,7 @@ I_PATH	= ../includes/
 NAME	= corewar
 
 FONT	= imagine_font.ttf
+MUSIC	= derezzed.wav
 
 OBJ	= $(SRC:.c=.o)
 
@@ -40,12 +41,13 @@ SRC	= main.c  \
 	op.c \
 	my_free.c \
 	xfunction.c \
-	sdl_xfunction.c \
+	sdl_xfunction.c sdl_xfunction2.c \
 
 all:		libs $(NAME)
 
 $(NAME):	$(OBJ)
 	cp police/$(FONT) /tmp/
+	cp music/$(MUSIC) /tmp/
 	$(CC) -o $(NAME) $(OBJ) -lmy -L$(LIB) -lSDL -lSDL_ttf -lSDL_mixer
 
 libs:
@@ -58,6 +60,7 @@ clean:
 fclean:		clean
 	$(RM) $(NAME)
 	$(RM) /tmp/$(FONT)
+	$(RM) /tmp/$(MUSIC)
 	(cd $(LIB); make fclean)
 
 re:		fclean all

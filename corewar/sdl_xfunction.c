@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 17:31:44 2014 Geoffrey Merran
-** Last update Sat Apr 12 21:10:16 2014 Geoffrey Merran
+** Last update Sun Apr 13 17:26:50 2014 Geoffrey Merran
 */
 
 #include "sdl_xfunction.h"
@@ -39,4 +39,11 @@ TTF_Font	*xTTF_OpenFont(char *path, int size)
   if (police == NULL)
     my_error("SDL TTf error : couldn't load font\n");
   return (police);
+}
+
+void		xMix_OpenAudio(int frequency, Uint16 format,
+			       int channels, int chunksize)
+{
+  if (Mix_OpenAudio(frequency, format, channels, chunksize) == -1)
+    my_error("SDL Mixer error : init fail\n");
 }

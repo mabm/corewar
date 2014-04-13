@@ -5,9 +5,8 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Sun Apr 13 07:24:08 2014 Nicolas Ades
-** Last update Sun Apr 13 07:42:03 2014 Nicolas Ades
+** Last update Sun Apr 13 18:12:32 2014 Geoffrey Merran
 */
-
 
 
 void		dump_arena(unsigned char *arena, int cycle_max)

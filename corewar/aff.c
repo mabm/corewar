@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Apr  8 19:31:35 2014 Geoffrey Merran
-** Last update Sat Apr 12 21:19:37 2014 Geoffrey Merran
+** Last update Sun Apr 13 18:22:51 2014 Geoffrey Merran
 */
 
 #include "aff.h"
@@ -15,11 +15,14 @@ void	init_window(t_win *win)
   xSDL_Init(SDL_INIT_VIDEO);
   xTTF_Init();
   win->screen = xSDL_SetVideoMode(SIZE_X, SIZE_Y, 32, SDL_HWSURFACE);
-  SDL_WM_SetCaption("Corewar 2014", NULL);
+  xMix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024);
+  SDL_WM_SetCaption("MABM Corewar", NULL);
   win->police = xTTF_OpenFont("/tmp/imagine_font.ttf", 20);
   win->color.r = 255;
   win->color.g = 255;
   win->color.b = 255;
+  win->music = xMix_LoadMUS("/tmp/derezzed.wav");
+  Mix_PlayMusic(win->music, -1);
   init_sdl_header(win);
 }
 
