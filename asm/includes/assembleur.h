@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:03:51 2014 Jeremy Mediavilla
-** Last update Sun Apr 13 12:56:53 2014 Joris Bertomeu
+** Last update Sun Apr 13 13:33:43 2014 Joris Bertomeu
 */
 
 #ifndef COREWAR_H
@@ -53,6 +53,7 @@ struct s_system
   char		*name;
   char		*name_file;
   char		*comment;
+  char		*ret_gnl;
   int		nb_comment;
   int		nb_name;
   int		kf;

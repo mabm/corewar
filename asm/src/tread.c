@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed Apr  2 15:39:27 2014 Jeremy Mediavilla
-** Last update Sun Apr 13 14:17:04 2014 Joris Bertomeu
+** Last update Sun Apr 13 14:50:09 2014 Joris Bertomeu
 */
 
 #include "assembleur.h"
@@ -65,7 +65,6 @@ void		tread_file(char *path, t_system *sys)
   int		fd2;
   int		line;
   char		*name;
-  char		*tmp;
 
   line = 0;
   name = parse_name_file(sys);
