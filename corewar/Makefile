@@ -5,14 +5,14 @@
 ## Login   <merran_g@epitech.net>
 ## 
 ## Started on  Mon Oct 21 13:28:05 2013 Geoffrey Merran
-## Last update Sat Apr 12 21:20:53 2014 Geoffrey Merran
+## Last update Sun Apr 13 15:11:29 2014 Jeremy Mediavilla
 ##
 
 RM	= rm -f
 
 CC	= cc
 
-CFLAGS	+= -Wextra -Wall -W -pedantic -g3 -ansi -I$(I_PATH)
+CFLAGS	+= -Wextra -Wall -W -pedantic -ansi -I$(I_PATH)
 I_PATH	= ../includes/
 
 NAME	= corewar
