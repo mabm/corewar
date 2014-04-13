@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Apr  9 18:03:23 2014 Geoffrey Merran
-** Last update Sun Apr 13 17:13:22 2014 Geoffrey Merran
+** Last update Sun Apr 13 18:44:28 2014 Geoffrey Merran
 */
 
 #ifndef VM_ARENA_
@@ -30,5 +30,6 @@ void	execute_instru(t_proc *proc, t_arena *arena, inst *instruction,
 		       t_champ **champs);
 void	execute_procs(t_fighter *fighters, t_arena *arena, inst *instruction);
 void	launch_battle(t_arena *arena, t_cycles *cycles, t_champ *champs);
+void   	dump_arena(unsigned char *arena, int cycle_max);
 
 #endif /* VM_ARENA_ */
