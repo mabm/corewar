@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Thu Apr 10 01:14:27 2014 Geoffrey Merran
-** Last update Fri Apr 11 23:05:39 2014 Geoffrey Merran
+** Last update Sat Apr 12 21:30:25 2014 Geoffrey Merran
 */
 
 #ifndef VM_GETPARAMS_
@@ -20,6 +20,7 @@ char	**get_params(int nb_args, t_arena *arena, int address);
 int    	oct_to_int(char *octet);
 void	free_params(char **params, int nb_args);
 int    	get_val(char type, char *values, t_arena *arena, t_proc *proc);
+int    	get_val_no_idx(char type, char *values, t_arena *arena, t_proc *proc);
 char	*get_value_index(int *address, t_arena *arena);
 void	write_vm(t_arena *arena, int addr, t_conv reg, int id);
 int	get_nb_jump(char *type, int nb_args);

@@ -5,11 +5,11 @@
 ## Login   <merran_g@epitech.net>
 ## 
 ## Started on  Wed Apr  2 13:52:55 2014 Geoffrey Merran
-## Last update Wed Apr  9 15:31:13 2014 Nicolas Ades
+## Last update Sat Apr 12 20:37:19 2014 Geoffrey Merran
 ##
 
-VM_FOLDER	= vm/
-ASM_FOLDER	= assembleur/
+VM_FOLDER	= corewar/
+ASM_FOLDER	= asm/
 
 all:
 	make -C $(VM_FOLDER)
