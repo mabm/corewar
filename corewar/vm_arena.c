@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Tue Apr  8 11:57:41 2014 Nicolas Ades
-** Last update Sun Apr 13 18:45:40 2014 Geoffrey Merran
+** Last update Sun Apr 13 19:21:31 2014 Geoffrey Merran
 */
 
 #include "vm_arena.h"
@@ -97,6 +97,6 @@ void		launch_battle(t_arena *arena, t_cycles *cycles, t_champ *champs)
     }
   if (cycles->cycle_max != -1)
     dump_arena(arena->arena, cycles->cycle_max);
-  who_win(champs);
+  who_win(champs, &win);
   free_battle(instruction, &win, &fighters.procs);
 }

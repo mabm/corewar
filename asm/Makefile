@@ -5,12 +5,12 @@
 ## Login   <merran_g@epitech.net>
 ## 
 ## Started on  Sat Apr 12 20:15:17 2014 Geoffrey Merran
-## Last update Sun Apr 13 15:10:52 2014 Jeremy Mediavilla
+## Last update Sun Apr 13 20:18:25 2014 Geoffrey Merran
 ##
 
 CC		=	gcc -Iincludes
 
-CFLAGS		+=	-W -Wextra -Wall -ansi -pedantic
+CFLAGS		+=	-W -Wextra -Wall -ansi -pedantic -O3
 
 RM		=	rm -f
 
@@ -44,14 +44,13 @@ OBJ_LOADING	=	$(SRC_LOADING:.c=.o)
 NOM		=	asm
 NAME_LOADING	=	makefile_deco/loading
 
-all:		lib asm
+all:		lib $(NOM)
 
-asm:		$(OBJ)
+$(NOM):		$(OBJ)
 		@echo -e "\n > COMPILATION DES .C ASSEMBLEUR EN COURS\n"
 		$(CC) -o $(NOM) $(OBJ) -lmy -L ../libmy
 		@echo -e "\n > COMPILATION DES .C ASSEMBLEUR TERMINEE"
 		@cat ../makefile_deco/logins
-		# @cat ../makefile_deco/girl2
 
 lib:
 		@echo -e "\n > COMPILATION DE LA LIB EN COURS\n"

@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Apr  9 18:03:23 2014 Geoffrey Merran
-** Last update Sun Apr 13 18:44:28 2014 Geoffrey Merran
+** Last update Sun Apr 13 19:00:26 2014 Geoffrey Merran
 */
 
 #ifndef VM_ARENA_
@@ -25,7 +25,7 @@ void   	reset_pc(t_proc *proc);
 int    	is_winner(t_proc **proc, t_champ *champ, t_cycles *cycles,
 		  t_arena *);
 int    	one_winner(t_proc *proc, t_champ *champ);
-void   	who_win(t_champ *champ);
+void   	who_win(t_champ *champ, t_win *win);
 void	execute_instru(t_proc *proc, t_arena *arena, inst *instruction,
 		       t_champ **champs);
 void	execute_procs(t_fighter *fighters, t_arena *arena, inst *instruction);

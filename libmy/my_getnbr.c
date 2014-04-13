@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Mon Oct 21 19:01:39 2013 Geoffrey Merran
-** Last update Thu Nov 14 15:52:10 2013 Geoffrey Merran
+** Last update Sun Apr 13 19:53:05 2014 Geoffrey Merran
 */
 
 #include "my.h"
@@ -40,9 +40,9 @@ int     my_getnbr(char *str)
     {
       if (str[i] == '-')
         neg++;
-      if (!my_isdigit(str[i]))
-	return (0);
-      if (str[i] >= '0' && str[i] <= '9')
+      else if (!my_isdigit(str[i]))
+	return (-1);
+      else if (str[i] >= '0' && str[i] <= '9')
         {
           nb = get_number(str, i, neg);
           return (nb);
