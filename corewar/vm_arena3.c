@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Sun Apr 13 07:24:08 2014 Nicolas Ades
-** Last update Sun Apr 13 18:51:47 2014 Geoffrey Merran
+** Last update Mon Apr 14 16:31:51 2014 Nicolas Ades
 */
 
 #include "vm_arena.h"
@@ -16,7 +16,7 @@ void		dump_arena(unsigned char *arena, int cycle_max)
 
   i = 0;
   my_printf("\n== DUMPING MEMORY ==\n");
-  while (i <= MEM_SIZE)
+  while (i < MEM_SIZE)
     {
       if (arena[i] < 16)
 	my_putchar('0');
